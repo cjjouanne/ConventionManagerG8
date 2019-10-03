@@ -15,6 +15,7 @@
       </e>
       <e p="bin" t="ExcludeRecursive" />
       <e p="Controllers" t="Include">
+        <e p="ConferenceController.cs" t="Include" />
         <e p="HomeController.cs" t="Include" />
       </e>
       <e p="ConventionManager.csproj" t="IncludeRecursive" />
@@ -24,11 +25,15 @@
         <e p="Migrations" t="Include">
           <e p="00000000000000_CreateIdentitySchema.cs" t="Include" />
           <e p="00000000000000_CreateIdentitySchema.Designer.cs" t="Include" />
+          <e p="20191003142351_CreateConferenceAndSponsor.cs" t="Include" />
+          <e p="20191003142351_CreateConferenceAndSponsor.Designer.cs" t="Include" />
           <e p="ApplicationDbContextModelSnapshot.cs" t="Include" />
         </e>
       </e>
       <e p="Models" t="Include">
+        <e p="Conference.cs" t="Include" />
         <e p="ErrorViewModel.cs" t="Include" />
+        <e p="Sponsor.cs" t="Include" />
       </e>
       <e p="obj" t="ExcludeRecursive">
         <e p="Debug" t="Include">
@@ -46,6 +51,13 @@
       <e p="Views" t="Include">
         <e p="_ViewImports.cshtml" t="Include" />
         <e p="_ViewStart.cshtml" t="Include" />
+        <e p="Conference" t="Include">
+          <e p="Create.cshtml" t="Include" />
+          <e p="Delete.cshtml" t="Include" />
+          <e p="Details.cshtml" t="Include" />
+          <e p="Edit.cshtml" t="Include" />
+          <e p="Index.cshtml" t="Include" />
+        </e>
         <e p="Home" t="Include">
           <e p="Index.cshtml" t="Include" />
           <e p="Privacy.cshtml" t="Include" />
@@ -122,6 +134,6 @@
       </e>
     </e>
     <e p="$USER_HOME$/Library/Caches/Rider2019.2/extResources" t="IncludeRecursive" />
-    <e p="$USER_HOME$/Library/Caches/Rider2019.2/resharper-host/local/Transient/ReSharperHost/v192/SolutionCaches/_ConventionManager.1623364579.00" t="ExcludeRecursive" />
+    <e p="$USER_HOME$/Library/Caches/Rider2019.2/resharper-host/local/Transient/ReSharperHost/v192/SolutionCaches/_ConventionManager.146504993.00" t="ExcludeRecursive" />
   </component>
 </project>
