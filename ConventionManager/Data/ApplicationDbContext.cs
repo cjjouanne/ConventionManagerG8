@@ -11,6 +11,7 @@ namespace ConventionManager.Data
     {
         public DbSet<Conference> Conferences { get; set; }
         public DbSet<Sponsor> Sponsors { get; set; }
+        public DbSet<Event> Events { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
@@ -18,6 +19,15 @@ namespace ConventionManager.Data
     }
 }
 
-//dotnet ef migrations add MigrationName
-//dotnet ef database update
-//dotnet aspnet-codegenerator controller -name ConferenceController -m Conference -dc ApplicationDbContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
+/* Agregar en este archivo
+ * public DbSet<Modelo> Modelos {get;set;}
+ *
+ * Crear Migracion
+ * dotnet ef migrations add MigrationName
+ *
+ * Correr Migracion
+ * dotnet ef database update
+ *
+ * Crear Controldor
+ * dotnet aspnet-codegenerator controller -name ConferenceController -m Conference -dc ApplicationDbContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
+ */

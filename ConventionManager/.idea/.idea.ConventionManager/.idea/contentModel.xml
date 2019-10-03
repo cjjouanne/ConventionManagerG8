@@ -16,6 +16,7 @@
       <e p="bin" t="ExcludeRecursive" />
       <e p="Controllers" t="Include">
         <e p="ConferenceController.cs" t="Include" />
+        <e p="EventController.cs" t="Include" />
         <e p="HomeController.cs" t="Include" />
       </e>
       <e p="ConventionManager.csproj" t="IncludeRecursive" />
@@ -27,12 +28,15 @@
           <e p="00000000000000_CreateIdentitySchema.Designer.cs" t="Include" />
           <e p="20191003142351_CreateConferenceAndSponsor.cs" t="Include" />
           <e p="20191003142351_CreateConferenceAndSponsor.Designer.cs" t="Include" />
+          <e p="20191003152702_CreateEvents.cs" t="Include" />
+          <e p="20191003152702_CreateEvents.Designer.cs" t="Include" />
           <e p="ApplicationDbContextModelSnapshot.cs" t="Include" />
         </e>
       </e>
       <e p="Models" t="Include">
         <e p="Conference.cs" t="Include" />
         <e p="ErrorViewModel.cs" t="Include" />
+        <e p="Event.cs" t="Include" />
         <e p="Sponsor.cs" t="Include" />
       </e>
       <e p="obj" t="ExcludeRecursive">
@@ -52,6 +56,13 @@
         <e p="_ViewImports.cshtml" t="Include" />
         <e p="_ViewStart.cshtml" t="Include" />
         <e p="Conference" t="Include">
+          <e p="Create.cshtml" t="Include" />
+          <e p="Delete.cshtml" t="Include" />
+          <e p="Details.cshtml" t="Include" />
+          <e p="Edit.cshtml" t="Include" />
+          <e p="Index.cshtml" t="Include" />
+        </e>
+        <e p="Event" t="Include">
           <e p="Create.cshtml" t="Include" />
           <e p="Delete.cshtml" t="Include" />
           <e p="Details.cshtml" t="Include" />
