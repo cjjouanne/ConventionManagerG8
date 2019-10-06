@@ -34,13 +34,30 @@ namespace ConventionManager.Controllers
             }
 
             var conference = await _context.Conferences
+                .Include(c => c.Sponsors)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (conference == null)
             {
                 return NotFound();
             }
 
-            return View(conference);
+            var conferenceAndSponsor = new ConferenceAndSponsor();
+            conferenceAndSponsor.Conference = conference;
+
+
+            return View(conferenceAndSponsor);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddSponsor(int id, Sponsor sponsor)
+        {
+            var conference = await _context.Conferences
+                .Include(c => c.Sponsors)
+                .FirstAsync(n => n.Id == id);
+
+            conference.Sponsors.Add(sponsor);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Details", new { id });
         }
 
         // GET: Conference/Create
