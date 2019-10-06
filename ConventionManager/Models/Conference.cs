@@ -8,6 +8,6 @@ namespace ConventionManager.Models
         public string Name { get; set; }
         public string Description { get; set; }
         
-        public IEnumerable<Sponsor> Sponsors { get; set; }
+        public ICollection<Sponsor> Sponsors { get; set; }
     }
 }
