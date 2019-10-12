@@ -1,20 +1,17 @@
 ﻿<Properties StartupConfiguration="{89E480FD-47D7-48E3-8F15-D3C99768BC94}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/ConferenceController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="appsettings.json">
     <Files>
-      <File FileName="Models/Conference.cs" Line="12" Column="64" />
-      <File FileName="Models/Sponsor.cs" Line="11" Column="61" />
-      <File FileName="Controllers/ConferenceController.cs" Line="56" Column="46" />
-      <File FileName="Views/Conference/Details.cshtml" Line="15" Column="14" />
-      <File FileName="Models/ConferenceAndSponsor.cs" Line="10" Column="1" />
+      <File FileName="Models/EventCenter.cs" Line="15" Column="39" />
+      <File FileName="Models/Room.cs" Line="23" Column="1" />
+      <File FileName="Models/Event.cs" Line="12" Column="2" />
+      <File FileName="appsettings.json" Line="4" Column="111" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="ConventionManager" expanded="True">
             <Node name="ConventionManager" expanded="True">
-              <Node name="Controllers" expanded="True">
-                <Node name="ConferenceController.cs" selected="True" />
-              </Node>
+              <Node name="Controllers" expanded="True" />
               <Node name="Data" expanded="True">
                 <Node name="Migrations" expanded="True" />
               </Node>
@@ -22,6 +19,7 @@
               <Node name="Views" expanded="True">
                 <Node name="Conference" expanded="True" />
               </Node>
+              <Node name="appsettings.json" selected="True" />
             </Node>
           </Node>
         </State>

@@ -49,7 +49,7 @@ namespace ConventionManager.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddSponsor(int id, Sponsor sponsor)
+        public async Task<IActionResult> AddSponsor([FromRoute]int id, Sponsor sponsor)
         {
             var conference = await _context.Conferences
                 .Include(c => c.Sponsors)
