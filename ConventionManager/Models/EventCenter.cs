@@ -23,7 +23,7 @@ namespace ConventionManager.Models
 
         public ICollection<Room> Rooms { get; set; }
 
-        public Conference Conference { get; set; }
+        public ICollection<Conference> Conferences { get; set; }
 
     }
 }
