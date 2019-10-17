@@ -6,7 +6,6 @@
     <e p="$PROJECT_DIR$" t="IncludeRecursive">
       <e p=".gitignore" t="Include" />
       <e p="app.db" t="Include" />
-      <e p="appsettings.Development.json" t="Include" />
       <e p="appsettings.json" t="Include" />
       <e p="Areas" t="Include">
         <e p="Identity" t="Include">
@@ -32,14 +31,28 @@
           <e p="20191003142351_CreateConferenceAndSponsor.Designer.cs" t="Include" />
           <e p="20191003152702_CreateEvents.cs" t="Include" />
           <e p="20191003152702_CreateEvents.Designer.cs" t="Include" />
+          <e p="20191006223027_NamerRequired.cs" t="Include" />
+          <e p="20191006223027_NamerRequired.Designer.cs" t="Include" />
+          <e p="20191015145126_CreateMainEventModels.cs" t="Include" />
+          <e p="20191015145126_CreateMainEventModels.Designer.cs" t="Include" />
           <e p="ApplicationDbContextModelSnapshot.cs" t="Include" />
         </e>
       </e>
       <e p="Models" t="Include">
+        <e p="ChatEvent.cs" t="Include" />
         <e p="Conference.cs" t="Include" />
+        <e p="ConferenceAndSponsor.cs" t="Include" />
         <e p="ErrorViewModel.cs" t="Include" />
         <e p="Event.cs" t="Include" />
+        <e p="EventCenter.cs" t="Include" />
+        <e p="ExhibitorEvent.cs" t="Include" />
+        <e p="Food.cs" t="Include" />
+        <e p="FoodEvent.cs" t="Include" />
+        <e p="PartyEvent.cs" t="Include" />
+        <e p="PracticalSessionsEvent.cs" t="Include" />
+        <e p="Room.cs" t="Include" />
         <e p="Sponsor.cs" t="Include" />
+        <e p="TalkEvent.cs" t="Include" />
       </e>
       <e p="obj" t="ExcludeRecursive">
         <e p="Debug" t="Include">

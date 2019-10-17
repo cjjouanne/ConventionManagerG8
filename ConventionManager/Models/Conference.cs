@@ -14,5 +14,7 @@ namespace ConventionManager.Models
         public string Description { get; set; }
         
         public ICollection<Sponsor> Sponsors { get; set; }
+
+        public int EventCenterId { get; set; }
     }
 }

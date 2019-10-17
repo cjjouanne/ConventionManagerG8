@@ -10,12 +10,20 @@ namespace ConventionManager.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public int ConferenceId { get; set; }
-        [Required(ErrorMessage = "An Event Center must have a type")]
+
+        [Required(ErrorMessage = "An Event Center must have a name")]
+        [StringLength(50, ErrorMessage = "Event Center name cannot be longer than 50 characters.")]
         public string Name { get; set; }
+
+        [Required(ErrorMessage = "An Event Center must have a type")]
+        [StringLength(30, ErrorMessage = "Event Center type cannot be longer than 30 characters.")]
         public string Type { get; set; }
+
         public string Location { get; set; }
 
         public ICollection<Room> Rooms { get; set; }
+
+        public Conference Conference { get; set; }
+
     }
 }

@@ -1,10 +1,10 @@
 ﻿<Properties StartupConfiguration="{89E480FD-47D7-48E3-8F15-D3C99768BC94}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="appsettings.json">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Models/EventCenter.cs">
     <Files>
-      <File FileName="Models/EventCenter.cs" Line="15" Column="39" />
-      <File FileName="Models/Room.cs" Line="23" Column="1" />
-      <File FileName="Models/Event.cs" Line="12" Column="2" />
-      <File FileName="appsettings.json" Line="4" Column="111" />
+      <File FileName="Models/EventCenter.cs" Line="13" Column="1" />
+      <File FileName="Models/Conference.cs" Line="16" Column="31" />
+      <File FileName="Models/Room.cs" Line="25" Column="37" />
+      <File FileName="Models/Event.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -15,11 +15,12 @@
               <Node name="Data" expanded="True">
                 <Node name="Migrations" expanded="True" />
               </Node>
-              <Node name="Models" expanded="True" />
+              <Node name="Models" expanded="True">
+                <Node name="EventCenter.cs" selected="True" />
+              </Node>
               <Node name="Views" expanded="True">
                 <Node name="Conference" expanded="True" />
               </Node>
-              <Node name="appsettings.json" selected="True" />
             </Node>
           </Node>
         </State>
