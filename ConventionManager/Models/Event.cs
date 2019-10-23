@@ -11,10 +11,6 @@ namespace ConventionManager.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public int ConferenceId { get; set; }
-
-        public int RoomId { get; set; }
-
         [Required(ErrorMessage = "An Room must have a name")]
         [StringLength(100, ErrorMessage = "Event name cannot be longer than 100 characters.")]
         public string Name { get; set; }
@@ -24,6 +20,11 @@ namespace ConventionManager.Models
 
         [Required(ErrorMessage = "There must be an end date for this event!")]
         public DateTime endtDate { get; set; }
-        
+
+        public int ConferenceId { get; set; }
+        public Conference Conference { get; set; }
+
+        public int RoomId { get; set; }
+        public Room Room { get; set; }
     }
 }

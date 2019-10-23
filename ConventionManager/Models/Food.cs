@@ -10,6 +10,7 @@ namespace ConventionManager.Models
         public int Id { get; set; }
 
         public int FoodEventId { get; set; }
+        public FoodEvent FoodEvent { get; set; }
 
         [Required(ErrorMessage = "Food must have a name")]
         [StringLength(50, ErrorMessage = "Food name cannot be longer than 50 characters.")]

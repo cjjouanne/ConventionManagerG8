@@ -10,5 +10,8 @@ namespace ConventionManager.Models
         public int Id { get; set; }
         [Required(ErrorMessage = "A Sponsor must have a name")]
         public string Name { get; set; }
+
+        public int ConferenceId { get; set; }
+        public Conference Conference { get; set; }
     }
 }
