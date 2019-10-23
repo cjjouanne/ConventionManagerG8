@@ -44,9 +44,14 @@ namespace ConventionManager.Controllers
         }
 
         // GET: Room/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create([FromRoute]int id)
         {
-            return View();
+            var eventCenter = await _context.EventCenters
+                .FirstAsync(n => n.Id == id);
+
+            var eventCenterConferencesAndRooms = new EventCenterConferencesAndRooms();
+            eventCenterConferencesAndRooms.EventCenter = eventCenter;
+            return View(eventCenterConferencesAndRooms);
         }
 
         // POST: Room/Create
