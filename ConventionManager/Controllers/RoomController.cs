@@ -70,7 +70,7 @@ namespace ConventionManager.Controllers
         }
 
         // GET: Room/Edit/5
-        public async Task<IActionResult> Edit(int? id, [FromRoute]int eventCenterId)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -82,10 +82,6 @@ namespace ConventionManager.Controllers
             {
                 return NotFound();
             }
-
-            //var eventCenter = await _context.EventCenters.FirstAsync(n => n.Id == eventCenterId);
-            //var eventCenterConferencesAndRooms = new EventCenterConferencesAndRooms();
-            //eventCenterConferencesAndRooms.EventCenter = eventCenter;
 
             return View(room);
         }
@@ -107,6 +103,7 @@ namespace ConventionManager.Controllers
                 try
                 {
                     _context.Update(room);
+                    _context.Entry(room).Property(u => u.EventCenterId).IsModified = false;
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)

@@ -115,6 +115,7 @@ namespace ConventionManager.Controllers
                 try
                 {
                     _context.Update(conference);
+                    _context.Entry(conference).Property(u => u.EventCenterId).IsModified = false;
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
