@@ -34,13 +34,42 @@ namespace ConventionManager.Controllers
             }
 
             var eventCenter = await _context.EventCenters
+                .Include(c => c.Conferences)
+                .Include(c => c.Rooms)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (eventCenter == null)
             {
                 return NotFound();
             }
 
-            return View(eventCenter);
+            var eventCenterConferencesAndRooms = new EventCenterConferencesAndRooms();
+            eventCenterConferencesAndRooms.EventCenter = eventCenter;
+
+            return View(eventCenterConferencesAndRooms);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateConference([FromRoute]int id, Conference conference)
+        {
+            var eventCenter = await _context.EventCenters
+                .Include(c => c.Conferences)
+                .FirstAsync(n => n.Id == id);
+
+            eventCenter.Conferences.Add(conference);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Details", new { id });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateRoom([FromRoute]int id, Room room)
+        {
+            var eventCenter = await _context.EventCenters
+                .Include(c => c.Rooms)
+                .FirstAsync(n => n.Id == id);
+
+            eventCenter.Rooms.Add(room);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Details", new { id });
         }
 
         // GET: EventCenter/Create
