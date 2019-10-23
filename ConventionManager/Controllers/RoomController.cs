@@ -46,8 +46,7 @@ namespace ConventionManager.Controllers
         // GET: Room/Create
         public async Task<IActionResult> Create([FromRoute]int id)
         {
-            var eventCenter = await _context.EventCenters
-                .FirstAsync(n => n.Id == id);
+            var eventCenter = await _context.EventCenters.FirstAsync(n => n.Id == id);
 
             var eventCenterConferencesAndRooms = new EventCenterConferencesAndRooms();
             eventCenterConferencesAndRooms.EventCenter = eventCenter;
@@ -71,7 +70,7 @@ namespace ConventionManager.Controllers
         }
 
         // GET: Room/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? id, [FromRoute]int eventCenterId)
         {
             if (id == null)
             {
@@ -83,6 +82,11 @@ namespace ConventionManager.Controllers
             {
                 return NotFound();
             }
+
+            //var eventCenter = await _context.EventCenters.FirstAsync(n => n.Id == eventCenterId);
+            //var eventCenterConferencesAndRooms = new EventCenterConferencesAndRooms();
+            //eventCenterConferencesAndRooms.EventCenter = eventCenter;
+
             return View(room);
         }
 
