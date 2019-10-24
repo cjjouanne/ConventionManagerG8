@@ -1,28 +1,25 @@
 ﻿<Properties StartupConfiguration="{89E480FD-47D7-48E3-8F15-D3C99768BC94}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/ConferenceController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Views/EventCenter/Details.cshtml">
     <Files>
       <File FileName="Models/EventCenter.cs" Line="26" Column="44" />
       <File FileName="Models/Conference.cs" Line="26" Column="2" />
       <File FileName="Models/Room.cs" Line="25" Column="33" />
-      <File FileName="Controllers/EventCenterController.cs" Line="37" Column="45" />
-      <File FileName="Views/EventCenter/Details.cshtml" Line="1" Column="1" />
-      <File FileName="Views/Room/Edit.cshtml" Line="1" Column="1" />
-      <File FileName="Controllers/RoomController.cs" Line="73" Column="54" />
-      <File FileName="Controllers/ConferenceController.cs" Line="118" Column="40" />
+      <File FileName="Controllers/EventCenterController.cs" Line="60" Column="60" />
+      <File FileName="Views/EventCenter/Details.cshtml" Line="170" Column="32" />
+      <File FileName="Controllers/ConferenceController.cs" Line="163" Column="87" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="ConventionManager" expanded="True">
             <Node name="ConventionManager" expanded="True">
-              <Node name="Controllers" expanded="True">
-                <Node name="ConferenceController.cs" selected="True" />
-              </Node>
+              <Node name="Controllers" expanded="True" />
               <Node name="Data" expanded="True" />
-              <Node name="Models" expanded="True" />
               <Node name="Views" expanded="True">
-                <Node name="Event" expanded="True" />
-                <Node name="Room" expanded="True" />
+                <Node name="Conference" expanded="True" />
+                <Node name="EventCenter" expanded="True">
+                  <Node name="Details.cshtml" selected="True" />
+                </Node>
               </Node>
             </Node>
           </Node>

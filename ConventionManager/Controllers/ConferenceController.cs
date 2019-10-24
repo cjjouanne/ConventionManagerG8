@@ -71,7 +71,7 @@ namespace ConventionManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description")] Conference conference)
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,StartDate,EndDate")] Conference conference)
         {
             if (ModelState.IsValid)
             {
@@ -103,7 +103,7 @@ namespace ConventionManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description")] Conference conference)
+        public async Task<IActionResult> Edit(int id, int eventCenterId, [Bind("Id,Name,Description,StartDate,EndDate")] Conference conference)
         {
             if (id != conference.Id)
             {
@@ -129,7 +129,7 @@ namespace ConventionManager.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "EventCenter", new { id = eventCenterId });
             }
             return View(conference);
         }
@@ -155,12 +155,12 @@ namespace ConventionManager.Controllers
         // POST: Conference/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id, int eventCenterId)
         {
             var conference = await _context.Conferences.FindAsync(id);
             _context.Conferences.Remove(conference);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Details", "EventCenter", new { id = eventCenterId });
         }
 
         private bool ConferenceExists(int id)

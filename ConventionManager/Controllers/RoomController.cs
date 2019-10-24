@@ -91,7 +91,7 @@ namespace ConventionManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,EventCenterId,Name,Capacity,Location")] Room room)
+        public async Task<IActionResult> Edit(int id, int eventCenterId, [Bind("Id,EventCenterId,Name,Capacity,Location")] Room room)
         {
             if (id != room.Id)
             {
@@ -117,7 +117,10 @@ namespace ConventionManager.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                // Usefull for searching Entities in _context
+                // var eventCenter = _context.EventCenters.Where(e => e.Id == room.EventCenter.Id).Single();
+                // var eventCenter = _context.EventCenters.Find(room.EventCenterId);
+                return RedirectToAction("Details", "EventCenter", new { id = eventCenterId });
             }
             return View(room);
         }
@@ -143,12 +146,12 @@ namespace ConventionManager.Controllers
         // POST: Room/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id, int eventCenterId)
         {
             var room = await _context.Rooms.FindAsync(id);
             _context.Rooms.Remove(room);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Details", "EventCenter", new { id = eventCenterId });
         }
 
         private bool RoomExists(int id)
