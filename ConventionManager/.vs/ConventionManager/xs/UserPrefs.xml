@@ -1,25 +1,38 @@
 ﻿<Properties StartupConfiguration="{89E480FD-47D7-48E3-8F15-D3C99768BC94}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Views/EventCenter/Details.cshtml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Areas/Identity/Pages/Account/Register.cshtml.cs">
     <Files>
-      <File FileName="Models/EventCenter.cs" Line="26" Column="44" />
-      <File FileName="Models/Conference.cs" Line="26" Column="2" />
-      <File FileName="Models/Room.cs" Line="25" Column="33" />
-      <File FileName="Controllers/EventCenterController.cs" Line="60" Column="60" />
-      <File FileName="Views/EventCenter/Details.cshtml" Line="170" Column="32" />
-      <File FileName="Controllers/ConferenceController.cs" Line="163" Column="87" />
+      <File FileName="Controllers/EventCenterController.cs" Line="1" Column="1" />
+      <File FileName="Views/EventCenter/Details.cshtml" />
+      <File FileName="Controllers/ConferenceController.cs" />
+      <File FileName="Views/Shared/_LoginPartial.cshtml" />
+      <File FileName="Views/Shared/_ValidationScriptsPartial.cshtml" Line="19" Column="1" />
+      <File FileName="Areas/Identity/Pages/Account/Login.cshtml" Line="33" Column="23" />
+      <File FileName="Startup.cs" Line="1" Column="1" />
+      <File FileName="Areas/Identity/Pages/Account/Register.cshtml" Line="1" Column="1" />
+      <File FileName="Areas/Identity/Pages/Account/Register.cshtml.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="ConventionManager" expanded="True">
             <Node name="ConventionManager" expanded="True">
-              <Node name="Controllers" expanded="True" />
-              <Node name="Data" expanded="True" />
-              <Node name="Views" expanded="True">
-                <Node name="Conference" expanded="True" />
-                <Node name="EventCenter" expanded="True">
-                  <Node name="Details.cshtml" selected="True" />
+              <Node name="Areas" expanded="True">
+                <Node name="Identity" expanded="True">
+                  <Node name="Pages" expanded="True">
+                    <Node name="Account" expanded="True">
+                      <Node name="Login.cshtml" expanded="True" />
+                      <Node name="Logout.cshtml" expanded="True" />
+                      <Node name="Register.cshtml" expanded="True">
+                        <Node name="Register.cshtml.cs" selected="True" />
+                      </Node>
+                    </Node>
+                  </Node>
                 </Node>
+              </Node>
+              <Node name="Controllers" expanded="True" />
+              <Node name="Models" expanded="True" />
+              <Node name="Views" expanded="True">
+                <Node name="Shared" expanded="True" />
               </Node>
             </Node>
           </Node>
