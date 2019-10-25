@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 using ConventionManager.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace ConventionManager.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Conference> Conferences { get; set; }
         public DbSet<Sponsor> Sponsors { get; set; }
@@ -25,6 +26,17 @@ namespace ConventionManager.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+        }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.Entity<IdentityRole>().HasData(
+                new IdentityRole { Name = "Organizer", NormalizedName = "Organizer".ToUpper() },
+                new IdentityRole { Name = "Exhibitor", NormalizedName = "Exhibitor".ToUpper() },
+                new IdentityRole { Name = "User", NormalizedName = "User".ToUpper() }
+            );
         }
     }
 }
