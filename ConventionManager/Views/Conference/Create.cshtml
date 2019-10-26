@@ -1,4 +1,4 @@
-@model ConventionManager.Models.Conference
+@model ConventionManager.Models.EventCenterConferencesAndRooms
 
 @{
     ViewData["Title"] = "Create";
@@ -10,27 +10,27 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-controller="EventCenter" asp-action="CreateConference", asp-route-id="@Model.EventCenter.Id">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <label asp-for="@Model.Conference.Name" class="control-label"></label>
+                <input asp-for="@Model.Conference.Name" class="form-control" />
+                <span asp-validation-for="@Model.Conference.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
+                <label asp-for="@Model.Conference.Description" class="control-label"></label>
+                <input asp-for="@Model.Conference.Description" class="form-control" />
+                <span asp-validation-for="@Model.Conference.Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="StartDate" class="control-label"></label>
-                <input asp-for="StartDate" class="form-control" />
-                <span asp-validation-for="StartDate" class="text-danger"></span>
+                <label asp-for="@Model.Conference.StartDate" class="control-label"></label>
+                <input asp-for="@Model.Conference.StartDate" class="form-control" />
+                <span asp-validation-for="@Model.Conference.StartDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="EndDate" class="control-label"></label>
-                <input asp-for="EndDate" class="form-control" />
-                <span asp-validation-for="EndDate" class="text-danger"></span>
+                <label asp-for="@Model.Conference.EndDate" class="control-label"></label>
+                <input asp-for="@Model.Conference.EndDate" class="form-control" />
+                <span asp-validation-for="@Model.Conference.EndDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -40,7 +40,7 @@
 </div>
 
 <div>
-    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    <a href="javascript:void(0);" onclick="history.go(-1);" class="btn btn-secondary">Back to List</a>
 </div>
 
 @section Scripts {

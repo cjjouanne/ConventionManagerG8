@@ -60,10 +60,19 @@ namespace ConventionManager.Controllers
             return RedirectToAction("Details", new { id });
         }
 
-        // GET: Conference/Create
-        public IActionResult Create()
+        public async Task<IActionResult> ChooseEventCenter()
         {
-            return View();
+            return View(await _context.EventCenters.ToListAsync());
+        }
+
+        // GET: Conference/Create
+        public async Task<IActionResult> Create([FromRoute]int id)
+        {
+            var eventCenter = await _context.EventCenters.FirstAsync(n => n.Id == id);
+
+            var eventCenterConferencesAndRooms = new EventCenterConferencesAndRooms();
+            eventCenterConferencesAndRooms.EventCenter = eventCenter;
+            return View(eventCenterConferencesAndRooms);
         }
 
         // POST: Conference/Create
