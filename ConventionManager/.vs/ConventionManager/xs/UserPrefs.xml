@@ -9,30 +9,17 @@
       <File FileName="Controllers/ConferenceController.cs" />
       <File FileName="Views/Conference/Create.cshtml" />
       <File FileName="Views/Conference/ChooseEventCenter.cshtml" />
-      <File FileName="Views/Event/Index.cshtml" Line="28" Column="61" />
+      <File FileName="Views/Event/Index.cshtml" Line="36" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="ConventionManager" expanded="True">
             <Node name="ConventionManager" expanded="True">
-              <Node name="Areas" expanded="True">
-                <Node name="Identity" expanded="True">
-                  <Node name="Pages" expanded="True">
-                    <Node name="Account" expanded="True" />
-                  </Node>
-                </Node>
-              </Node>
-              <Node name="Controllers" expanded="True" />
-              <Node name="Data" expanded="True" />
-              <Node name="Models" expanded="True" />
               <Node name="Views" expanded="True">
-                <Node name="Conference" expanded="True" />
                 <Node name="Event" expanded="True">
                   <Node name="Index.cshtml" selected="True" />
                 </Node>
-                <Node name="EventCenter" expanded="True" />
-                <Node name="Room" expanded="True" />
               </Node>
             </Node>
           </Node>
