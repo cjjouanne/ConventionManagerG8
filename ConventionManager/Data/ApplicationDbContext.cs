@@ -15,7 +15,7 @@ namespace ConventionManager.Data
         public DbSet<EventCenter> EventCenters { get; set; }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Event> Events { get; set; }
-        public DbSet<ExhibitorEvent> ExhibitorEvents { get; set; }
+        // public DbSet<ExhibitorEvent> ExhibitorEvents { get; set; }
         public DbSet<PracticalSessionsEvent> PracticalSessionsEvents { get; set; }
         public DbSet<TalkEvent> TalkEvents { get; set; }
         public DbSet<ChatEvent> ChatEvents { get; set; }

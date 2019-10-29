@@ -22,6 +22,18 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Conference.Description)
         </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Conference.StartDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Conference.StartDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Conference.EndDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Conference.EndDate)
+        </dd>
     </dl>
 </div>
 <div>
@@ -29,16 +41,25 @@
     <a asp-controller="EventCenter" asp-action="Details" asp-route-id="@Model.Conference.EventCenterId" class="btn btn-secondary">Back to List</a>
 </div>
 
+<br />
+<br />
+
 <div>
     <h4>Sponsors</h4>
-
-    <ul>
-        @foreach(var sponsor in Model.Conference.Sponsors)
-        {
-            <li>@sponsor.Name</li>
-        }
-    </ul>
-
+    @if (Model.Conference.Sponsors.Count > 0)
+    {
+        <ul>
+            @foreach(var sponsor in Model.Conference.Sponsors)
+            {
+                <li>@sponsor.Name</li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>This Conference does not have any Sponsors yet. You can add one below.</p>
+    }
+    <h4>Add a new Sponsor</h4>
     <form asp-action="AddSponsor", asp-route-id="@Model.Conference.Id">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -47,7 +68,59 @@
                 <span asp-validation-for="@Model.Sponsor.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Add" class="btn btn-primary" />
             </div>
         </form>
+</div>
+
+<br />
+<br />
+
+<div>
+    <h4>Events in this Conference</h4>
+    @if (Model.Conference.Events.Count > 0)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Event.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Event.StartDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Event.EndDate)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+        @foreach (var conferenceEvent in Model.Conference.Events)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => conferenceEvent.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => conferenceEvent.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => conferenceEvent.EndDate)
+                </td>
+                <td width="30%">
+                    <a asp-controller="Event" asp-action="Edit" asp-route-id="@conferenceEvent.Id" class="btn btn-success">Edit</a>
+                    <a asp-controller="Event" asp-action="Details" asp-route-id="@conferenceEvent.Id" class="btn btn-primary">Details</a>
+                    <a asp-controller="Event" asp-action="Delete" asp-route-id="@conferenceEvent.Id" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>This Conference does not have any Events yet. You can create one below.</p>
+    }
+    <a asp-action="ChooseEventType" asp-route-id="@Model.Conference.Id" class="btn btn-primary">Create a new Event</a>
 </div>

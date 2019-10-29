@@ -34,13 +34,17 @@ namespace ConventionManager.Controllers
             }
 
             var room = await _context.Rooms
+                .Include(c => c.Events)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (room == null)
             {
                 return NotFound();
             }
 
-            return View(room);
+            var conferenceEventAndRoom = new ConferenceEventAndRoom();
+            conferenceEventAndRoom.Room = room;
+
+            return View(conferenceEventAndRoom);
         }
 
         // GET: Room/Create

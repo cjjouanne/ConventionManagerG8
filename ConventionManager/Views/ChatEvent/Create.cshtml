@@ -1,0 +1,65 @@
+@model ConventionManager.Models.ChatEvent
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>ChatEvent</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" name="fromWhere" value=@ViewData["From"] />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartDate" class="control-label"></label>
+                <input asp-for="StartDate" class="form-control" />
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndDate" class="control-label"></label>
+                <input asp-for="EndDate" class="form-control" />
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Topic" class="control-label"></label>
+                <input asp-for="Topic" class="form-control" />
+                <span asp-validation-for="Topic" class="text-danger"></span>
+            </div>
+            @if (ViewData["From"] == "conference")
+            {
+                <div class="form-group">
+                    <label asp-for="RoomId" class="control-label"></label>
+                    <select asp-for="RoomId" class ="form-control" asp-items="ViewBag.RoomId"></select>
+                </div>
+                <input type="hidden" name="ConferenceId" value="@ViewData["ConferenceId"]" />
+            }
+            else
+            {
+                <div class="form-group">
+                    <label asp-for="ConferenceId" class="control-label"></label>
+                    <select asp-for="ConferenceId" class ="form-control" asp-items="ViewBag.ConferenceId"></select>
+                </div>
+                <input type="hidden" name="RoomId" value="@ViewData["RoomId"]" />
+            }
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a href="javascript:void(0);" onclick="history.go(-1);" class="btn btn-secondary">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -20,6 +20,8 @@ namespace ConventionManager.Models
 
         public ICollection<Sponsor> Sponsors { get; set; }
 
+        public ICollection<Event> Events { get; set; }
+
         public int EventCenterId { get; set; }
         public EventCenter EventCenter { get; set; }
     }

@@ -1,24 +1,25 @@
 ﻿<Properties StartupConfiguration="{89E480FD-47D7-48E3-8F15-D3C99768BC94}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Views/Event/Index.cshtml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Views/Conference/Details.cshtml">
     <Files>
-      <File FileName="Controllers/EventCenterController.cs" Line="29" Column="10" />
-      <File FileName="Views/EventCenter/Details.cshtml" />
-      <File FileName="Models/Conference.cs" />
-      <File FileName="Views/EventCenter/Index.cshtml" />
-      <File FileName="Views/Conference/Index.cshtml" />
-      <File FileName="Controllers/ConferenceController.cs" />
-      <File FileName="Views/Conference/Create.cshtml" />
-      <File FileName="Views/Conference/ChooseEventCenter.cshtml" />
-      <File FileName="Views/Event/Index.cshtml" Line="36" Column="1" />
+      <File FileName="Controllers/EventCenterController.cs" Line="83" Column="10" />
+      <File FileName="Controllers/ConferenceController.cs" Line="90" Column="40" />
+      <File FileName="Controllers/RoomController.cs" Line="121" Column="31" />
+      <File FileName="Views/ChatEvent/Delete.cshtml" Line="1" Column="1" />
+      <File FileName="Views/ChatEvent/Details.cshtml" Line="71" Column="103" />
+      <File FileName="Views/ChatEvent/Create.cshtml" Line="60" Column="103" />
+      <File FileName="Views/Conference/Details.cshtml" Line="100" Column="10" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="ConventionManager" expanded="True">
             <Node name="ConventionManager" expanded="True">
+              <Node name="Controllers" expanded="True" />
+              <Node name="Models" expanded="True" />
               <Node name="Views" expanded="True">
-                <Node name="Event" expanded="True">
-                  <Node name="Index.cshtml" selected="True" />
+                <Node name="ChatEvent" expanded="True" />
+                <Node name="Conference" expanded="True">
+                  <Node name="Details.cshtml" selected="True" />
                 </Node>
               </Node>
             </Node>
