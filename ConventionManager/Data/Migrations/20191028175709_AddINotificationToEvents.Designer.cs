@@ -4,15 +4,17 @@ using System.Collections.Generic;
 using ConventionManager.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ConventionManager.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191028175709_AddINotificationToEvents")]
+    partial class AddINotificationToEvents
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -247,22 +249,22 @@ namespace ConventionManager.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1fc232f5-d854-4f4a-a697-70e3aaa2f3cb",
-                            ConcurrencyStamp = "39de7f41-ea74-4d00-ba9d-774791c2078d",
+                            Id = "a643dcea-126b-4ab3-b95b-3f638fff4cbe",
+                            ConcurrencyStamp = "ef57370e-6057-4d61-b5f2-45aca9192dac",
                             Name = "Organizer",
                             NormalizedName = "ORGANIZER"
                         },
                         new
                         {
-                            Id = "24454cac-4b35-4b3e-852b-2a82c35a3127",
-                            ConcurrencyStamp = "363d2a52-b426-4a2c-bd53-14af31e9d3e0",
+                            Id = "ef61267d-8d3d-46e7-90ad-480f92f72867",
+                            ConcurrencyStamp = "a00c45af-5717-41de-8bee-121178b0c59b",
                             Name = "Exhibitor",
                             NormalizedName = "EXHIBITOR"
                         },
                         new
                         {
-                            Id = "f1154f97-c8f1-4ba6-b670-cc88b10b99ac",
-                            ConcurrencyStamp = "ba0c34e8-6a88-4455-b668-64a62201d508",
+                            Id = "827ec21b-7096-4c4d-9059-a7afd409b188",
+                            ConcurrencyStamp = "4601ee65-6df2-4a51-905a-31ac7cf68d5c",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -356,18 +358,16 @@ namespace ConventionManager.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("ConventionManager.Models.ChatEvent", b =>
+            modelBuilder.Entity("ConventionManager.Models.ExhibitorEvent", b =>
                 {
                     b.HasBaseType("ConventionManager.Models.Event");
 
                     b.Property<List<int>>("ExhibitorsId");
 
-                    b.Property<int>("ModeratorId");
-
                     b.Property<string>("Topic")
                         .IsRequired();
 
-                    b.HasDiscriminator().HasValue("ChatEvent");
+                    b.HasDiscriminator().HasValue("ExhibitorEvent");
                 });
 
             modelBuilder.Entity("ConventionManager.Models.FoodEvent", b =>
@@ -384,30 +384,25 @@ namespace ConventionManager.Data.Migrations
                     b.HasDiscriminator().HasValue("PartyEvent");
                 });
 
+            modelBuilder.Entity("ConventionManager.Models.ChatEvent", b =>
+                {
+                    b.HasBaseType("ConventionManager.Models.ExhibitorEvent");
+
+                    b.Property<int>("ModeratorId");
+
+                    b.HasDiscriminator().HasValue("ChatEvent");
+                });
+
             modelBuilder.Entity("ConventionManager.Models.PracticalSessionsEvent", b =>
                 {
-                    b.HasBaseType("ConventionManager.Models.Event");
-
-                    b.Property<List<int>>("ExhibitorsId")
-                        .HasColumnName("PracticalSessionsEvent_ExhibitorsId");
-
-                    b.Property<string>("Topic")
-                        .IsRequired()
-                        .HasColumnName("PracticalSessionsEvent_Topic");
+                    b.HasBaseType("ConventionManager.Models.ExhibitorEvent");
 
                     b.HasDiscriminator().HasValue("PracticalSessionsEvent");
                 });
 
             modelBuilder.Entity("ConventionManager.Models.TalkEvent", b =>
                 {
-                    b.HasBaseType("ConventionManager.Models.Event");
-
-                    b.Property<List<int>>("ExhibitorsId")
-                        .HasColumnName("TalkEvent_ExhibitorsId");
-
-                    b.Property<string>("Topic")
-                        .IsRequired()
-                        .HasColumnName("TalkEvent_Topic");
+                    b.HasBaseType("ConventionManager.Models.ExhibitorEvent");
 
                     b.HasDiscriminator().HasValue("TalkEvent");
                 });
@@ -423,7 +418,7 @@ namespace ConventionManager.Data.Migrations
             modelBuilder.Entity("ConventionManager.Models.Event", b =>
                 {
                     b.HasOne("ConventionManager.Models.Conference", "Conference")
-                        .WithMany("Events")
+                        .WithMany()
                         .HasForeignKey("ConferenceId")
                         .OnDelete(DeleteBehavior.Cascade);
 

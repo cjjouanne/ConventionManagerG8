@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ConventionManager.Models
 {
-    public abstract class Event
+    public abstract class Event : INotification
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -16,15 +16,20 @@ namespace ConventionManager.Models
         public string Name { get; set; }
 
         [Required(ErrorMessage = "There must be a start date for this event!")]
-        public DateTime startDate { get; set; }
+        public DateTime StartDate { get; set; }
 
         [Required(ErrorMessage = "There must be an end date for this event!")]
-        public DateTime endtDate { get; set; }
+        public DateTime EndDate { get; set; }
 
         public int ConferenceId { get; set; }
         public Conference Conference { get; set; }
 
         public int RoomId { get; set; }
         public Room Room { get; set; }
+
+        public List<int> AttendantsId { get; set; }
+
+        public abstract void SendNotificationToAttendants(string message);
+        public abstract void SendNotificationToExhibitors(string message);
     }
 }

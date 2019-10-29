@@ -35,6 +35,7 @@ namespace ConventionManager.Controllers
 
             var conference = await _context.Conferences
                 .Include(c => c.Sponsors)
+                .Include(e => e.Events)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (conference == null)
             {
@@ -63,6 +64,31 @@ namespace ConventionManager.Controllers
         public async Task<IActionResult> ChooseEventCenter()
         {
             return View(await _context.EventCenters.ToListAsync());
+        }
+
+        public async Task<IActionResult> ChooseEventType([FromRoute] int id)
+        {
+            var conference = await _context.Conferences.FirstAsync(n => n.Id == id);
+
+            var eventCenter = await _context.EventCenters
+                .Include(c => c.Rooms)
+                .FirstAsync(n => n.Id == conference.EventCenterId);
+
+            var conferenceEventAndRoom = new ConferenceEventAndRoom();
+            conferenceEventAndRoom.Conference = conference;
+            conferenceEventAndRoom.EventCenter = eventCenter;
+
+            return View(conferenceEventAndRoom);
+        }
+
+        [HttpGet]
+        public RedirectToActionResult PreCreateEvent(int conferenceId, string controllerName)
+        {
+            return RedirectToAction("Create", controllerName, new
+            {
+                conferenceId,
+                fromWhere = "conference"
+            });
         }
 
         // GET: Conference/Create
