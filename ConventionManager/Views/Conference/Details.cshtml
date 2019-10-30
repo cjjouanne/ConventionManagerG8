@@ -109,9 +109,9 @@
                     @Html.DisplayFor(modelItem => conferenceEvent.EndDate)
                 </td>
                 <td width="30%">
-                    <a asp-controller="Event" asp-action="Edit" asp-route-id="@conferenceEvent.Id" class="btn btn-success">Edit</a>
-                    <a asp-controller="Event" asp-action="Details" asp-route-id="@conferenceEvent.Id" class="btn btn-primary">Details</a>
-                    <a asp-controller="Event" asp-action="Delete" asp-route-id="@conferenceEvent.Id" class="btn btn-danger">Delete</a>
+                    <a asp-controller=@conferenceEvent.GetEventType() asp-action="Edit" asp-route-id="@conferenceEvent.Id" asp-route-fromWhere="Conference" class="btn btn-success">Edit</a>
+                    <a asp-controller=@conferenceEvent.GetEventType() asp-action="Details" asp-route-id="@conferenceEvent.Id" class="btn btn-primary">Details</a>
+                    <a asp-controller=@conferenceEvent.GetEventType() asp-action="Delete" asp-route-id="@conferenceEvent.Id" asp-route-fromWhere="Conference" class="btn btn-danger">Delete</a>
                 </td>
             </tr>
         }

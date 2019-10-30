@@ -87,7 +87,7 @@ namespace ConventionManager.Controllers
         }
 
         // GET: PracticalSessionsEvent/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? id, string fromWhere)
         {
             if (id == null)
             {
@@ -101,6 +101,7 @@ namespace ConventionManager.Controllers
             }
             ViewData["ConferenceId"] = new SelectList(_context.Conferences, "Id", "Name", practicalSessionsEvent.ConferenceId);
             ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name", practicalSessionsEvent.RoomId);
+            ViewData["From"] = fromWhere;
             return View(practicalSessionsEvent);
         }
 
@@ -109,7 +110,7 @@ namespace ConventionManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ExhibitorsId,Topic,Id,Name,StartDate,EndDate,ConferenceId,RoomId,AttendantsId")] PracticalSessionsEvent practicalSessionsEvent)
+        public async Task<IActionResult> Edit(int id, string fromWhere, [Bind("ExhibitorsId,Topic,Id,Name,StartDate,EndDate,ConferenceId,RoomId,AttendantsId")] PracticalSessionsEvent practicalSessionsEvent)
         {
             if (id != practicalSessionsEvent.Id)
             {
@@ -134,7 +135,11 @@ namespace ConventionManager.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                if (fromWhere == "Conference")
+                {
+                    return RedirectToAction("Details", fromWhere, new { id = practicalSessionsEvent.ConferenceId });
+                }
+                return RedirectToAction("Details", fromWhere, new { id = practicalSessionsEvent.RoomId });
             }
             ViewData["ConferenceId"] = new SelectList(_context.Conferences, "Id", "Name", practicalSessionsEvent.ConferenceId);
             ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name", practicalSessionsEvent.RoomId);
@@ -142,7 +147,7 @@ namespace ConventionManager.Controllers
         }
 
         // GET: PracticalSessionsEvent/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int? id, string fromWhere)
         {
             if (id == null)
             {
@@ -157,19 +162,23 @@ namespace ConventionManager.Controllers
             {
                 return NotFound();
             }
-
+            ViewData["From"] = fromWhere;
             return View(practicalSessionsEvent);
         }
 
         // POST: PracticalSessionsEvent/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id, string fromWhere)
         {
             var practicalSessionsEvent = await _context.PracticalSessionsEvents.FindAsync(id);
             _context.PracticalSessionsEvents.Remove(practicalSessionsEvent);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            if (fromWhere == "Conference")
+            {
+                return RedirectToAction("Details", fromWhere, new { id = practicalSessionsEvent.ConferenceId });
+            }
+            return RedirectToAction("Details", fromWhere, new { id = practicalSessionsEvent.RoomId });
         }
 
         private bool PracticalSessionsEventExists(int id)

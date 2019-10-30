@@ -7,7 +7,7 @@
 <h1>Details</h1>
 
 <div>
-    <h4>PracticalSessionsEvent</h4>
+    <h4>Practical Sessions Event</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -61,6 +61,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-success">Edit</a>
+    <a href="javascript:void(0);" onclick="history.go(-1);" class="btn btn-secondary">Back to List</a>
 </div>

@@ -47,6 +47,26 @@ namespace ConventionManager.Controllers
             return View(conferenceEventAndRoom);
         }
 
+        public async Task<IActionResult> ChooseEventType([FromRoute] int id)
+        {
+            var room = await _context.Rooms.FirstAsync(n => n.Id == id);
+
+            var conferenceEventAndRoom = new ConferenceEventAndRoom();
+            conferenceEventAndRoom.Room = room;
+
+            return View(conferenceEventAndRoom);
+        }
+
+        [HttpGet]
+        public RedirectToActionResult PreCreateEvent(int roomId, string controllerName)
+        {
+            return RedirectToAction("Create", controllerName, new
+            {
+                roomId,
+                fromWhere = "room"
+            });
+        }
+
         // GET: Room/Create
         public async Task<IActionResult> Create([FromRoute]int id)
         {

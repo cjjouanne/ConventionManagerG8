@@ -87,7 +87,7 @@ namespace ConventionManager.Controllers
         }
 
         // GET: FoodEvent/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? id, string fromWhere)
         {
             if (id == null)
             {
@@ -101,6 +101,7 @@ namespace ConventionManager.Controllers
             }
             ViewData["ConferenceId"] = new SelectList(_context.Conferences, "Id", "Name", foodEvent.ConferenceId);
             ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name", foodEvent.RoomId);
+            ViewData["From"] = fromWhere;
             return View(foodEvent);
         }
 
@@ -109,7 +110,7 @@ namespace ConventionManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,StartDate,EndDate,ConferenceId,RoomId,AttendantsId")] FoodEvent foodEvent)
+        public async Task<IActionResult> Edit(int id, string fromWhere, [Bind("Id,Name,StartDate,EndDate,ConferenceId,RoomId,AttendantsId")] FoodEvent foodEvent)
         {
             if (id != foodEvent.Id)
             {
@@ -134,7 +135,11 @@ namespace ConventionManager.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                if (fromWhere == "Conference")
+                {
+                    return RedirectToAction("Details", fromWhere, new { id = foodEvent.ConferenceId });
+                }
+                return RedirectToAction("Details", fromWhere, new { id = foodEvent.RoomId });
             }
             ViewData["ConferenceId"] = new SelectList(_context.Conferences, "Id", "Name", foodEvent.ConferenceId);
             ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name", foodEvent.RoomId);
@@ -142,7 +147,7 @@ namespace ConventionManager.Controllers
         }
 
         // GET: FoodEvent/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int? id, string fromWhere)
         {
             if (id == null)
             {
@@ -157,19 +162,23 @@ namespace ConventionManager.Controllers
             {
                 return NotFound();
             }
-
+            ViewData["From"] = fromWhere;
             return View(foodEvent);
         }
 
         // POST: FoodEvent/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id, string fromWhere)
         {
             var foodEvent = await _context.FoodEvents.FindAsync(id);
             _context.FoodEvents.Remove(foodEvent);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            if (fromWhere == "Conference")
+            {
+                return RedirectToAction("Details", fromWhere, new { id = foodEvent.ConferenceId });
+            }
+            return RedirectToAction("Details", fromWhere, new { id = foodEvent.RoomId });
         }
 
         private bool FoodEventExists(int id)
