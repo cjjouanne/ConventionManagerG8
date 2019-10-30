@@ -43,36 +43,6 @@ namespace ConventionManager.Controllers
             return View(@event);
         }
 
-        public async Task<IActionResult> ChooseEventType([FromRoute] int id)
-        {
-            var conference = await _context.Conferences.FirstAsync(n => n.Id == id);
-
-            var eventCenter = await _context.EventCenters
-                .Include(c => c.Rooms)
-                .FirstAsync(n =>n.Id == conference.EventCenterId);
-
-            var conferenceEventAndRoom = new ConferenceEventAndRoom();
-            conferenceEventAndRoom.Conference = conference;
-            conferenceEventAndRoom.EventCenter = eventCenter;
-
-            return View(conferenceEventAndRoom);
-        }
-
-        [HttpGet]
-        public RedirectToActionResult PreCreate(int conferenceId,
-            int roomId, string eventType)
-        {
-            return RedirectToAction("CreateFoodEvent", new { conferenceId,
-                roomId });
-        }
-
-        public IActionResult CreateFoodEvent(int conferenceId, int roomId)
-        {
-            ViewData["conferenceId"] = conferenceId;
-            ViewData["roomId"] = roomId;
-            return View();
-        }
-
         public IActionResult Create()
         {
             return View();

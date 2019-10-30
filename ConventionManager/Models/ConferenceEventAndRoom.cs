@@ -15,7 +15,7 @@ namespace ConventionManager.Models
             {"Party Event", "PartyEvent" },
             {"Food Event", "FoodEvent" },
             {"Chat Event", "ChatEvent" },
-            {"Practical Session Event", "PracticalSessionEvent" },
+            {"Practical Session Event", "PracticalSessionsEvent" },
             {"Talk Event", "TalkEvent" },
         };
     }

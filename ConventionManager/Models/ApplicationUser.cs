@@ -15,5 +15,10 @@ namespace ConventionManager.Models
 
         public List<int> SuscribedEvents { get; set; }
         public List<int> SuscribedConferences { get; set; }
+
+        public string FullName()
+        {
+            return FirstName + " " + LastName;
+        }
     }
 }

@@ -29,6 +29,11 @@ namespace ConventionManager.Models
 
         public List<int> AttendantsId { get; set; }
 
+        public string GetEventType()
+        {
+            return this.GetType().ToString().Replace("ConventionManager.Models.", "");
+        }
+
         public abstract void SendNotificationToAttendants(string message);
         public abstract void SendNotificationToExhibitors(string message);
     }

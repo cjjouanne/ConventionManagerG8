@@ -38,40 +38,51 @@
 <br />
 <br />
 
-<h4>Events in this Room</h4>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Event.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Event.StartDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Event.EndDate)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Room.Events) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndDate)
-            </td>
-            <td width="30%">
-                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success">Edit</a>
-                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Details</a>
-                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div>
+    <h4>Events in this Room</h4>
+    @if (Model.Room.Events.Count > 0)
+    {
+        <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Event.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Event.StartDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Event.EndDate)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model.Room.Events) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td width="30%">
+                    <a asp-controller=@item.GetEventType() asp-action="Edit" asp-route-id="@item.Id" asp-route-fromWhere="Room" class="btn btn-success">Edit</a>
+                    <a asp-controller=@item.GetEventType() asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Details</a>
+                    <a asp-controller=@item.GetEventType() asp-action="Delete" asp-route-id="@item.Id" asp-route-fromWhere="Room" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
+    }
+    else
+    {
+        <p>This Room does not have any Events yet. You can create one below.</p>
+    }
+    <a asp-action="ChooseEventType" asp-route-id="@Model.Room.Id" class="btn btn-primary">Create a new Event</a>
+    
+</div>

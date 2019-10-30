@@ -1,0 +1,27 @@
+﻿@model ConventionManager.Models.ConferenceEventAndRoom
+
+@{
+    ViewData["Title"] = "ChooseEventType";
+}
+
+<h1>Choose the type of event that you want</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="PreCreateEvent", method="get">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" name="roomId" value="@Model.Room.Id" />
+            @foreach (KeyValuePair<string, string> item in Model.EventTypes)
+            {
+                <div class="form-group">
+                    <input type="radio" asp-for="@item" name="controllerName" value="@item.Value" required/>@item.Key<br />
+                    <span asp-validation-for="@item" class="text-danger"></span>
+                </div>
+            }
+            <div class="form-group">
+                <input type="submit" value="Enter Event Parameters" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

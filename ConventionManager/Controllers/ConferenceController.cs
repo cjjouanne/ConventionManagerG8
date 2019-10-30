@@ -70,13 +70,8 @@ namespace ConventionManager.Controllers
         {
             var conference = await _context.Conferences.FirstAsync(n => n.Id == id);
 
-            var eventCenter = await _context.EventCenters
-                .Include(c => c.Rooms)
-                .FirstAsync(n => n.Id == conference.EventCenterId);
-
             var conferenceEventAndRoom = new ConferenceEventAndRoom();
             conferenceEventAndRoom.Conference = conference;
-            conferenceEventAndRoom.EventCenter = eventCenter;
 
             return View(conferenceEventAndRoom);
         }
