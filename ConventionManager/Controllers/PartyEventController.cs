@@ -49,17 +49,17 @@ namespace ConventionManager.Controllers
         // GET: PartyEvent/Create
         public IActionResult Create(int? conferenceId, int? roomId, string fromWhere)
         {
-            if (fromWhere == "conference")
+            if (fromWhere == "Conference")
             {
                 ViewData["ConferenceId"] = conferenceId;
                 ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name");
-                ViewData["From"] = "conference";
+                ViewData["From"] = "Conference";
             }
             else
             {
                 ViewData["ConferenceId"] = new SelectList(_context.Conferences, "Id", "Name");
                 ViewData["RoomId"] = roomId;
-                ViewData["From"] = "room";
+                ViewData["From"] = "Room";
             }
             return View();
         }
@@ -75,11 +75,15 @@ namespace ConventionManager.Controllers
             {
                 _context.Add(partyEvent);
                 await _context.SaveChangesAsync();
-                if (fromWhere == "conference")
+                switch (fromWhere)
                 {
-                    return RedirectToAction("Details", "Conference", new { id = partyEvent.ConferenceId });
+                    case "Conference":
+                        return RedirectToAction("Details", fromWhere, new { id = partyEvent.ConferenceId });
+                    case "Room":
+                        return RedirectToAction("Details", fromWhere, new { id = partyEvent.RoomId });
+                    default:
+                        return RedirectToAction("Details", "Conference", new { id = partyEvent.ConferenceId });
                 }
-                return RedirectToAction("Details", "Room", new { id = partyEvent.RoomId });
             }
             ViewData["ConferenceId"] = new SelectList(_context.Conferences, "Id", "Name", partyEvent.ConferenceId);
             ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name", partyEvent.RoomId);
@@ -135,11 +139,15 @@ namespace ConventionManager.Controllers
                         throw;
                     }
                 }
-                if (fromWhere == "Conference")
+                switch (fromWhere)
                 {
-                    return RedirectToAction("Details", fromWhere, new { id = partyEvent.ConferenceId });
+                    case "Conference":
+                        return RedirectToAction("Details", fromWhere, new { id = partyEvent.ConferenceId });
+                    case "Room":
+                        return RedirectToAction("Details", fromWhere, new { id = partyEvent.RoomId });
+                    default:
+                        return RedirectToAction("Details", "Conference", new { id = partyEvent.ConferenceId });
                 }
-                return RedirectToAction("Details", fromWhere, new { id = partyEvent.RoomId });
             }
             ViewData["ConferenceId"] = new SelectList(_context.Conferences, "Id", "Name", partyEvent.ConferenceId);
             ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name", partyEvent.RoomId);
@@ -174,11 +182,15 @@ namespace ConventionManager.Controllers
             var partyEvent = await _context.PartyEvents.FindAsync(id);
             _context.PartyEvents.Remove(partyEvent);
             await _context.SaveChangesAsync();
-            if (fromWhere == "Conference")
+            switch (fromWhere)
             {
-                return RedirectToAction("Details", fromWhere, new { id = partyEvent.ConferenceId });
+                case "Conference":
+                    return RedirectToAction("Details", fromWhere, new { id = partyEvent.ConferenceId });
+                case "Room":
+                    return RedirectToAction("Details", fromWhere, new { id = partyEvent.RoomId });
+                default:
+                    return RedirectToAction("Details", "Conference", new { id = partyEvent.ConferenceId });
             }
-            return RedirectToAction("Details", fromWhere, new { id = partyEvent.RoomId });
         }
 
         private bool PartyEventExists(int id)

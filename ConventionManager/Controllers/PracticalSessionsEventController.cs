@@ -49,17 +49,17 @@ namespace ConventionManager.Controllers
         // GET: PracticalSessionsEvent/Create
         public IActionResult Create(int? conferenceId, int? roomId, string fromWhere)
         {
-            if (fromWhere == "conference")
+            if (fromWhere == "Conference")
             {
                 ViewData["ConferenceId"] = conferenceId;
                 ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name");
-                ViewData["From"] = "conference";
+                ViewData["From"] = "Conference";
             }
             else
             {
                 ViewData["ConferenceId"] = new SelectList(_context.Conferences, "Id", "Name");
                 ViewData["RoomId"] = roomId;
-                ViewData["From"] = "room";
+                ViewData["From"] = "Room";
             }
             return View();
         }
@@ -75,11 +75,15 @@ namespace ConventionManager.Controllers
             {
                 _context.Add(practicalSessionsEvent);
                 await _context.SaveChangesAsync();
-                if (fromWhere == "conference")
+                switch (fromWhere)
                 {
-                    return RedirectToAction("Details", "Conference", new { id = practicalSessionsEvent.ConferenceId });
+                    case "Conference":
+                        return RedirectToAction("Details", fromWhere, new { id = practicalSessionsEvent.ConferenceId });
+                    case "Room":
+                        return RedirectToAction("Details", fromWhere, new { id = practicalSessionsEvent.RoomId });
+                    default:
+                        return RedirectToAction("Details", "Conference", new { id = practicalSessionsEvent.ConferenceId });
                 }
-                return RedirectToAction("Details", "Room", new { id = practicalSessionsEvent.RoomId });
             }
             ViewData["ConferenceId"] = new SelectList(_context.Conferences, "Id", "Name", practicalSessionsEvent.ConferenceId);
             ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name", practicalSessionsEvent.RoomId);
@@ -135,11 +139,15 @@ namespace ConventionManager.Controllers
                         throw;
                     }
                 }
-                if (fromWhere == "Conference")
+                switch (fromWhere)
                 {
-                    return RedirectToAction("Details", fromWhere, new { id = practicalSessionsEvent.ConferenceId });
+                    case "Conference":
+                        return RedirectToAction("Details", fromWhere, new { id = practicalSessionsEvent.ConferenceId });
+                    case "Room":
+                        return RedirectToAction("Details", fromWhere, new { id = practicalSessionsEvent.RoomId });
+                    default:
+                        return RedirectToAction("Details", "Conference", new { id = practicalSessionsEvent.ConferenceId });
                 }
-                return RedirectToAction("Details", fromWhere, new { id = practicalSessionsEvent.RoomId });
             }
             ViewData["ConferenceId"] = new SelectList(_context.Conferences, "Id", "Name", practicalSessionsEvent.ConferenceId);
             ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name", practicalSessionsEvent.RoomId);
@@ -174,11 +182,15 @@ namespace ConventionManager.Controllers
             var practicalSessionsEvent = await _context.PracticalSessionsEvents.FindAsync(id);
             _context.PracticalSessionsEvents.Remove(practicalSessionsEvent);
             await _context.SaveChangesAsync();
-            if (fromWhere == "Conference")
+            switch (fromWhere)
             {
-                return RedirectToAction("Details", fromWhere, new { id = practicalSessionsEvent.ConferenceId });
+                case "Conference":
+                    return RedirectToAction("Details", fromWhere, new { id = practicalSessionsEvent.ConferenceId });
+                case "Room":
+                    return RedirectToAction("Details", fromWhere, new { id = practicalSessionsEvent.RoomId });
+                default:
+                    return RedirectToAction("Details", "Conference", new { id = practicalSessionsEvent.ConferenceId });
             }
-            return RedirectToAction("Details", fromWhere, new { id = practicalSessionsEvent.RoomId });
         }
 
         private bool PracticalSessionsEventExists(int id)

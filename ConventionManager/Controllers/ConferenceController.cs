@@ -82,7 +82,7 @@ namespace ConventionManager.Controllers
             return RedirectToAction("Create", controllerName, new
             {
                 conferenceId,
-                fromWhere = "conference"
+                fromWhere = "Conference"
             });
         }
 

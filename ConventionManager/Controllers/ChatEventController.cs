@@ -49,17 +49,17 @@ namespace ConventionManager.Controllers
         // GET: ChatEvent/Create
         public IActionResult Create(int? conferenceId, int? roomId, string fromWhere)
         {
-            if (fromWhere == "conference")
+            if (fromWhere == "Conference")
             {
                 ViewData["ConferenceId"] = conferenceId;
                 ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name");
-                ViewData["From"] = "conference";
+                ViewData["From"] = "Conference";
             }
             else
             {
                 ViewData["ConferenceId"] = new SelectList(_context.Conferences, "Id", "Name");
                 ViewData["RoomId"] = roomId;
-                ViewData["From"] = "room";
+                ViewData["From"] = "Room";
             }
             return View();
         }
@@ -75,11 +75,15 @@ namespace ConventionManager.Controllers
             {
                 _context.Add(chatEvent);
                 await _context.SaveChangesAsync();
-                if (fromWhere == "conference")
+                switch (fromWhere)
                 {
-                    return RedirectToAction("Details", "Conference", new { id = chatEvent.ConferenceId });
+                    case "Conference":
+                        return RedirectToAction("Details", fromWhere, new { id = chatEvent.ConferenceId });
+                    case "Room":
+                        return RedirectToAction("Details", fromWhere, new { id = chatEvent.RoomId });
+                    default:
+                        return RedirectToAction("Details", "Conference", new { id = chatEvent.ConferenceId });
                 }
-                return RedirectToAction("Details", "Room", new { id = chatEvent.RoomId });
             }
             ViewData["ConferenceId"] = new SelectList(_context.Conferences, "Id", "Name", chatEvent.ConferenceId);
             ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name", chatEvent.RoomId);
@@ -135,11 +139,15 @@ namespace ConventionManager.Controllers
                         throw;
                     }
                 }
-                if (fromWhere == "Conference")
+                switch (fromWhere)
                 {
-                    return RedirectToAction("Details", fromWhere, new { id = chatEvent.ConferenceId });
+                    case "Conference":
+                        return RedirectToAction("Details", fromWhere, new { id = chatEvent.ConferenceId });
+                    case "Room":
+                        return RedirectToAction("Details", fromWhere, new { id = chatEvent.RoomId });
+                    default:
+                        return RedirectToAction("Details", "Conference", new { id = chatEvent.ConferenceId });
                 }
-                return RedirectToAction("Details", fromWhere, new { id = chatEvent.RoomId });
             }
             ViewData["ConferenceId"] = new SelectList(_context.Conferences, "Id", "Name", chatEvent.ConferenceId);
             ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name", chatEvent.RoomId);
@@ -174,12 +182,15 @@ namespace ConventionManager.Controllers
             var chatEvent = await _context.ChatEvents.FindAsync(id);
             _context.ChatEvents.Remove(chatEvent);
             await _context.SaveChangesAsync();
-
-            if (fromWhere == "Conference")
+            switch (fromWhere)
             {
-                return RedirectToAction("Details", fromWhere, new { id = chatEvent.ConferenceId });
+                case "Conference":
+                    return RedirectToAction("Details", fromWhere, new { id = chatEvent.ConferenceId });
+                case "Room":
+                    return RedirectToAction("Details", fromWhere, new { id = chatEvent.RoomId });
+                default:
+                    return RedirectToAction("Details", "Conference", new { id = chatEvent.ConferenceId });
             }
-            return RedirectToAction("Details", fromWhere, new { id = chatEvent.RoomId });
         }
 
         private bool ChatEventExists(int id)

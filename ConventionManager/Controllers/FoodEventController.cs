@@ -49,17 +49,17 @@ namespace ConventionManager.Controllers
         // GET: FoodEvent/Create
         public IActionResult Create(int? conferenceId, int? roomId, string fromWhere)
         {
-            if (fromWhere == "conference")
+            if (fromWhere == "Conference")
             {
                 ViewData["ConferenceId"] = conferenceId;
                 ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name");
-                ViewData["From"] = "conference";
+                ViewData["From"] = "Conference";
             }
             else
             {
                 ViewData["ConferenceId"] = new SelectList(_context.Conferences, "Id", "Name");
                 ViewData["RoomId"] = roomId;
-                ViewData["From"] = "room";
+                ViewData["From"] = "Room";
             }
             return View();
         }
@@ -75,11 +75,15 @@ namespace ConventionManager.Controllers
             {
                 _context.Add(foodEvent);
                 await _context.SaveChangesAsync();
-                if (fromWhere == "conference")
+                switch (fromWhere)
                 {
-                    return RedirectToAction("Details", "Conference", new { id = foodEvent.ConferenceId });
+                    case "Conference":
+                        return RedirectToAction("Details", fromWhere, new { id = foodEvent.ConferenceId });
+                    case "Room":
+                        return RedirectToAction("Details", fromWhere, new { id = foodEvent.RoomId });
+                    default:
+                        return RedirectToAction("Details", "Conference", new { id = foodEvent.ConferenceId });
                 }
-                return RedirectToAction("Details", "Room", new { id = foodEvent.RoomId });
             }
             ViewData["ConferenceId"] = new SelectList(_context.Conferences, "Id", "Name", foodEvent.ConferenceId);
             ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name", foodEvent.RoomId);
@@ -135,11 +139,15 @@ namespace ConventionManager.Controllers
                         throw;
                     }
                 }
-                if (fromWhere == "Conference")
+                switch (fromWhere)
                 {
-                    return RedirectToAction("Details", fromWhere, new { id = foodEvent.ConferenceId });
+                    case "Conference":
+                        return RedirectToAction("Details", fromWhere, new { id = foodEvent.ConferenceId });
+                    case "Room":
+                        return RedirectToAction("Details", fromWhere, new { id = foodEvent.RoomId });
+                    default:
+                        return RedirectToAction("Details", "Conference", new { id = foodEvent.ConferenceId });
                 }
-                return RedirectToAction("Details", fromWhere, new { id = foodEvent.RoomId });
             }
             ViewData["ConferenceId"] = new SelectList(_context.Conferences, "Id", "Name", foodEvent.ConferenceId);
             ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name", foodEvent.RoomId);
@@ -174,11 +182,15 @@ namespace ConventionManager.Controllers
             var foodEvent = await _context.FoodEvents.FindAsync(id);
             _context.FoodEvents.Remove(foodEvent);
             await _context.SaveChangesAsync();
-            if (fromWhere == "Conference")
+            switch (fromWhere)
             {
-                return RedirectToAction("Details", fromWhere, new { id = foodEvent.ConferenceId });
+                case "Conference":
+                    return RedirectToAction("Details", fromWhere, new { id = foodEvent.ConferenceId });
+                case "Room":
+                    return RedirectToAction("Details", fromWhere, new { id = foodEvent.RoomId });
+                default:
+                    return RedirectToAction("Details", "Conference", new { id = foodEvent.ConferenceId });
             }
-            return RedirectToAction("Details", fromWhere, new { id = foodEvent.RoomId });
         }
 
         private bool FoodEventExists(int id)

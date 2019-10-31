@@ -63,7 +63,7 @@ namespace ConventionManager.Controllers
             return RedirectToAction("Create", controllerName, new
             {
                 roomId,
-                fromWhere = "room"
+                fromWhere = "Room"
             });
         }
 
