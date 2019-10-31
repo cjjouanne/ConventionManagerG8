@@ -49,17 +49,17 @@ namespace ConventionManager.Controllers
         // GET: FoodEvent/Create
         public IActionResult Create(int? conferenceId, int? roomId, string fromWhere)
         {
-            if (fromWhere == "conference")
+            if (fromWhere == "Conference")
             {
                 ViewData["ConferenceId"] = conferenceId;
                 ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name");
-                ViewData["From"] = "conference";
+                ViewData["From"] = "Conference";
             }
             else
             {
                 ViewData["ConferenceId"] = new SelectList(_context.Conferences, "Id", "Name");
                 ViewData["RoomId"] = roomId;
-                ViewData["From"] = "room";
+                ViewData["From"] = "Room";
             }
             return View();
         }
@@ -73,13 +73,32 @@ namespace ConventionManager.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(foodEvent);
-                await _context.SaveChangesAsync();
-                if (fromWhere == "conference")
+                // Checks if dates are out of range
+                var conference = await _context.Conferences.FirstAsync(n => n.Id == foodEvent.ConferenceId);
+                var room = await _context.Rooms.FirstAsync(n => n.Id == foodEvent.RoomId);
+                if (!foodEvent.CheckDateTime(conference))
                 {
-                    return RedirectToAction("Details", "Conference", new { id = foodEvent.ConferenceId });
+                    TempData["DateOutOfRange"] = foodEvent.OutOfRangeMessage;
                 }
-                return RedirectToAction("Details", "Room", new { id = foodEvent.RoomId });
+                else if (!foodEvent.CheckCollisionWithEvent(conference, room))
+                {
+                    TempData["EventCollision"] = foodEvent.CollisionWithEventMessage;
+                }
+                else
+                {
+                    _context.Add(foodEvent);
+                    await _context.SaveChangesAsync();
+                }
+                // Checks where the request came from to redirect correctly
+                switch (fromWhere)
+                {
+                    case "Conference":
+                        return RedirectToAction("Details", fromWhere, new { id = foodEvent.ConferenceId });
+                    case "Room":
+                        return RedirectToAction("Details", fromWhere, new { id = foodEvent.RoomId });
+                    default:
+                        return RedirectToAction("Details", "Conference", new { id = foodEvent.ConferenceId });
+                }
             }
             ViewData["ConferenceId"] = new SelectList(_context.Conferences, "Id", "Name", foodEvent.ConferenceId);
             ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name", foodEvent.RoomId);
@@ -121,8 +140,18 @@ namespace ConventionManager.Controllers
             {
                 try
                 {
-                    _context.Update(foodEvent);
-                    await _context.SaveChangesAsync();
+                    // Checks if dates are out of range
+                    var conference = await _context.Conferences.FirstAsync(n => n.Id == foodEvent.ConferenceId);
+                    var room = await _context.Rooms.FirstAsync(n => n.Id == foodEvent.RoomId);
+                    if (!foodEvent.CheckDateTime(conference))
+                    {
+                        TempData["DateOutOfRange"] = foodEvent.OutOfRangeMessage;
+                    }
+                    else
+                    {
+                        _context.Update(foodEvent);
+                        await _context.SaveChangesAsync();
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -135,11 +164,16 @@ namespace ConventionManager.Controllers
                         throw;
                     }
                 }
-                if (fromWhere == "Conference")
+                // Checks where the request came from to redirect correctly
+                switch (fromWhere)
                 {
-                    return RedirectToAction("Details", fromWhere, new { id = foodEvent.ConferenceId });
+                    case "Conference":
+                        return RedirectToAction("Details", fromWhere, new { id = foodEvent.ConferenceId });
+                    case "Room":
+                        return RedirectToAction("Details", fromWhere, new { id = foodEvent.RoomId });
+                    default:
+                        return RedirectToAction("Details", "Conference", new { id = foodEvent.ConferenceId });
                 }
-                return RedirectToAction("Details", fromWhere, new { id = foodEvent.RoomId });
             }
             ViewData["ConferenceId"] = new SelectList(_context.Conferences, "Id", "Name", foodEvent.ConferenceId);
             ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name", foodEvent.RoomId);
@@ -174,11 +208,16 @@ namespace ConventionManager.Controllers
             var foodEvent = await _context.FoodEvents.FindAsync(id);
             _context.FoodEvents.Remove(foodEvent);
             await _context.SaveChangesAsync();
-            if (fromWhere == "Conference")
+            // Checks where the request came from to redirect correctly
+            switch (fromWhere)
             {
-                return RedirectToAction("Details", fromWhere, new { id = foodEvent.ConferenceId });
+                case "Conference":
+                    return RedirectToAction("Details", fromWhere, new { id = foodEvent.ConferenceId });
+                case "Room":
+                    return RedirectToAction("Details", fromWhere, new { id = foodEvent.RoomId });
+                default:
+                    return RedirectToAction("Details", "Conference", new { id = foodEvent.ConferenceId });
             }
-            return RedirectToAction("Details", fromWhere, new { id = foodEvent.RoomId });
         }
 
         private bool FoodEventExists(int id)

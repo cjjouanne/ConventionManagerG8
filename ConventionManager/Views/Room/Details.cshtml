@@ -6,6 +6,15 @@
 
 <h1>Details</h1>
 
+@if (TempData["DateOutOfRange"] != null)
+{
+ <p class="alert alert-warning alert-dismissible" id="errorMessage">@TempData["DateOutOfRange"]</p>
+}
+@if (TempData["EventCollision"] != null)
+{
+ <p class="alert alert-warning alert-dismissible" id="errorMessage">@TempData["EventCollision"]</p>
+}
+
 <div>
     <h4>Room</h4>
     <hr />
@@ -58,26 +67,26 @@
             </tr>
         </thead>
         <tbody>
-    @foreach (var item in Model.Room.Events) {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StartDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EndDate)
-                </td>
-                <td width="30%">
-                    <a asp-controller=@item.GetEventType() asp-action="Edit" asp-route-id="@item.Id" asp-route-fromWhere="Room" class="btn btn-success">Edit</a>
-                    <a asp-controller=@item.GetEventType() asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Details</a>
-                    <a asp-controller=@item.GetEventType() asp-action="Delete" asp-route-id="@item.Id" asp-route-fromWhere="Room" class="btn btn-danger">Delete</a>
-                </td>
-            </tr>
-    }
-        </tbody>
-    </table>
+        @foreach (var item in Model.Room.Events) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndDate)
+                    </td>
+                    <td width="30%">
+                        <a asp-controller=@item.GetEventType() asp-action="Edit" asp-route-id="@item.Id" asp-route-fromWhere="Room" class="btn btn-success">Edit</a>
+                        <a asp-controller=@item.GetEventType() asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Details</a>
+                        <a asp-controller=@item.GetEventType() asp-action="Delete" asp-route-id="@item.Id" asp-route-fromWhere="Room" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+        }
+            </tbody>
+        </table>
     }
     else
     {
