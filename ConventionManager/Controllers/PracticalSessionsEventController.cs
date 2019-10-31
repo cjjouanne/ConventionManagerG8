@@ -73,8 +73,23 @@ namespace ConventionManager.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(practicalSessionsEvent);
-                await _context.SaveChangesAsync();
+                // Checks if dates are out of range
+                var conference = await _context.Conferences.FirstAsync(n => n.Id == practicalSessionsEvent.ConferenceId);
+                var room = await _context.Rooms.FirstAsync(n => n.Id == practicalSessionsEvent.RoomId);
+                if (!practicalSessionsEvent.CheckDateTime(conference))
+                {
+                    TempData["DateOutOfRange"] = practicalSessionsEvent.OutOfRangeMessage;
+                }
+                else if (!practicalSessionsEvent.CheckCollisionWithEvent(conference, room))
+                {
+                    TempData["EventCollision"] = practicalSessionsEvent.CollisionWithEventMessage;
+                }
+                else
+                {
+                    _context.Add(practicalSessionsEvent);
+                    await _context.SaveChangesAsync();
+                }
+                // Checks where the request came from to redirect correctly
                 switch (fromWhere)
                 {
                     case "Conference":
@@ -125,8 +140,18 @@ namespace ConventionManager.Controllers
             {
                 try
                 {
-                    _context.Update(practicalSessionsEvent);
-                    await _context.SaveChangesAsync();
+                    // Checks if dates are out of range
+                    var conference = await _context.Conferences.FirstAsync(n => n.Id == practicalSessionsEvent.ConferenceId);
+                    var room = await _context.Rooms.FirstAsync(n => n.Id == practicalSessionsEvent.RoomId);
+                    if (!practicalSessionsEvent.CheckDateTime(conference))
+                    {
+                        TempData["DateOutOfRange"] = practicalSessionsEvent.OutOfRangeMessage;
+                    }
+                    else
+                    {
+                        _context.Update(practicalSessionsEvent);
+                        await _context.SaveChangesAsync();
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -139,6 +164,7 @@ namespace ConventionManager.Controllers
                         throw;
                     }
                 }
+                // Checks where the request came from to redirect correctly
                 switch (fromWhere)
                 {
                     case "Conference":
@@ -182,6 +208,7 @@ namespace ConventionManager.Controllers
             var practicalSessionsEvent = await _context.PracticalSessionsEvents.FindAsync(id);
             _context.PracticalSessionsEvents.Remove(practicalSessionsEvent);
             await _context.SaveChangesAsync();
+            // Checks where the request came from to redirect correctly
             switch (fromWhere)
             {
                 case "Conference":

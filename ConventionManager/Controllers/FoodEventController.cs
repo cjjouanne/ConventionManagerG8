@@ -73,8 +73,23 @@ namespace ConventionManager.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(foodEvent);
-                await _context.SaveChangesAsync();
+                // Checks if dates are out of range
+                var conference = await _context.Conferences.FirstAsync(n => n.Id == foodEvent.ConferenceId);
+                var room = await _context.Rooms.FirstAsync(n => n.Id == foodEvent.RoomId);
+                if (!foodEvent.CheckDateTime(conference))
+                {
+                    TempData["DateOutOfRange"] = foodEvent.OutOfRangeMessage;
+                }
+                else if (!foodEvent.CheckCollisionWithEvent(conference, room))
+                {
+                    TempData["EventCollision"] = foodEvent.CollisionWithEventMessage;
+                }
+                else
+                {
+                    _context.Add(foodEvent);
+                    await _context.SaveChangesAsync();
+                }
+                // Checks where the request came from to redirect correctly
                 switch (fromWhere)
                 {
                     case "Conference":
@@ -125,8 +140,18 @@ namespace ConventionManager.Controllers
             {
                 try
                 {
-                    _context.Update(foodEvent);
-                    await _context.SaveChangesAsync();
+                    // Checks if dates are out of range
+                    var conference = await _context.Conferences.FirstAsync(n => n.Id == foodEvent.ConferenceId);
+                    var room = await _context.Rooms.FirstAsync(n => n.Id == foodEvent.RoomId);
+                    if (!foodEvent.CheckDateTime(conference))
+                    {
+                        TempData["DateOutOfRange"] = foodEvent.OutOfRangeMessage;
+                    }
+                    else
+                    {
+                        _context.Update(foodEvent);
+                        await _context.SaveChangesAsync();
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -139,6 +164,7 @@ namespace ConventionManager.Controllers
                         throw;
                     }
                 }
+                // Checks where the request came from to redirect correctly
                 switch (fromWhere)
                 {
                     case "Conference":
@@ -182,6 +208,7 @@ namespace ConventionManager.Controllers
             var foodEvent = await _context.FoodEvents.FindAsync(id);
             _context.FoodEvents.Remove(foodEvent);
             await _context.SaveChangesAsync();
+            // Checks where the request came from to redirect correctly
             switch (fromWhere)
             {
                 case "Conference":

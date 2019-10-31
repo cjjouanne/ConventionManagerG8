@@ -6,6 +6,15 @@
 
 <h1>Details</h1>
 
+@if (TempData["DateOutOfRange"] != null)
+{
+ <p class="alert alert-warning alert-dismissible" id="errorMessage">@TempData["DateOutOfRange"]</p>
+}
+@if (TempData["EventCollision"] != null)
+{
+ <p class="alert alert-warning alert-dismissible" id="errorMessage">@TempData["EventCollision"]</p>
+}
+
 <div>
     <h4>Room</h4>
     <hr />
