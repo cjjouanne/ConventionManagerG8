@@ -75,12 +75,12 @@ namespace ConventionManager.Controllers
             {
                 // Checks if dates are out of range
                 var conference = await _context.Conferences.FirstAsync(n => n.Id == practicalSessionsEvent.ConferenceId);
-                var room = await _context.Rooms.FirstAsync(n => n.Id == practicalSessionsEvent.RoomId);
+                var events = _context.Events.Where(e => e.Id != practicalSessionsEvent.Id).ToArray();
                 if (!practicalSessionsEvent.CheckDateTime(conference))
                 {
                     TempData["DateOutOfRange"] = practicalSessionsEvent.OutOfRangeMessage;
                 }
-                else if (!practicalSessionsEvent.CheckCollisionWithEvent(conference, room))
+                else if (!practicalSessionsEvent.CheckCollisionWithEvent(events))
                 {
                     TempData["EventCollision"] = practicalSessionsEvent.CollisionWithEventMessage;
                 }
@@ -142,10 +142,14 @@ namespace ConventionManager.Controllers
                 {
                     // Checks if dates are out of range
                     var conference = await _context.Conferences.FirstAsync(n => n.Id == practicalSessionsEvent.ConferenceId);
-                    var room = await _context.Rooms.FirstAsync(n => n.Id == practicalSessionsEvent.RoomId);
+                    var events = _context.Events.Where(e => e.Id != practicalSessionsEvent.Id).ToArray();
                     if (!practicalSessionsEvent.CheckDateTime(conference))
                     {
                         TempData["DateOutOfRange"] = practicalSessionsEvent.OutOfRangeMessage;
+                    }
+                    else if (!practicalSessionsEvent.CheckCollisionWithEvent(events))
+                    {
+                        TempData["EventCollision"] = practicalSessionsEvent.CollisionWithEventMessage;
                     }
                     else
                     {

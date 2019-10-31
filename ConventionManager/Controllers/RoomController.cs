@@ -141,7 +141,7 @@ namespace ConventionManager.Controllers
                         throw;
                     }
                 }
-                // Usefull for searching Entities in _context
+                // Useful for searching Entities in _context
                 // var eventCenter = _context.EventCenters.Where(e => e.Id == room.EventCenter.Id).Single();
                 // var eventCenter = _context.EventCenters.Find(room.EventCenterId);
                 return RedirectToAction("Details", "EventCenter", new { id = eventCenterId });

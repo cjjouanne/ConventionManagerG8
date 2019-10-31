@@ -74,15 +74,13 @@ namespace ConventionManager.Controllers
             if (ModelState.IsValid)
             {
                 // Checks if dates are out of range
-                var conference = await _context.Conferences.Include(c => c.Events)
-                    .FirstAsync(n => n.Id == chatEvent.ConferenceId);
-                var room = await _context.Rooms.Include(c => c.Events)
-                    .FirstAsync(n => n.Id == chatEvent.RoomId);
+                var conference = await _context.Conferences.FirstAsync(n => n.Id == chatEvent.ConferenceId);
+                var events = _context.Events.Where(e => e.Id != chatEvent.Id).ToArray();
                 if (!chatEvent.CheckDateTime(conference))
                 {
                     TempData["DateOutOfRange"] = chatEvent.OutOfRangeMessage;
                 }
-                else if (!chatEvent.CheckCollisionWithEvent(conference, room))
+                else if (!chatEvent.CheckCollisionWithEvent(events))
                 {
                     TempData["EventCollision"] = chatEvent.CollisionWithEventMessage;
                 }
@@ -145,10 +143,14 @@ namespace ConventionManager.Controllers
                 {
                     // Checks if dates are out of range
                     var conference = await _context.Conferences.FirstAsync(n => n.Id == chatEvent.ConferenceId);
-                    var room = await _context.Rooms.FirstAsync(n => n.Id == chatEvent.RoomId);
+                    var events = _context.Events.Where(e => e.Id != chatEvent.Id).ToArray();
                     if (!chatEvent.CheckDateTime(conference))
                     {
                         TempData["DateOutOfRange"] = chatEvent.OutOfRangeMessage;
+                    }
+                    else if (!chatEvent.CheckCollisionWithEvent(events))
+                    {
+                        TempData["EventCollision"] = chatEvent.CollisionWithEventMessage;
                     }
                     else
                     {
