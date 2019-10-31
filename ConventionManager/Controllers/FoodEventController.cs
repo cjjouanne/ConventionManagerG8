@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ConventionManager.Data;
 using ConventionManager.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ConventionManager.Controllers
 {
+    [Authorize(Roles = "Organizer")]
     public class FoodEventController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -20,6 +22,7 @@ namespace ConventionManager.Controllers
         }
 
         // GET: FoodEvent
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.FoodEvents.Include(f => f.Conference).Include(f => f.Room);
@@ -27,6 +30,7 @@ namespace ConventionManager.Controllers
         }
 
         // GET: FoodEvent/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -75,12 +79,12 @@ namespace ConventionManager.Controllers
             {
                 // Checks if dates are out of range
                 var conference = await _context.Conferences.FirstAsync(n => n.Id == foodEvent.ConferenceId);
-                var room = await _context.Rooms.FirstAsync(n => n.Id == foodEvent.RoomId);
+                var events = _context.Events.Where(e => e.Id != foodEvent.Id).ToArray();
                 if (!foodEvent.CheckDateTime(conference))
                 {
                     TempData["DateOutOfRange"] = foodEvent.OutOfRangeMessage;
                 }
-                else if (!foodEvent.CheckCollisionWithEvent(conference, room))
+                else if (!foodEvent.CheckCollisionWithEvent(events))
                 {
                     TempData["EventCollision"] = foodEvent.CollisionWithEventMessage;
                 }
@@ -142,10 +146,14 @@ namespace ConventionManager.Controllers
                 {
                     // Checks if dates are out of range
                     var conference = await _context.Conferences.FirstAsync(n => n.Id == foodEvent.ConferenceId);
-                    var room = await _context.Rooms.FirstAsync(n => n.Id == foodEvent.RoomId);
+                    var events = _context.Events.Where(e => e.Id != foodEvent.Id).ToArray();
                     if (!foodEvent.CheckDateTime(conference))
                     {
                         TempData["DateOutOfRange"] = foodEvent.OutOfRangeMessage;
+                    }
+                    else if (!foodEvent.CheckCollisionWithEvent(events))
+                    {
+                        TempData["EventCollision"] = foodEvent.CollisionWithEventMessage;
                     }
                     else
                     {

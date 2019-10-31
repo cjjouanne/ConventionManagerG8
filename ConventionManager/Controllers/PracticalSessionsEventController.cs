@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ConventionManager.Data;
 using ConventionManager.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ConventionManager.Controllers
 {
+    [Authorize(Roles = "Organizer")]
     public class PracticalSessionsEventController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -20,6 +22,7 @@ namespace ConventionManager.Controllers
         }
 
         // GET: PracticalSessionsEvent
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.PracticalSessionsEvents.Include(p => p.Conference).Include(p => p.Room);
@@ -27,6 +30,7 @@ namespace ConventionManager.Controllers
         }
 
         // GET: PracticalSessionsEvent/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -75,12 +79,12 @@ namespace ConventionManager.Controllers
             {
                 // Checks if dates are out of range
                 var conference = await _context.Conferences.FirstAsync(n => n.Id == practicalSessionsEvent.ConferenceId);
-                var room = await _context.Rooms.FirstAsync(n => n.Id == practicalSessionsEvent.RoomId);
+                var events = _context.Events.Where(e => e.Id != practicalSessionsEvent.Id).ToArray();
                 if (!practicalSessionsEvent.CheckDateTime(conference))
                 {
                     TempData["DateOutOfRange"] = practicalSessionsEvent.OutOfRangeMessage;
                 }
-                else if (!practicalSessionsEvent.CheckCollisionWithEvent(conference, room))
+                else if (!practicalSessionsEvent.CheckCollisionWithEvent(events))
                 {
                     TempData["EventCollision"] = practicalSessionsEvent.CollisionWithEventMessage;
                 }
@@ -142,10 +146,14 @@ namespace ConventionManager.Controllers
                 {
                     // Checks if dates are out of range
                     var conference = await _context.Conferences.FirstAsync(n => n.Id == practicalSessionsEvent.ConferenceId);
-                    var room = await _context.Rooms.FirstAsync(n => n.Id == practicalSessionsEvent.RoomId);
+                    var events = _context.Events.Where(e => e.Id != practicalSessionsEvent.Id).ToArray();
                     if (!practicalSessionsEvent.CheckDateTime(conference))
                     {
                         TempData["DateOutOfRange"] = practicalSessionsEvent.OutOfRangeMessage;
+                    }
+                    else if (!practicalSessionsEvent.CheckCollisionWithEvent(events))
+                    {
+                        TempData["EventCollision"] = practicalSessionsEvent.CollisionWithEventMessage;
                     }
                     else
                     {
