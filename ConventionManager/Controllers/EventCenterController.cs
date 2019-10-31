@@ -25,7 +25,7 @@ namespace ConventionManager.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.EventCenters.ToListAsync());
+            return View(await _context.EventCenters.OrderBy(c => c.Id).ToListAsync());
         }
 
         // GET: EventCenter/Details/5
@@ -59,8 +59,19 @@ namespace ConventionManager.Controllers
                 .Include(c => c.Conferences)
                 .FirstAsync(n => n.Id == id);
 
-            eventCenter.Conferences.Add(conference);
-            await _context.SaveChangesAsync();
+            if (!conference.CheckCollisionWithConference(eventCenter))
+            {
+                TempData["ConferenceCollision"] = conference.ConferenceCollisionMessage;
+            }
+            else if (!conference.CheckIfOutOfDate())
+            {
+                TempData["OutOfDate"] = conference.OutOfDateMessage;
+            }
+            else
+            {
+                eventCenter.Conferences.Add(conference);
+                await _context.SaveChangesAsync();
+            }
             return RedirectToAction("Details", new { id });
         }
 

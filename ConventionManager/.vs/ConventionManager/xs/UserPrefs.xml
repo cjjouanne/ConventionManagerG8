@@ -1,23 +1,27 @@
 ﻿<Properties StartupConfiguration="{89E480FD-47D7-48E3-8F15-D3C99768BC94}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Models/Conference.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/RoomController.cs">
     <Files>
-      <File FileName="Controllers/EventCenterController.cs" Line="1" Column="1" />
-      <File FileName="Controllers/ConferenceController.cs" Line="113" Column="10" />
-      <File FileName="Controllers/RoomController.cs" Line="144" Column="26" />
-      <File FileName="Controllers/ChatEventController.cs" Line="87" Column="21" />
-      <File FileName="Models/Conference.cs" Line="1" Column="1" />
+      <File FileName="Controllers/EventCenterController.cs" Line="14" Column="37" />
+      <File FileName="Controllers/ConferenceController.cs" Line="32" Column="24" />
+      <File FileName="Controllers/EventController.cs" Line="32" Column="24" />
+      <File FileName="Controllers/RoomController.cs" Line="14" Column="37" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="ConventionManager" expanded="True">
             <Node name="ConventionManager" expanded="True">
-              <Node name="Controllers" expanded="True" />
-              <Node name="Models" expanded="True">
-                <Node name="Conference.cs" selected="True" />
+              <Node name="Controllers" expanded="True">
+                <Node name="RoomController.cs" selected="True" />
               </Node>
+              <Node name="Models" expanded="True" />
               <Node name="Views" expanded="True">
+                <Node name="ChatEvent" expanded="True" />
+                <Node name="Conference" expanded="True" />
+                <Node name="Event" expanded="True" />
+                <Node name="EventCenter" expanded="True" />
                 <Node name="Room" expanded="True" />
+                <Node name="Shared" expanded="True" />
               </Node>
             </Node>
           </Node>
