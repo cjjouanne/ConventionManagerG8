@@ -49,17 +49,17 @@ namespace ConventionManager.Controllers
         // GET: ChatEvent/Create
         public IActionResult Create(int? conferenceId, int? roomId, string fromWhere)
         {
-            if (fromWhere == "conference")
+            if (fromWhere == "Conference")
             {
                 ViewData["ConferenceId"] = conferenceId;
                 ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name");
-                ViewData["From"] = "conference";
+                ViewData["From"] = "Conference";
             }
             else
             {
                 ViewData["ConferenceId"] = new SelectList(_context.Conferences, "Id", "Name");
                 ViewData["RoomId"] = roomId;
-                ViewData["From"] = "room";
+                ViewData["From"] = "Room";
             }
             return View();
         }
@@ -73,13 +73,35 @@ namespace ConventionManager.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(chatEvent);
-                await _context.SaveChangesAsync();
-                if (fromWhere == "conference")
+                // Checks if dates are out of range
+                var conference = await _context.Conferences.Include(c => c.Events)
+                    .FirstAsync(n => n.Id == chatEvent.ConferenceId);
+                var room = await _context.Rooms.Include(c => c.Events)
+                    .FirstAsync(n => n.Id == chatEvent.RoomId);
+                if (!chatEvent.CheckDateTime(conference))
                 {
-                    return RedirectToAction("Details", "Conference", new { id = chatEvent.ConferenceId });
+                    TempData["DateOutOfRange"] = chatEvent.OutOfRangeMessage;
                 }
-                return RedirectToAction("Details", "Room", new { id = chatEvent.RoomId });
+                else if (!chatEvent.CheckCollisionWithEvent(conference, room))
+                {
+                    TempData["EventCollision"] = chatEvent.CollisionWithEventMessage;
+                }
+                else
+                {
+                    _context.Add(chatEvent);
+                    await _context.SaveChangesAsync();
+                }
+
+                // Checks where the request came from to redirect correctly
+                switch (fromWhere)
+                {
+                    case "Conference":
+                        return RedirectToAction("Details", fromWhere, new { id = chatEvent.ConferenceId });
+                    case "Room":
+                        return RedirectToAction("Details", fromWhere, new { id = chatEvent.RoomId });
+                    default:
+                        return RedirectToAction("Details", "Conference", new { id = chatEvent.ConferenceId });
+                }
             }
             ViewData["ConferenceId"] = new SelectList(_context.Conferences, "Id", "Name", chatEvent.ConferenceId);
             ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name", chatEvent.RoomId);
@@ -121,8 +143,18 @@ namespace ConventionManager.Controllers
             {
                 try
                 {
-                    _context.Update(chatEvent);
-                    await _context.SaveChangesAsync();
+                    // Checks if dates are out of range
+                    var conference = await _context.Conferences.FirstAsync(n => n.Id == chatEvent.ConferenceId);
+                    var room = await _context.Rooms.FirstAsync(n => n.Id == chatEvent.RoomId);
+                    if (!chatEvent.CheckDateTime(conference))
+                    {
+                        TempData["DateOutOfRange"] = chatEvent.OutOfRangeMessage;
+                    }
+                    else
+                    {
+                        _context.Update(chatEvent);
+                        await _context.SaveChangesAsync();
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -135,11 +167,16 @@ namespace ConventionManager.Controllers
                         throw;
                     }
                 }
-                if (fromWhere == "Conference")
+                // Checks where the request came from to redirect correctly
+                switch (fromWhere)
                 {
-                    return RedirectToAction("Details", fromWhere, new { id = chatEvent.ConferenceId });
+                    case "Conference":
+                        return RedirectToAction("Details", fromWhere, new { id = chatEvent.ConferenceId });
+                    case "Room":
+                        return RedirectToAction("Details", fromWhere, new { id = chatEvent.RoomId });
+                    default:
+                        return RedirectToAction("Details", "Conference", new { id = chatEvent.ConferenceId });
                 }
-                return RedirectToAction("Details", fromWhere, new { id = chatEvent.RoomId });
             }
             ViewData["ConferenceId"] = new SelectList(_context.Conferences, "Id", "Name", chatEvent.ConferenceId);
             ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name", chatEvent.RoomId);
@@ -174,12 +211,16 @@ namespace ConventionManager.Controllers
             var chatEvent = await _context.ChatEvents.FindAsync(id);
             _context.ChatEvents.Remove(chatEvent);
             await _context.SaveChangesAsync();
-
-            if (fromWhere == "Conference")
+            // Checks where the request came from to redirect correctly
+            switch (fromWhere)
             {
-                return RedirectToAction("Details", fromWhere, new { id = chatEvent.ConferenceId });
+                case "Conference":
+                    return RedirectToAction("Details", fromWhere, new { id = chatEvent.ConferenceId });
+                case "Room":
+                    return RedirectToAction("Details", fromWhere, new { id = chatEvent.RoomId });
+                default:
+                    return RedirectToAction("Details", "Conference", new { id = chatEvent.ConferenceId });
             }
-            return RedirectToAction("Details", fromWhere, new { id = chatEvent.RoomId });
         }
 
         private bool ChatEventExists(int id)

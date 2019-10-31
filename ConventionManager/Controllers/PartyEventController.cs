@@ -49,17 +49,17 @@ namespace ConventionManager.Controllers
         // GET: PartyEvent/Create
         public IActionResult Create(int? conferenceId, int? roomId, string fromWhere)
         {
-            if (fromWhere == "conference")
+            if (fromWhere == "Conference")
             {
                 ViewData["ConferenceId"] = conferenceId;
                 ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name");
-                ViewData["From"] = "conference";
+                ViewData["From"] = "Conference";
             }
             else
             {
                 ViewData["ConferenceId"] = new SelectList(_context.Conferences, "Id", "Name");
                 ViewData["RoomId"] = roomId;
-                ViewData["From"] = "room";
+                ViewData["From"] = "Room";
             }
             return View();
         }
@@ -73,13 +73,32 @@ namespace ConventionManager.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(partyEvent);
-                await _context.SaveChangesAsync();
-                if (fromWhere == "conference")
+                // Checks if dates are out of range
+                var conference = await _context.Conferences.FirstAsync(n => n.Id == partyEvent.ConferenceId);
+                var room = await _context.Rooms.FirstAsync(n => n.Id == partyEvent.RoomId);
+                if (!partyEvent.CheckDateTime(conference))
                 {
-                    return RedirectToAction("Details", "Conference", new { id = partyEvent.ConferenceId });
+                    TempData["DateOutOfRange"] = partyEvent.OutOfRangeMessage;
                 }
-                return RedirectToAction("Details", "Room", new { id = partyEvent.RoomId });
+                else if (!partyEvent.CheckCollisionWithEvent(conference, room))
+                {
+                    TempData["EventCollision"] = partyEvent.CollisionWithEventMessage;
+                }
+                else
+                {
+                    _context.Add(partyEvent);
+                    await _context.SaveChangesAsync();
+                }
+                // Checks where the request came from to redirect correctly
+                switch (fromWhere)
+                {
+                    case "Conference":
+                        return RedirectToAction("Details", fromWhere, new { id = partyEvent.ConferenceId });
+                    case "Room":
+                        return RedirectToAction("Details", fromWhere, new { id = partyEvent.RoomId });
+                    default:
+                        return RedirectToAction("Details", "Conference", new { id = partyEvent.ConferenceId });
+                }
             }
             ViewData["ConferenceId"] = new SelectList(_context.Conferences, "Id", "Name", partyEvent.ConferenceId);
             ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name", partyEvent.RoomId);
@@ -121,8 +140,18 @@ namespace ConventionManager.Controllers
             {
                 try
                 {
-                    _context.Update(partyEvent);
-                    await _context.SaveChangesAsync();
+                    // Checks if dates are out of range
+                    var conference = await _context.Conferences.FirstAsync(n => n.Id == partyEvent.ConferenceId);
+                    var room = await _context.Rooms.FirstAsync(n => n.Id == partyEvent.RoomId);
+                    if (!partyEvent.CheckDateTime(conference))
+                    {
+                        TempData["DateOutOfRange"] = partyEvent.OutOfRangeMessage;
+                    }
+                    else
+                    {
+                        _context.Update(partyEvent);
+                        await _context.SaveChangesAsync();
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -135,11 +164,16 @@ namespace ConventionManager.Controllers
                         throw;
                     }
                 }
-                if (fromWhere == "Conference")
+                // Checks where the request came from to redirect correctly
+                switch (fromWhere)
                 {
-                    return RedirectToAction("Details", fromWhere, new { id = partyEvent.ConferenceId });
+                    case "Conference":
+                        return RedirectToAction("Details", fromWhere, new { id = partyEvent.ConferenceId });
+                    case "Room":
+                        return RedirectToAction("Details", fromWhere, new { id = partyEvent.RoomId });
+                    default:
+                        return RedirectToAction("Details", "Conference", new { id = partyEvent.ConferenceId });
                 }
-                return RedirectToAction("Details", fromWhere, new { id = partyEvent.RoomId });
             }
             ViewData["ConferenceId"] = new SelectList(_context.Conferences, "Id", "Name", partyEvent.ConferenceId);
             ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name", partyEvent.RoomId);
@@ -174,11 +208,16 @@ namespace ConventionManager.Controllers
             var partyEvent = await _context.PartyEvents.FindAsync(id);
             _context.PartyEvents.Remove(partyEvent);
             await _context.SaveChangesAsync();
-            if (fromWhere == "Conference")
+            // Checks where the request came from to redirect correctly
+            switch (fromWhere)
             {
-                return RedirectToAction("Details", fromWhere, new { id = partyEvent.ConferenceId });
+                case "Conference":
+                    return RedirectToAction("Details", fromWhere, new { id = partyEvent.ConferenceId });
+                case "Room":
+                    return RedirectToAction("Details", fromWhere, new { id = partyEvent.RoomId });
+                default:
+                    return RedirectToAction("Details", "Conference", new { id = partyEvent.ConferenceId });
             }
-            return RedirectToAction("Details", fromWhere, new { id = partyEvent.RoomId });
         }
 
         private bool PartyEventExists(int id)
