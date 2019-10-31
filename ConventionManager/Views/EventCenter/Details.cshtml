@@ -6,7 +6,17 @@
 
 <h1>@Html.DisplayFor(model => model.EventCenter.Name)</h1>
 
+@if (TempData["ConferenceCollision"] != null)
+{
+ <p class="alert alert-warning alert-dismissible" id="errorMessage">@TempData["ConferenceCollision"]</p>
+}
+@if (TempData["OutOfDate"] != null)
+{
+ <p class="alert alert-warning alert-dismissible" id="errorMessage">@TempData["OutOfDate"]</p>
+}
+
 <div>
+    <h4>Event Center</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">

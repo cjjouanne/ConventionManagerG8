@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ConventionManager.Data;
 using ConventionManager.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ConventionManager.Controllers
 {
+    [Authorize(Roles = "Organizer")]
     public class ChatEventController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -20,6 +22,7 @@ namespace ConventionManager.Controllers
         }
 
         // GET: ChatEvent
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.ChatEvents.Include(c => c.Conference).Include(c => c.Room);
@@ -27,6 +30,7 @@ namespace ConventionManager.Controllers
         }
 
         // GET: ChatEvent/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -74,15 +78,13 @@ namespace ConventionManager.Controllers
             if (ModelState.IsValid)
             {
                 // Checks if dates are out of range
-                var conference = await _context.Conferences.Include(c => c.Events)
-                    .FirstAsync(n => n.Id == chatEvent.ConferenceId);
-                var room = await _context.Rooms.Include(c => c.Events)
-                    .FirstAsync(n => n.Id == chatEvent.RoomId);
+                var conference = await _context.Conferences.FirstAsync(n => n.Id == chatEvent.ConferenceId);
+                var events = _context.Events.Where(e => e.Id != chatEvent.Id).ToArray();
                 if (!chatEvent.CheckDateTime(conference))
                 {
                     TempData["DateOutOfRange"] = chatEvent.OutOfRangeMessage;
                 }
-                else if (!chatEvent.CheckCollisionWithEvent(conference, room))
+                else if (!chatEvent.CheckCollisionWithEvent(events))
                 {
                     TempData["EventCollision"] = chatEvent.CollisionWithEventMessage;
                 }
@@ -145,10 +147,14 @@ namespace ConventionManager.Controllers
                 {
                     // Checks if dates are out of range
                     var conference = await _context.Conferences.FirstAsync(n => n.Id == chatEvent.ConferenceId);
-                    var room = await _context.Rooms.FirstAsync(n => n.Id == chatEvent.RoomId);
+                    var events = _context.Events.Where(e => e.Id != chatEvent.Id).ToArray();
                     if (!chatEvent.CheckDateTime(conference))
                     {
                         TempData["DateOutOfRange"] = chatEvent.OutOfRangeMessage;
+                    }
+                    else if (!chatEvent.CheckCollisionWithEvent(events))
+                    {
+                        TempData["EventCollision"] = chatEvent.CollisionWithEventMessage;
                     }
                     else
                     {

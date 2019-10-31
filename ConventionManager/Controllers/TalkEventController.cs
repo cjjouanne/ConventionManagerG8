@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ConventionManager.Data;
 using ConventionManager.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ConventionManager.Controllers
 {
+    [Authorize(Roles = "Organizer")]
     public class TalkEventController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -20,6 +22,7 @@ namespace ConventionManager.Controllers
         }
 
         // GET: TalkEvent
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.TalkEvents.Include(t => t.Conference).Include(t => t.Room);
@@ -27,6 +30,7 @@ namespace ConventionManager.Controllers
         }
 
         // GET: TalkEvent/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -75,12 +79,12 @@ namespace ConventionManager.Controllers
             {
                 // Checks if dates are out of range
                 var conference = await _context.Conferences.FirstAsync(n => n.Id == talkEvent.ConferenceId);
-                var room = await _context.Rooms.FirstAsync(n => n.Id == talkEvent.RoomId);
+                var events = _context.Events.Where(e => e.Id != talkEvent.Id).ToArray();
                 if (!talkEvent.CheckDateTime(conference))
                 {
                     TempData["DateOutOfRange"] = talkEvent.OutOfRangeMessage;
                 }
-                else if (!talkEvent.CheckCollisionWithEvent(conference, room))
+                else if (!talkEvent.CheckCollisionWithEvent(events))
                 {
                     TempData["EventCollision"] = talkEvent.CollisionWithEventMessage;
                 }
@@ -142,10 +146,14 @@ namespace ConventionManager.Controllers
                 {
                     // Checks if dates are out of range
                     var conference = await _context.Conferences.FirstAsync(n => n.Id == talkEvent.ConferenceId);
-                    var room = await _context.Rooms.FirstAsync(n => n.Id == talkEvent.RoomId);
+                    var events = _context.Events.Where(e => e.Id != talkEvent.Id).ToArray();
                     if (!talkEvent.CheckDateTime(conference))
                     {
                         TempData["DateOutOfRange"] = talkEvent.OutOfRangeMessage;
+                    }
+                    else if (!talkEvent.CheckCollisionWithEvent(events))
+                    {
+                        TempData["EventCollision"] = talkEvent.CollisionWithEventMessage;
                     }
                     else
                     {

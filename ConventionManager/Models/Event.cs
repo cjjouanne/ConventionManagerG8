@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -38,6 +39,7 @@ namespace ConventionManager.Models
             "Event collides with another Event in the Conference or in a Room";
 
 
+        // Gets the name of the event type with GetType() method
         public string GetEventType()
         {
             return this.GetType().ToString().Replace("ConventionManager.Models.", "");
@@ -67,9 +69,9 @@ namespace ConventionManager.Models
         }
 
 
-        public bool CheckCollisionWithEvent(Conference conference, Room room)
+        public bool CheckCollisionWithEvent(IList events)
         {
-            foreach (Event @event in conference.Events)
+            foreach (Event @event in events)
             {
                 int startInEventA = DateTime.Compare(this.StartDate, @event.StartDate);
                 int startInEventB = DateTime.Compare(this.StartDate, @event.EndDate);
@@ -77,22 +79,12 @@ namespace ConventionManager.Models
                 int endInEventA = DateTime.Compare(this.EndDate, @event.StartDate);
                 int endInEventB = DateTime.Compare(this.EndDate, @event.EndDate);
 
-                if ((startInEventA >= 0 && startInEventB <= 0) || (endInEventA >= 0 && endInEventB <= 0))
+                if (this.ConferenceId == @event.ConferenceId || this.RoomId == @event.RoomId)
                 {
-                    return false;
-                }
-            }
-            foreach (Event @event in room.Events)
-            {
-                int startInEventA = DateTime.Compare(this.StartDate, @event.StartDate);
-                int startInEventB = DateTime.Compare(this.StartDate, @event.EndDate);
-
-                int endInEventA = DateTime.Compare(this.EndDate, @event.StartDate);
-                int endInEventB = DateTime.Compare(this.EndDate, @event.EndDate);
-
-                if ((startInEventA >= 0 && startInEventB <= 0) || (endInEventA >= 0 && endInEventB <= 0))
-                {
-                    return false;
+                    if ((startInEventA >= 0 && startInEventB <= 0) || (endInEventA >= 0 && endInEventB <= 0))
+                    {
+                        return false;
+                    }
                 }
             }
             return true;
