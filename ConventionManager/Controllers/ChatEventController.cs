@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ConventionManager.Data;
 using ConventionManager.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace ConventionManager.Controllers
 {
@@ -42,6 +43,8 @@ namespace ConventionManager.Controllers
                 .Include(c => c.Conference)
                 .Include(c => c.Room)
                 .FirstOrDefaultAsync(m => m.Id == id);
+            var user = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
             if (chatEvent == null)
             {
                 return NotFound();
