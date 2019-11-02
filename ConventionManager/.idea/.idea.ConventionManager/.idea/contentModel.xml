@@ -33,6 +33,7 @@
         <e p="HomeController.cs" t="Include" />
         <e p="PartyEventController.cs" t="Include" />
         <e p="PracticalSessionsEventController.cs" t="Include" />
+        <e p="RegisterController.cs" t="Include" />
         <e p="RoomController.cs" t="Include" />
         <e p="TalkEventController.cs" t="Include" />
       </e>
@@ -67,6 +68,8 @@
           <e p="20191029163051_RemovedExhibitorEventClass.Designer.cs" t="Include" />
           <e p="20191031004614_FixedEventsTable.cs" t="Include" />
           <e p="20191031004614_FixedEventsTable.Designer.cs" t="Include" />
+          <e p="20191101210836_ModifiedAttendantsOfEventsAndConferences.cs" t="Include" />
+          <e p="20191101210836_ModifiedAttendantsOfEventsAndConferences.Designer.cs" t="Include" />
           <e p="ApplicationDbContextModelSnapshot.cs" t="Include" />
         </e>
       </e>
