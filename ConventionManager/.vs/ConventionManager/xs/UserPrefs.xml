@@ -2,8 +2,8 @@
   <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/RegisterController.cs">
     <Files>
       <File FileName="Controllers/EventCenterController.cs" Line="126" Column="10" />
-      <File FileName="Controllers/RegisterController.cs" Line="34" Column="14" />
-      <File FileName="Views/ChatEvent/Details.cshtml" />
+      <File FileName="Controllers/RegisterController.cs" Line="26" Column="47" />
+      <File FileName="Views/ChatEvent/Details.cshtml" Line="75" Column="81" />
       <File FileName="Views/FoodEvent/Details.cshtml" />
       <File FileName="Views/PartyEvent/Details.cshtml" />
       <File FileName="Views/PracticalSessionsEvent/Details.cshtml" />

@@ -21,22 +21,29 @@ namespace ConventionManager.Controllers
             _context = context;
         }
 
-        [HttpGet]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> RegisterToEvent([FromRoute]int eventId)
         {
-            var @event = await _context.Events.FirstAsync(e => e.Id == eventId);
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var room = await _context.Rooms.FirstAsync(r => r.Id == @event.RoomId);
-            var conference = await _context.Conferences.FirstAsync(c => c.Id == @event.ConferenceId);
+            var @event = await _context.Events.FirstOrDefaultAsync(e => e.Id == eventId);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var room = await _context.Rooms.FirstOrDefaultAsync(r => r.Id == @event.RoomId);
+            var conference = await _context.Conferences.FirstOrDefaultAsync(c => c.Id == @event.ConferenceId);
 
             if (room.Vacancies > 0)
             {
                 room.Occupancy += 1;
                 @event.AttendantsId.Add(userId);
-                _context.Update(@event);
-                await _context.SaveChangesAsync();
-                await RegisterToConference(conference);
+
+                _context.Events.Attach(@event);
+                _context.Entry(@event).State = EntityState.Modified;
+
+                _context.Rooms.Attach(room);
+                _context.Entry(room).Property(r => r.Occupancy).IsModified = true;
+
+                // _context.Events.Attach(@event);
+                // _context.Entry(@event).Property(e => e.AttendantsId).IsModified = true;
+
+                _context.SaveChanges();
+                // await RegisterToConference(conference);
             }
             else
             {
@@ -47,7 +54,7 @@ namespace ConventionManager.Controllers
 
         public async Task<IActionResult> UnRegisterFromEvent(Event @event)
         {
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var room = await _context.Rooms.FirstAsync(r => r.Id == @event.RoomId);
             var conference = await _context.Conferences.FirstAsync(c => c.Id == @event.ConferenceId);
 
@@ -70,7 +77,7 @@ namespace ConventionManager.Controllers
             if (!conference.AttendantsId.Contains(userId))
             {
                 conference.AttendantsId.Add(userId);
-                _context.Update(conference);
+                _context.Entry(conference).CurrentValues.SetValues(conference);
                 await _context.SaveChangesAsync();
             }
             return RedirectToAction("Details", "Conference", new { id = conference.Id });
