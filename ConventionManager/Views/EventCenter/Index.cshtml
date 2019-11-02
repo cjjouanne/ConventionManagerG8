@@ -9,17 +9,23 @@
 <p>
     <a asp-action="Create" class="btn btn-primary">Create New</a>
 </p>
-
-@foreach (var item in Model)
-    {
-        <div class="card text-white bg-light mb-3" style="max-width: 20rem;">
-            <div class="card-header">@Html.DisplayFor(modelItem => item.Type)</div>
-            <div class="card-body">
-                <h4 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h4>
-                <p class="card-text">Location: @Html.DisplayFor(modelItem => item.Location)</p>
-                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary">Details</a>
-                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success">Edit</a>
-                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+<div class="card-deck">
+    @foreach (var item in Model)
+        {
+            <div class="card text-white bg-light mb-3" style="max-width: 20rem;">
+                <div class="card-header">@Html.DisplayFor(modelItem => item.Type)</div>
+                <div class="card-body">
+                    <a asp-action="Details" asp-route-id="@item.Id" >
+                        <h4 class="card-title text-white">
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </h4>
+                    </a>
+                    <p class="card-text">Location: @Html.DisplayFor(modelItem => item.Location)</p>
+                </div>
+                <div class="card-footer">
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                </div>
             </div>
-        </div>
-    }
+        }
+</div>

@@ -83,26 +83,39 @@
     <h4>Events in this Conference</h4>
     @if (Model.Conference.Events.Count > 0)
     {
-        @foreach (var conferenceEvent in Model.Conference.Events)
-        {
-            <div class="card text-white bg-light mb-3" style="max-width: 20rem;">
-                <div class="card-header">@Html.DisplayFor(modelItem => conferenceEvent.StartDate)</div>
-                <div class="card-body">
-                    <h4 class="card-title">
-                        <a asp-controller=@conferenceEvent.GetEventType() asp-action="Details" asp-route-id="@conferenceEvent.Id" class="card-title text-white">
-                            @Html.DisplayFor(modelItem => conferenceEvent.Name)
-                        </a>
-                    </h4>
-                    <p class="card-text">@Html.DisplayFor(modelItem => conferenceEvent.Conference.Name)</p>
-                    <a asp-controller=@conferenceEvent.GetEventType() asp-action="Edit" asp-route-id="@conferenceEvent.Id" asp-route-fromWhere="Conference" class="btn btn-success">Edit</a>
-                    <a asp-controller=@conferenceEvent.GetEventType() asp-action="Delete" asp-route-id="@conferenceEvent.Id" asp-route-fromWhere="Conference" class="btn btn-danger">Delete</a>
+        <div class="card-deck">
+            @foreach (var conferenceEvent in Model.Conference.Events)
+            {
+                <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+                    <div class="card-header">
+                        
+                        @Html.DisplayFor(modelItem => conferenceEvent.StartDate.DayOfWeek)
+                        @Html.DisplayFor(modelItem => conferenceEvent.StartDate.Day) /
+                        @Html.DisplayFor(modelItem => conferenceEvent.StartDate.Month) /
+                        @Html.DisplayFor(modelItem => conferenceEvent.StartDate.Year)
+                                        
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a asp-controller=@conferenceEvent.GetEventType() asp-action="Details" asp-route-id="@conferenceEvent.Id" class="card-title text-white">
+                                @Html.DisplayFor(modelItem => conferenceEvent.Name)
+                            </a>
+                        </h4>
+                        <p class="card-text">Start: @Html.DisplayFor(modelItem => conferenceEvent.StartDate.TimeOfDay)</p>
+                        <p class="card-text">End: @Html.DisplayFor(modelItem => conferenceEvent.EndDate.TimeOfDay)</p>
+                    </div>
+                    <div class="card-footer">
+                        <a asp-controller=@conferenceEvent.GetEventType() asp-action="Edit" asp-route-id="@conferenceEvent.Id" asp-route-fromWhere="Conference" class="btn btn-success">Edit</a>
+                        <a asp-controller=@conferenceEvent.GetEventType() asp-action="Delete" asp-route-id="@conferenceEvent.Id" asp-route-fromWhere="Conference" class="btn btn-danger">Delete</a>
+                    </div>
                 </div>
-            </div>
-        }
+            }
+        </div>
     }
     else
     {
         <p>This Conference does not have any Events yet. You can create one below.</p>
     }
+    <br/>
     <a asp-action="ChooseEventType" asp-route-id="@Model.Conference.Id" class="btn btn-primary">Create a new Event</a>
 </div>

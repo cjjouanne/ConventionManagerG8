@@ -97,23 +97,27 @@
     <h4>All Conferences in @Html.DisplayFor(model => model.EventCenter.Name)</h4>
     @if (Model.EventCenter.Conferences.Count > 0)
     {
-        @foreach (var conference in Model.EventCenter.Conferences)
-        {
-            <div class="card text-white bg-light mb-3" style="max-width: 20rem;">
-                <div class="card-header">@Html.DisplayFor(modelItem => conference.StartDate)</div>
-                <div class="card-body">
-                    <h4 class="card-title">
-                        <a asp-controller="Conference" asp-action="Details" asp-route-id="@conference.Id" class="card-title text-white">
-                            @Html.DisplayFor(modelItem => conference.Name)
-                            </a>
-                        </h4>
-                    <p class="card-text">@Html.DisplayFor(modelItem => conference.Description)</p>
-                    <a asp-controller="Conference" asp-action="Edit" asp-route-id="@conference.Id" class="btn btn-success">Edit</a>
-                    <a asp-controller="Conference" asp-action="Delete" asp-route-id="@conference.Id" class="btn btn-danger">Delete</a>
-                </div>
-            </div>
-        }
-        
+        <div class="card-deck">
+            @foreach (var conference in Model.EventCenter.Conferences)
+                    {
+                        <div class="card text-white bg-warning mb-3" style="max-width: 20rem;">
+                            <div class="card-header">@Html.DisplayFor(modelItem => conference.StartDate)</div>
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <a asp-controller="Conference" asp-action="Details" asp-route-id="@conference.Id" class="card-title text-white">
+                                        @Html.DisplayFor(modelItem => conference.Name)
+                                    </a>
+                                </h4>
+                                <p class="card-text">@Html.DisplayFor(modelItem => conference.Description)</p>
+                            </div>
+                            <div class="card-footer">
+                                <a asp-controller="Conference" asp-action="Edit" asp-route-id="@conference.Id" class="btn btn-success">Edit</a>
+                                <a asp-controller="Conference" asp-action="Delete" asp-route-id="@conference.Id" class="btn btn-danger">Delete</a>
+                            </div>
+                        </div>
+                    }
+        </div>
+
     }
     else
     {
