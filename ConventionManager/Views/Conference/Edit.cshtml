@@ -26,15 +26,13 @@
             </div>
             <div class="form-group">
                 <label asp-for="StartDate" class="control-label">Start Date (Cannot edit, could interfere with scheduled events)</label>
-            </div>
-            <div class="form-group">
-                <label asp-for="EndDate" class="control-label">@Model.StartDate</label>
+                <input asp-for="StartDate" class="form-control" readonly/>
+                <span asp-validation-for="StartDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="EndDate" class="control-label">End Date (Cannot edit, could interfere with scheduled events)</label>
-            </div>
-            <div class="form-group">
-                <label asp-for="EndDate" class="control-label">@Model.EndDate</label>
+                <input asp-for="EndDate" class="form-control" readonly/>
+                <span asp-validation-for="EndDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-success" />
