@@ -6,6 +6,11 @@
 
 <h1>Details of this Event</h1>
 
+@if (TempData["NoVacancies"] != null)
+{
+ <p class="alert alert-warning alert-dismissible" id="errorMessage">@TempData["NoVacancies"]</p>
+}
+
 <div>
     <h4>Chat Event</h4>
     <hr />
@@ -67,6 +72,8 @@
     </dl>
 </div>
 <div>
+    <a asp-controller="Register" asp-action="RegisterToEvent" asp-route-eventId="@Model.Id" class="btn btn-primary">Join Event</a>
+    <a asp-controller="Register" asp-action="UnRegisterFromEvent" asp-route-eventId=@Model.Id class="btn btn-danger">Exit Event</a>
     <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-success">Edit</a>
     <a href="javascript:void(0);" onclick="history.go(-1);" class="btn btn-secondary">Back to List</a>
 </div>

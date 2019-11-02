@@ -18,6 +18,13 @@ namespace ConventionManager.Models
         [Required(ErrorMessage = "An Room must have a capacity of occupants")]
         public int Capacity { get; set; }
 
+        public int Occupancy;
+
+        public int Vacancies
+        {
+            get { return Capacity - Occupancy; }
+        }
+
         public string Location { get; set; }
 
         public ICollection<Event> Events { get; set; }
