@@ -83,7 +83,7 @@
     <h4>Events in this Conference</h4>
     @if (Model.Conference.Events.Count > 0)
     {
-        <div class="card-deck">
+        <div class="card-columns">
             @foreach (var conferenceEvent in Model.Conference.Events)
             {
                 <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">

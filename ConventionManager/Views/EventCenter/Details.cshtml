@@ -97,7 +97,7 @@
     <h4>All Conferences in @Html.DisplayFor(model => model.EventCenter.Name)</h4>
     @if (Model.EventCenter.Conferences.Count > 0)
     {
-        <div class="card-deck">
+        <div class="card-columns">
             @foreach (var conference in Model.EventCenter.Conferences)
                     {
                         <div class="card text-white bg-warning mb-3" style="max-width: 20rem;">
