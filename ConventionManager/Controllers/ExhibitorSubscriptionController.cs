@@ -7,149 +7,59 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ConventionManager.Data;
 using ConventionManager.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace ConventionManager.Controllers
 {
     public class ExhibitorSubscriptionController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public ExhibitorSubscriptionController(ApplicationDbContext context)
+        public ExhibitorSubscriptionController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
-        // GET: ExhibitorSubscription
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> CreateSubscription(int eventId)
         {
-            var applicationDbContext = _context.ExhibitorSubscriptions.Include(e => e.Event);
-            return View(await applicationDbContext.ToListAsync());
-        }
+            var @event = await _context.Events.FirstOrDefaultAsync(e => e.Id == eventId);
+            var userId = _userManager.GetUserId(HttpContext.User);
 
-        // GET: ExhibitorSubscription/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
+            var exhibitorSubscription = new ExhibitorSubscription()
             {
-                return NotFound();
-            }
+                UserId = userId,
+                EventId = @event.Id,
+                ConferenceId = @event.ConferenceId
+            };
 
-            var exhibitorSubscription = await _context.ExhibitorSubscriptions
-                .Include(e => e.Event)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (exhibitorSubscription == null)
-            {
-                return NotFound();
-            }
-
-            return View(exhibitorSubscription);
-        }
-
-        // GET: ExhibitorSubscription/Create
-        public IActionResult Create()
-        {
-            ViewData["EventId"] = new SelectList(_context.Events, "Id", "Discriminator");
-            return View();
-        }
-
-        // POST: ExhibitorSubscription/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserId,ConferenceId,EventId")] ExhibitorSubscription exhibitorSubscription)
-        {
-            if (ModelState.IsValid)
+            // checks if subscription collides with date of other suscribed event
+            // if true, no colission
+            var otherEvents = _context.Events
+                .Include(s => s.Subscriptions)
+                .Where(e => e.Id != @event.Id).ToArray();
+            if (exhibitorSubscription.SubscriptionCollision(otherEvents, @event))
             {
                 _context.Add(exhibitorSubscription);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
             }
-            ViewData["EventId"] = new SelectList(_context.Events, "Id", "Discriminator", exhibitorSubscription.EventId);
-            return View(exhibitorSubscription);
+            else
+            {
+                TempData["SubscriptionCollision"] = exhibitorSubscription.CollisionWithEventMessage;
+            }
+            return RedirectToAction("Details", @event.GetEventType(), new { id = @event.Id });
         }
 
-        // GET: ExhibitorSubscription/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> DeleteSubscription(int eventId)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            var @event = await _context.Events.FirstOrDefaultAsync(e => e.Id == eventId);
+            var userId = _userManager.GetUserId(HttpContext.User);
+            var exhibitorSubscription = await _context.ExhibitorSubscriptions.FirstOrDefaultAsync(s => s.UserId == userId && s.EventId == @event.Id);
 
-            var exhibitorSubscription = await _context.ExhibitorSubscriptions.FindAsync(id);
-            if (exhibitorSubscription == null)
-            {
-                return NotFound();
-            }
-            ViewData["EventId"] = new SelectList(_context.Events, "Id", "Discriminator", exhibitorSubscription.EventId);
-            return View(exhibitorSubscription);
-        }
-
-        // POST: ExhibitorSubscription/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,ConferenceId,EventId")] ExhibitorSubscription exhibitorSubscription)
-        {
-            if (id != exhibitorSubscription.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(exhibitorSubscription);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ExhibitorSubscriptionExists(exhibitorSubscription.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["EventId"] = new SelectList(_context.Events, "Id", "Discriminator", exhibitorSubscription.EventId);
-            return View(exhibitorSubscription);
-        }
-
-        // GET: ExhibitorSubscription/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var exhibitorSubscription = await _context.ExhibitorSubscriptions
-                .Include(e => e.Event)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (exhibitorSubscription == null)
-            {
-                return NotFound();
-            }
-
-            return View(exhibitorSubscription);
-        }
-
-        // POST: ExhibitorSubscription/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var exhibitorSubscription = await _context.ExhibitorSubscriptions.FindAsync(id);
             _context.ExhibitorSubscriptions.Remove(exhibitorSubscription);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Details", @event.GetEventType(), new { id = @event.Id });
         }
 
         private bool ExhibitorSubscriptionExists(int id)

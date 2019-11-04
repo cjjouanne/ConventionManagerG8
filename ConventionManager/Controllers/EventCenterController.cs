@@ -90,7 +90,8 @@ namespace ConventionManager.Controllers
         // GET: EventCenter/Create
         public IActionResult Create()
         {
-            return View();
+            var eventCenter = new EventCenter();
+            return View(eventCenter);
         }
 
         // POST: EventCenter/Create

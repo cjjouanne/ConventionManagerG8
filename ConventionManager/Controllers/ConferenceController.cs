@@ -83,10 +83,13 @@ namespace ConventionManager.Controllers
         [HttpGet]
         public RedirectToActionResult PreCreateEvent(int conferenceId, string controllerName)
         {
+            var conference = _context.Conferences.FirstOrDefault(c => c.Id == conferenceId);
+            var eventCenter = _context.EventCenters.FirstOrDefault(e => e.Id == conference.EventCenterId);
             return RedirectToAction("Create", controllerName, new
             {
                 conferenceId,
-                fromWhere = "Conference"
+                fromWhere = "Conference",
+                eventCenterId = eventCenter.Id
             });
         }
 

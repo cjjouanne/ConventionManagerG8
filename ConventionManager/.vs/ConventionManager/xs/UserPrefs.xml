@@ -1,8 +1,12 @@
 ﻿<Properties StartupConfiguration="{89E480FD-47D7-48E3-8F15-D3C99768BC94}|Default">
   <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/AttendantSubscriptionController.cs">
     <Files>
-      <File FileName="Controllers/EventCenterController.cs" Line="126" Column="10" />
-      <File FileName="Controllers/ExhibitorSubscriptionController.cs" Line="1" Column="1" />
+      <File FileName="Controllers/ChatEventController.cs" Line="73" Column="112" />
+      <File FileName="Controllers/PartyEventController.cs" Line="138" Column="108" />
+      <File FileName="Controllers/FoodEventController.cs" Line="139" Column="108" />
+      <File FileName="Controllers/PracticalSessionsEventController.cs" Line="139" Column="108" />
+      <File FileName="Controllers/TalkEventController.cs" Line="139" Column="108" />
+      <File FileName="Models/Subscription.cs" Line="1" Column="1" />
       <File FileName="Controllers/AttendantSubscriptionController.cs" Line="1" Column="1" />
     </Files>
     <Pads>
@@ -13,7 +17,15 @@
               <Node name="Controllers" expanded="True">
                 <Node name="AttendantSubscriptionController.cs" selected="True" />
               </Node>
-              <Node name="Views" expanded="True" />
+              <Node name="Models" expanded="True" />
+              <Node name="Views" expanded="True">
+                <Node name="ChatEvent" expanded="True" />
+                <Node name="EventCenter" expanded="True" />
+                <Node name="FoodEvent" expanded="True" />
+                <Node name="PartyEvent" expanded="True" />
+                <Node name="PracticalSessionsEvent" expanded="True" />
+                <Node name="TalkEvent" expanded="True" />
+              </Node>
             </Node>
           </Node>
         </State>

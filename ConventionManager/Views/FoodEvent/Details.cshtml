@@ -1,54 +1,60 @@
-@model ConventionManager.Models.FoodEvent
+@model ConventionManager.Models.EventAndSubscription
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Details of this Event</h1>
+
+@if (TempData["SubscriptionCollision"] != null)
+{
+ <p class="alert alert-warning alert-dismissible" id="errorMessage">@TempData["SubscriptionCollision"]</p>
+}
 
 <div>
     <h4>Food Event</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.Event.Name)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
+            @Html.DisplayFor(model => model.Event.Name)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.StartDate)
+            @Html.DisplayNameFor(model => model.Event.StartDate)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.StartDate)
+            @Html.DisplayFor(model => model.Event.StartDate)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EndDate)
+            @Html.DisplayNameFor(model => model.Event.EndDate)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EndDate)
+            @Html.DisplayFor(model => model.Event.EndDate)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Conference)
+            @Html.DisplayNameFor(model => model.Event.Conference)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Conference.Name)
+            @Html.DisplayFor(model => model.Event.Conference.Name)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Room)
+            @Html.DisplayNameFor(model => model.Event.Room)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Room.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Subscriptions)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Subscriptions)
-        </dd>
+            @Html.DisplayFor(model => model.Event.Room.Name)
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-success">Edit</a>
+    @if (!Model.Event.Subscriptions.Contains(Model.Subscription))
+    {
+        <a asp-controller="AttendantSubscription" asp-action="CreateSubscription" asp-route-eventId="@Model.Event.Id" class="btn btn-primary">Join Event</a>
+    }
+    else
+    {
+        <a asp-controller="AttendantSubscription" asp-action="DeleteSubscription" asp-route-eventId="@Model.Event.Id" class="btn btn-danger">Quit Event</a>
+    }
+    <a asp-action="Edit" asp-route-id="@Model.Event.Id" class="btn btn-success">Edit</a>
     <a href="javascript:void(0);" onclick="history.go(-1);" class="btn btn-secondary">Back to List</a>
 </div>
