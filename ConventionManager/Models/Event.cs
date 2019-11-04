@@ -85,6 +85,10 @@ namespace ConventionManager.Models
                     {
                         return false;
                     }
+                    if ((startInEventA <= 0) && (endInEventB >= 0))
+                    {
+                        return false;
+                    }
                 }
             }
             return true;
