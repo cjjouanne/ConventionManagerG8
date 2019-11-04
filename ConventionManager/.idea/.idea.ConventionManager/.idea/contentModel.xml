@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="$USER_HOME$/Library/Caches/Rider2019.2/extResources" t="IncludeRecursive" />
-    <e p="$USER_HOME$/Library/Caches/Rider2019.2/resharper-host/local/Transient/ReSharperHost/v192/SolutionCaches/_ConventionManager.1317294834.00" t="ExcludeRecursive" />
     <e p="$PROJECT_DIR$" t="IncludeRecursive">
       <e p=".gitignore" t="Include" />
       <e p="app.db" t="Include" />
@@ -10,15 +8,34 @@
       <e p="Areas" t="Include">
         <e p="Identity" t="Include">
           <e p="Pages" t="Include">
+            <e p="_ValidationScriptsPartial.cshtml" t="Include" />
+            <e p="_ViewImports.cshtml" t="Include" />
             <e p="_ViewStart.cshtml" t="Include" />
+            <e p="Account" t="Include">
+              <e p="_ViewImports.cshtml" t="Include" />
+              <e p="Login.cshtml" t="Include" />
+              <e p="Login.cshtml.cs" t="Include" />
+              <e p="Logout.cshtml" t="Include" />
+              <e p="Logout.cshtml.cs" t="Include" />
+              <e p="Register.cshtml" t="Include" />
+              <e p="Register.cshtml.cs" t="Include" />
+            </e>
           </e>
         </e>
       </e>
       <e p="bin" t="ExcludeRecursive" />
       <e p="Controllers" t="Include">
+        <e p="ChatEventController.cs" t="Include" />
         <e p="ConferenceController.cs" t="Include" />
+        <e p="EventCenterController.cs" t="Include" />
         <e p="EventController.cs" t="Include" />
+        <e p="FoodEventController.cs" t="Include" />
         <e p="HomeController.cs" t="Include" />
+        <e p="PartyEventController.cs" t="Include" />
+        <e p="PracticalSessionsEventController.cs" t="Include" />
+        <e p="RegisterController.cs" t="Include" />
+        <e p="RoomController.cs" t="Include" />
+        <e p="TalkEventController.cs" t="Include" />
       </e>
       <e p="ConventionManager.csproj" t="IncludeRecursive" />
       <e p="ConventionManager.sln" t="IncludeFlat" />
@@ -35,19 +52,41 @@
           <e p="20191006223027_NamerRequired.Designer.cs" t="Include" />
           <e p="20191015145126_CreateMainEventModels.cs" t="Include" />
           <e p="20191015145126_CreateMainEventModels.Designer.cs" t="Include" />
+          <e p="20191015152405_AddEventCenterIdToConferences.cs" t="Include" />
+          <e p="20191015152405_AddEventCenterIdToConferences.Designer.cs" t="Include" />
+          <e p="20191017144055_AddConferenceToEventCenter.cs" t="Include" />
+          <e p="20191017144055_AddConferenceToEventCenter.Designer.cs" t="Include" />
+          <e p="20191017174428_AddConferencesToEventCenters.cs" t="Include" />
+          <e p="20191017174428_AddConferencesToEventCenters.Designer.cs" t="Include" />
+          <e p="20191023152749_ChangedErrorsInFKsAndAddedDateTime.cs" t="Include" />
+          <e p="20191023152749_ChangedErrorsInFKsAndAddedDateTime.Designer.cs" t="Include" />
+          <e p="20191025153849_AddedAplicationUserAndRoleSeeds.cs" t="Include" />
+          <e p="20191025153849_AddedAplicationUserAndRoleSeeds.Designer.cs" t="Include" />
+          <e p="20191028175709_AddINotificationToEvents.cs" t="Include" />
+          <e p="20191028175709_AddINotificationToEvents.Designer.cs" t="Include" />
+          <e p="20191029163051_RemovedExhibitorEventClass.cs" t="Include" />
+          <e p="20191029163051_RemovedExhibitorEventClass.Designer.cs" t="Include" />
+          <e p="20191031004614_FixedEventsTable.cs" t="Include" />
+          <e p="20191031004614_FixedEventsTable.Designer.cs" t="Include" />
+          <e p="20191101210836_ModifiedAttendantsOfEventsAndConferences.cs" t="Include" />
+          <e p="20191101210836_ModifiedAttendantsOfEventsAndConferences.Designer.cs" t="Include" />
           <e p="ApplicationDbContextModelSnapshot.cs" t="Include" />
         </e>
       </e>
       <e p="Models" t="Include">
+        <e p="ApplicationUser.cs" t="Include" />
         <e p="ChatEvent.cs" t="Include" />
         <e p="Conference.cs" t="Include" />
         <e p="ConferenceAndSponsor.cs" t="Include" />
+        <e p="ConferenceEventAndRoom.cs" t="Include" />
         <e p="ErrorViewModel.cs" t="Include" />
         <e p="Event.cs" t="Include" />
         <e p="EventCenter.cs" t="Include" />
+        <e p="EventCenterConferencesAndRooms.cs" t="Include" />
         <e p="ExhibitorEvent.cs" t="Include" />
         <e p="Food.cs" t="Include" />
         <e p="FoodEvent.cs" t="Include" />
+        <e p="INotification.cs" t="Include" />
         <e p="PartyEvent.cs" t="Include" />
         <e p="PracticalSessionsEvent.cs" t="Include" />
         <e p="Room.cs" t="Include" />
@@ -66,11 +105,21 @@
       <e p="Properties" t="Include">
         <e p="launchSettings.json" t="Include" />
       </e>
+      <e p="ScaffoldingReadme.txt" t="Include" />
       <e p="Startup.cs" t="Include" />
       <e p="Views" t="Include">
         <e p="_ViewImports.cshtml" t="Include" />
         <e p="_ViewStart.cshtml" t="Include" />
+        <e p="ChatEvent" t="Include">
+          <e p="Create.cshtml" t="Include" />
+          <e p="Delete.cshtml" t="Include" />
+          <e p="Details.cshtml" t="Include" />
+          <e p="Edit.cshtml" t="Include" />
+          <e p="Index.cshtml" t="Include" />
+        </e>
         <e p="Conference" t="Include">
+          <e p="ChooseEventCenter.cshtml" t="Include" />
+          <e p="ChooseEventType.cshtml" t="Include" />
           <e p="Create.cshtml" t="Include" />
           <e p="Delete.cshtml" t="Include" />
           <e p="Details.cshtml" t="Include" />
@@ -84,9 +133,45 @@
           <e p="Edit.cshtml" t="Include" />
           <e p="Index.cshtml" t="Include" />
         </e>
+        <e p="EventCenter" t="Include">
+          <e p="Create.cshtml" t="Include" />
+          <e p="Delete.cshtml" t="Include" />
+          <e p="Details.cshtml" t="Include" />
+          <e p="Edit.cshtml" t="Include" />
+          <e p="Index.cshtml" t="Include" />
+        </e>
+        <e p="FoodEvent" t="Include">
+          <e p="Create.cshtml" t="Include" />
+          <e p="Delete.cshtml" t="Include" />
+          <e p="Details.cshtml" t="Include" />
+          <e p="Edit.cshtml" t="Include" />
+          <e p="Index.cshtml" t="Include" />
+        </e>
         <e p="Home" t="Include">
           <e p="Index.cshtml" t="Include" />
           <e p="Privacy.cshtml" t="Include" />
+        </e>
+        <e p="PartyEvent" t="Include">
+          <e p="Create.cshtml" t="Include" />
+          <e p="Delete.cshtml" t="Include" />
+          <e p="Details.cshtml" t="Include" />
+          <e p="Edit.cshtml" t="Include" />
+          <e p="Index.cshtml" t="Include" />
+        </e>
+        <e p="PracticalSessionsEvent" t="Include">
+          <e p="Create.cshtml" t="Include" />
+          <e p="Delete.cshtml" t="Include" />
+          <e p="Details.cshtml" t="Include" />
+          <e p="Edit.cshtml" t="Include" />
+          <e p="Index.cshtml" t="Include" />
+        </e>
+        <e p="Room" t="Include">
+          <e p="ChooseEventType.cshtml" t="Include" />
+          <e p="Create.cshtml" t="Include" />
+          <e p="Delete.cshtml" t="Include" />
+          <e p="Details.cshtml" t="Include" />
+          <e p="Edit.cshtml" t="Include" />
+          <e p="Index.cshtml" t="Include" />
         </e>
         <e p="Shared" t="Include">
           <e p="_CookieConsentPartial.cshtml" t="Include" />
@@ -94,6 +179,13 @@
           <e p="_LoginPartial.cshtml" t="Include" />
           <e p="_ValidationScriptsPartial.cshtml" t="Include" />
           <e p="Error.cshtml" t="Include" />
+        </e>
+        <e p="TalkEvent" t="Include">
+          <e p="Create.cshtml" t="Include" />
+          <e p="Delete.cshtml" t="Include" />
+          <e p="Details.cshtml" t="Include" />
+          <e p="Edit.cshtml" t="Include" />
+          <e p="Index.cshtml" t="Include" />
         </e>
       </e>
       <e p="wwwroot" t="Include">
@@ -120,6 +212,7 @@
                 <e p="bootstrap.css.map" t="Include" />
                 <e p="bootstrap.min.css" t="Include" />
                 <e p="bootstrap.min.css.map" t="Include" />
+                <e p="bootstrap2.css" t="Include" />
               </e>
               <e p="js" t="Include">
                 <e p="bootstrap.bundle.js" t="Include" />
@@ -159,5 +252,7 @@
         </e>
       </e>
     </e>
+    <e p="$USER_HOME$/Library/Caches/Rider2019.2/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/Library/Caches/Rider2019.2/resharper-host/local/Transient/ReSharperHost/v192/SolutionCaches/_ConventionManager.146504993.00" t="ExcludeRecursive" />
   </component>
 </project>

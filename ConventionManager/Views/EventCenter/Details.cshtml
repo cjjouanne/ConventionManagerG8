@@ -42,69 +42,82 @@
 <br />
 
 <div>
-    <h4>All Conferences in the Event Center</h4>
-    @if (Model.EventCenter.Conferences.Count > 0)
-    {
-        <ul>
-            @foreach(var conference in Model.EventCenter.Conferences)
-            {
-                <li><a asp-controller="Conference" asp-action="Details" asp-route-id="@conference.Id">Details of @conference.Name</a></li>
-            }
-        </ul>
-    }
-    else
-    {
-        <p>This Event Center does not have any conferences yet. You can create one below.</p>
-    }
-
-    <br />
-
-    <h4>Detailed Conferences in the Event Center</h4>
-    @if (Model.EventCenter.Conferences.Count > 0)
+    <h4>Rooms in the @Html.DisplayFor(model => model.EventCenter.Name)</h4>
+    @if (Model.EventCenter.Rooms.Count > 0)
     {
         <table class="table">
             <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Conference.Name)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Conference.Description)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Conference.StartDate)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Conference.EndDate)
-                    </th>
-                    <th></th>
-                </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Room.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Room.Capacity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Room.Location)
+                </th>
+                <th></th>
+            </tr>
             </thead>
             <tbody>
-        @foreach (var conference in Model.EventCenter.Conferences)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => conference.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => conference.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => conference.StartDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => conference.EndDate)
-                </td>
-                <td width="30%">
-                    <a asp-controller="Conference" asp-action="Edit" asp-route-id="@conference.Id" class="btn btn-success">Edit</a>
-                    <a asp-controller="Conference" asp-action="Details" asp-route-id="@conference.Id" class="btn btn-primary">Details</a>
-                    <a asp-controller="Conference" asp-action="Delete" asp-route-id="@conference.Id" class="btn btn-danger">Delete</a>
-                </td>
-            </tr>
-        }
+            @foreach (var room in Model.EventCenter.Rooms)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => room.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => room.Capacity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => room.Location)
+                    </td>
+                    <td width="30%">
+                        <a asp-controller="Room" asp-action="Details" asp-route-id="@room.Id" class="btn btn-secondary">Details</a>
+                        <a asp-controller="Room" asp-action="Edit" asp-route-id="@room.Id" class="btn btn-success">Edit</a>
+                        <a asp-controller="Room" asp-action="Delete" asp-route-id="@room.Id" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
             </tbody>
         </table>
+    }
+    else
+    {
+        <p>This Event Center does not have any existing rooms yet. You can create one below.</p>
+    }
+    <a asp-controller="Room" asp-action="Create" asp-route-id="@Model.EventCenter.Id" class="btn btn-primary">Create a new Room</a>
+</div>
+
+<br/>
+<br/>
+
+<div>
+    <h4>All Conferences in @Html.DisplayFor(model => model.EventCenter.Name)</h4>
+    @if (Model.EventCenter.Conferences.Count > 0)
+    {
+        <div class="card-columns">
+            @foreach (var conference in Model.EventCenter.Conferences)
+                    {
+                        <div class="card text-white bg-warning mb-3" style="max-width: 20rem;">
+                            <div class="card-header">@Html.DisplayFor(modelItem => conference.StartDate)</div>
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <a asp-controller="Conference" asp-action="Details" asp-route-id="@conference.Id" class="card-title text-white">
+                                        @Html.DisplayFor(modelItem => conference.Name)
+                                    </a>
+                                </h4>
+                                <p class="card-text">@Html.DisplayFor(modelItem => conference.Description)</p>
+                            </div>
+                            <div class="card-footer">
+                                <a asp-controller="Conference" asp-action="Edit" asp-route-id="@conference.Id" class="btn btn-success">Edit</a>
+                                <a asp-controller="Conference" asp-action="Delete" asp-route-id="@conference.Id" class="btn btn-danger">Delete</a>
+                            </div>
+                        </div>
+                    }
+        </div>
+
     }
     else
     {
@@ -144,52 +157,3 @@
 
 <br />
 <br />
-
-<div>
-    <h4>Detailed Rooms in the Event Center</h4>
-    @if (Model.EventCenter.Rooms.Count > 0)
-    {
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Room.Name)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Room.Capacity)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Room.Location)
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-        @foreach (var room in Model.EventCenter.Rooms)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => room.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => room.Capacity)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => room.Location)
-                </td>
-                <td width="30%">
-                    <a asp-controller="Room" asp-action="Edit" asp-route-id="@room.Id" class="btn btn-success">Edit</a>
-                    <a asp-controller="Room" asp-action="Details" asp-route-id="@room.Id" class="btn btn-primary">Details</a>
-                    <a asp-controller="Room" asp-action="Delete" asp-route-id="@room.Id" class="btn btn-danger">Delete</a>
-                </td>
-            </tr>
-        }
-            </tbody>
-        </table>
-    }
-    else
-    {
-        <p>This Event Center does not have any existing rooms yet. You can create one below.</p>
-    }
-    <a asp-controller="Room" asp-action="Create" asp-route-id="@Model.EventCenter.Id" class="btn btn-primary">Create a new Room</a>
-</div>
