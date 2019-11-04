@@ -9,6 +9,7 @@ using ConventionManager.Data;
 using ConventionManager.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace ConventionManager.Controllers
 {
@@ -21,9 +22,29 @@ namespace ConventionManager.Controllers
             _context = context;
         }
 
+        [HttpPatch("{eventId}")]
         public async Task<IActionResult> RegisterToEvent([FromRoute]int eventId)
         {
+            var patchDoc = new JsonPatchDocument<Event>();
+            if (patchDoc == null)
+            {
+                return BadRequest();
+            }
+
             var @event = await _context.Events.FirstOrDefaultAsync(e => e.Id == eventId);
+
+            if (@event == null)
+            {
+                return NotFound();
+            }
+
+            patchDoc.ApplyTo(@event, ModelState);
+            var isValid = TryValidateModel(@event);
+
+            if (!isValid)
+            {
+                return BadRequest(ModelState);
+            }
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var room = await _context.Rooms.FirstOrDefaultAsync(r => r.Id == @event.RoomId);
             var conference = await _context.Conferences.FirstOrDefaultAsync(c => c.Id == @event.ConferenceId);
@@ -34,7 +55,7 @@ namespace ConventionManager.Controllers
                 @event.AttendantsId.Add(userId);
 
                 _context.Events.Attach(@event);
-                _context.Entry(@event).State = EntityState.Modified;
+                _context.Entry(@event).Property(x => x.AttendantsId).IsModified = true;
 
                 _context.Rooms.Attach(room);
                 _context.Entry(room).Property(r => r.Occupancy).IsModified = true;
