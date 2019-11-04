@@ -25,5 +25,13 @@ namespace ConventionManager.Models
 
         public ICollection<Conference> Conferences { get; set; }
 
+        public Dictionary<string, string> AvailableTypes = new Dictionary<string, string>()
+        {
+            {"Hotel", "Hotel" },
+            {"University", "University" },
+            {"Event Center", "EventCenter" },
+            {"Theater", "Theater" },
+            {"Other", "Other" },
+        };
     }
 }

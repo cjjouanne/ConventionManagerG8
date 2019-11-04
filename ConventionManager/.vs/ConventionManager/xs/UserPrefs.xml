@@ -2,13 +2,7 @@
   <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/RegisterController.cs">
     <Files>
       <File FileName="Controllers/EventCenterController.cs" Line="126" Column="10" />
-      <File FileName="Controllers/RegisterController.cs" Line="26" Column="47" />
-      <File FileName="Views/ChatEvent/Details.cshtml" Line="75" Column="81" />
-      <File FileName="Views/FoodEvent/Details.cshtml" />
-      <File FileName="Views/PartyEvent/Details.cshtml" />
-      <File FileName="Views/PracticalSessionsEvent/Details.cshtml" />
-      <File FileName="Views/TalkEvent/Details.cshtml" />
-      <File FileName="Views/Room/Details.cshtml" />
+      <File FileName="Controllers/RegisterController.cs" Line="31" Column="31" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -21,9 +15,10 @@
               <Node name="Models" expanded="True" />
               <Node name="Views" expanded="True">
                 <Node name="ChatEvent" expanded="True" />
-                <Node name="Conference" expanded="True" />
-                <Node name="FoodEvent" expanded="True" />
+                <Node name="Event" expanded="True" />
                 <Node name="Room" expanded="True" />
+                <Node name="Shared" expanded="True" />
+                <Node name="TalkEvent" expanded="True" />
               </Node>
             </Node>
           </Node>

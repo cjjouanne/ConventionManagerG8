@@ -19,11 +19,10 @@
             </div>
             <div class="form-group">
                 <select asp-for="Type" class="form-control" id="shell">
-                    <option>Hotel</option>
-                    <option>University</option>
-                    <option>Event center</option>
-                    <option>Theatre</option>
-                    <option>Other</option>
+                    @foreach (KeyValuePair<string, string> item in Model.AvailableTypes)
+                    {
+                        <option value="@item.Value">@item.Key</option>
+                    }
                 </select>
             </div>
             <div class="form-group">
