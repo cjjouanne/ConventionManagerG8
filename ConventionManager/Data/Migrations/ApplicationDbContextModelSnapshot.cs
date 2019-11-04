@@ -87,8 +87,6 @@ namespace ConventionManager.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<List<string>>("AttendantsId");
-
                     b.Property<string>("Description");
 
                     b.Property<DateTime>("EndDate");
@@ -111,8 +109,6 @@ namespace ConventionManager.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<List<string>>("AttendantsId");
 
                     b.Property<int>("ConferenceId");
 
@@ -224,6 +220,29 @@ namespace ConventionManager.Data.Migrations
                     b.ToTable("Sponsors");
                 });
 
+            modelBuilder.Entity("ConventionManager.Models.Subscription", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ConferenceId");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
+
+                    b.Property<int>("EventId");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EventId");
+
+                    b.ToTable("Subscriptions");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Subscription");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -249,22 +268,22 @@ namespace ConventionManager.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "04287994-5695-4c76-9f6f-15881c70ba4c",
-                            ConcurrencyStamp = "156047cc-e1d7-4398-b0d7-796f67bd4eba",
+                            Id = "9a4d4347-23c2-4ae4-9f6c-9a5688f0f64f",
+                            ConcurrencyStamp = "79051323-c91f-492e-928f-18d8e92b828f",
                             Name = "Organizer",
                             NormalizedName = "ORGANIZER"
                         },
                         new
                         {
-                            Id = "4af5b4aa-5cb6-4261-a36b-57687644b0cb",
-                            ConcurrencyStamp = "5de11454-682f-4062-863b-27bdba1326c9",
+                            Id = "4fd00700-48a5-42b9-8dcf-50b39d7b3df9",
+                            ConcurrencyStamp = "9331da2d-fb0c-457d-a6cb-cfd2743014f0",
                             Name = "Exhibitor",
                             NormalizedName = "EXHIBITOR"
                         },
                         new
                         {
-                            Id = "1f3d26a1-d555-47ea-93b6-d9eedb3b4d3b",
-                            ConcurrencyStamp = "e45ac572-f88d-4c24-9a73-4ebbcfd7f48e",
+                            Id = "c766afbf-f91b-4c9c-aecb-4f37470c706d",
+                            ConcurrencyStamp = "cec73bd4-db20-4184-97f1-46088905e36f",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -362,8 +381,6 @@ namespace ConventionManager.Data.Migrations
                 {
                     b.HasBaseType("ConventionManager.Models.Event");
 
-                    b.Property<List<int>>("ExhibitorsId");
-
                     b.Property<string>("Topic")
                         .IsRequired();
 
@@ -382,6 +399,20 @@ namespace ConventionManager.Data.Migrations
                     b.HasBaseType("ConventionManager.Models.Event");
 
                     b.HasDiscriminator().HasValue("PartyEvent");
+                });
+
+            modelBuilder.Entity("ConventionManager.Models.AttendantSubscription", b =>
+                {
+                    b.HasBaseType("ConventionManager.Models.Subscription");
+
+                    b.HasDiscriminator().HasValue("AttendantSubscription");
+                });
+
+            modelBuilder.Entity("ConventionManager.Models.ExhibitorSubscription", b =>
+                {
+                    b.HasBaseType("ConventionManager.Models.Subscription");
+
+                    b.HasDiscriminator().HasValue("ExhibitorSubscription");
                 });
 
             modelBuilder.Entity("ConventionManager.Models.ChatEvent", b =>
@@ -449,6 +480,14 @@ namespace ConventionManager.Data.Migrations
                     b.HasOne("ConventionManager.Models.Conference", "Conference")
                         .WithMany("Sponsors")
                         .HasForeignKey("ConferenceId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ConventionManager.Models.Subscription", b =>
+                {
+                    b.HasOne("ConventionManager.Models.Event", "Event")
+                        .WithMany("Subscriptions")
+                        .HasForeignKey("EventId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
