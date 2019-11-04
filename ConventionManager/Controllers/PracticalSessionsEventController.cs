@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ConventionManager.Data;
 using ConventionManager.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace ConventionManager.Controllers
 {
@@ -15,10 +16,12 @@ namespace ConventionManager.Controllers
     public class PracticalSessionsEventController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public PracticalSessionsEventController(ApplicationDbContext context)
+        public PracticalSessionsEventController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: PracticalSessionsEvent
@@ -41,27 +44,37 @@ namespace ConventionManager.Controllers
             var practicalSessionsEvent = await _context.PracticalSessionsEvents
                 .Include(p => p.Conference)
                 .Include(p => p.Room)
+                .Include(s => s.Subscriptions)
                 .FirstOrDefaultAsync(m => m.Id == id);
+            var userId = _userManager.GetUserId(HttpContext.User);
+            var subscription = await _context.Subscriptions.FirstOrDefaultAsync(s => s.UserId == userId && s.EventId == practicalSessionsEvent.Id);
+
+            var eventAndSubscription = new EventAndSubscription()
+            {
+                ExhibitorEvent = practicalSessionsEvent,
+                Subscription = subscription
+            };
+
             if (practicalSessionsEvent == null)
             {
                 return NotFound();
             }
 
-            return View(practicalSessionsEvent);
+            return View(eventAndSubscription);
         }
 
         // GET: PracticalSessionsEvent/Create
-        public IActionResult Create(int? conferenceId, int? roomId, string fromWhere)
+        public IActionResult Create(int? conferenceId, int? roomId, string fromWhere, int eventCenterId)
         {
             if (fromWhere == "Conference")
             {
                 ViewData["ConferenceId"] = conferenceId;
-                ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name");
+                ViewData["RoomId"] = new SelectList(_context.Rooms.Where(a => a.EventCenterId == eventCenterId), "Id", "Name");
                 ViewData["From"] = "Conference";
             }
             else
             {
-                ViewData["ConferenceId"] = new SelectList(_context.Conferences, "Id", "Name");
+                ViewData["ConferenceId"] = new SelectList(_context.Conferences.Where(a => a.EventCenterId == eventCenterId), "Id", "Name");
                 ViewData["RoomId"] = roomId;
                 ViewData["From"] = "Room";
             }
@@ -110,7 +123,7 @@ namespace ConventionManager.Controllers
         }
 
         // GET: PracticalSessionsEvent/Edit/5
-        public async Task<IActionResult> Edit(int? id, string fromWhere)
+        public async Task<IActionResult> Edit(int? id, string fromWhere, int eventCenterId)
         {
             if (id == null)
             {
@@ -122,8 +135,8 @@ namespace ConventionManager.Controllers
             {
                 return NotFound();
             }
-            ViewData["ConferenceId"] = new SelectList(_context.Conferences, "Id", "Name", practicalSessionsEvent.ConferenceId);
-            ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name", practicalSessionsEvent.RoomId);
+            ViewData["ConferenceId"] = new SelectList(_context.Conferences.Where(a => a.EventCenterId == eventCenterId), "Id", "Name", practicalSessionsEvent.ConferenceId);
+            ViewData["RoomId"] = new SelectList(_context.Rooms.Where(a => a.EventCenterId == eventCenterId), "Id", "Name", practicalSessionsEvent.RoomId);
             ViewData["From"] = fromWhere;
             return View(practicalSessionsEvent);
         }

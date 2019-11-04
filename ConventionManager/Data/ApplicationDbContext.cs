@@ -22,7 +22,10 @@ namespace ConventionManager.Data
         public DbSet<PartyEvent> PartyEvents { get; set; }
         public DbSet<FoodEvent> FoodEvents { get; set; }
         public DbSet<Food> Foods { get; set; }
-        
+        public DbSet<Subscription> Subscriptions { get; set; }
+        public DbSet<AttendantSubscription> AttendantSubscriptions { get; set; }
+        public DbSet<ExhibitorSubscription> ExhibitorSubscriptions { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {

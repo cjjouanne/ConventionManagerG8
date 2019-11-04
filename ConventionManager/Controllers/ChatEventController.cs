@@ -9,6 +9,7 @@ using ConventionManager.Data;
 using ConventionManager.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
 
 namespace ConventionManager.Controllers
 {
@@ -16,10 +17,12 @@ namespace ConventionManager.Controllers
     public class ChatEventController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public ChatEventController(ApplicationDbContext context)
+        public ChatEventController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: ChatEvent
@@ -42,29 +45,37 @@ namespace ConventionManager.Controllers
             var chatEvent = await _context.ChatEvents
                 .Include(c => c.Conference)
                 .Include(c => c.Room)
+                .Include(s => s.Subscriptions)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            var user = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var userId = _userManager.GetUserId(HttpContext.User);
+            var subscription = await _context.Subscriptions.FirstOrDefaultAsync(s => s.UserId == userId && s.EventId == chatEvent.Id);
+
+            var eventAndSubscription = new EventAndSubscription()
+            {
+                ExhibitorEvent = chatEvent,
+                Subscription = subscription
+            };
 
             if (chatEvent == null)
             {
                 return NotFound();
             }
 
-            return View(chatEvent);
+            return View(eventAndSubscription);
         }
 
         // GET: ChatEvent/Create
-        public IActionResult Create(int? conferenceId, int? roomId, string fromWhere)
+        public IActionResult Create(int? conferenceId, int? roomId, string fromWhere, int eventCenterId)
         {
             if (fromWhere == "Conference")
             {
                 ViewData["ConferenceId"] = conferenceId;
-                ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name");
+                ViewData["RoomId"] = new SelectList(_context.Rooms.Where(a => a.EventCenterId == eventCenterId), "Id", "Name");
                 ViewData["From"] = "Conference";
             }
             else
             {
-                ViewData["ConferenceId"] = new SelectList(_context.Conferences, "Id", "Name");
+                ViewData["ConferenceId"] = new SelectList(_context.Conferences.Where(a => a.EventCenterId == eventCenterId), "Id", "Name");
                 ViewData["RoomId"] = roomId;
                 ViewData["From"] = "Room";
             }
@@ -114,7 +125,7 @@ namespace ConventionManager.Controllers
         }
 
         // GET: ChatEvent/Edit/5
-        public async Task<IActionResult> Edit(int? id, string fromWhere)
+        public async Task<IActionResult> Edit(int? id, string fromWhere, int eventCenterId)
         {
             if (id == null)
             {
@@ -126,8 +137,8 @@ namespace ConventionManager.Controllers
             {
                 return NotFound();
             }
-            ViewData["ConferenceId"] = new SelectList(_context.Conferences, "Id", "Name", chatEvent.ConferenceId);
-            ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name", chatEvent.RoomId);
+            ViewData["ConferenceId"] = new SelectList(_context.Conferences.Where(a => a.EventCenterId == eventCenterId), "Id", "Name", chatEvent.ConferenceId);
+            ViewData["RoomId"] = new SelectList(_context.Rooms.Where(a => a.EventCenterId == eventCenterId), "Id", "Name", chatEvent.RoomId);
             ViewData["From"] = fromWhere;
             return View(chatEvent);
         }

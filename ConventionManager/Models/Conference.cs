@@ -19,8 +19,6 @@ namespace ConventionManager.Models
         [Required(ErrorMessage = "There must be a start date for this conference!")]
         public DateTime EndDate { get; set; }
 
-        public List<string> AttendantsId { get; set; }
-
         public ICollection<Sponsor> Sponsors { get; set; }
 
         public ICollection<Event> Events { get; set; }
