@@ -123,7 +123,7 @@ namespace ConventionManager.Controllers
         }
 
         // GET: FoodEvent/Edit/5
-        public async Task<IActionResult> Edit(int? id, string fromWhere, int eventCenterId)
+        public async Task<IActionResult> Edit(int? id, string fromWhere)
         {
             if (id == null)
             {
@@ -135,6 +135,9 @@ namespace ConventionManager.Controllers
             {
                 return NotFound();
             }
+            var conference = await _context.Conferences.FirstOrDefaultAsync(c => c.Id == foodEvent.ConferenceId);
+            var eventCenterId = conference.EventCenterId;
+
             ViewData["ConferenceId"] = new SelectList(_context.Conferences.Where(a => a.EventCenterId == eventCenterId), "Id", "Name", foodEvent.ConferenceId);
             ViewData["RoomId"] = new SelectList(_context.Rooms.Where(a => a.EventCenterId == eventCenterId), "Id", "Name", foodEvent.RoomId);
             ViewData["From"] = fromWhere;
