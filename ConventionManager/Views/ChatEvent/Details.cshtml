@@ -22,12 +22,6 @@
             @Html.DisplayFor(model => model.ModeratorId)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ExhibitorsId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ExhibitorsId)
-        </dd>
-        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Topic)
         </dt>
         <dd class = "col-sm-10">
@@ -64,16 +58,14 @@
             @Html.DisplayFor(model => model.Room.Name)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AttendantsId)
+            @Html.DisplayNameFor(model => model.Subscriptions)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AttendantsId)
+            @Html.DisplayFor(model => model.Subscriptions)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-controller="ChatEvent" asp-action="RegisterToEvent" asp-route-eventId="@Model.Id" class="btn btn-primary">Join Event</a>
-    <a asp-controller="Register" asp-action="UnRegisterFromEvent" asp-route-@event="@Model" class="btn btn-danger">Exit Event</a>
     <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-success">Edit</a>
     <a href="javascript:void(0);" onclick="history.go(-1);" class="btn btn-secondary">Back to List</a>
 </div>

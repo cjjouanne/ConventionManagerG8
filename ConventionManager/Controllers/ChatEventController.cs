@@ -53,11 +53,12 @@ namespace ConventionManager.Controllers
             return View(chatEvent);
         }
 
-        // GET: ChatEvent/Create
-        public IActionResult Create(int? conferenceId, int? roomId, string fromWhere)
+            // GET: ChatEvent/Create
+            public IActionResult Create(int? conferenceId, int? roomId, string fromWhere)
         {
             if (fromWhere == "Conference")
             {
+                // Darle los rooms del event center solamente
                 ViewData["ConferenceId"] = conferenceId;
                 ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name");
                 ViewData["From"] = "Conference";

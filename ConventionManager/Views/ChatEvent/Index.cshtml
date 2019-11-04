@@ -16,9 +16,6 @@
                 @Html.DisplayNameFor(model => model.ModeratorId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ExhibitorsId)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Topic)
             </th>
             <th>
@@ -36,9 +33,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Room)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AttendantsId)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -47,9 +41,6 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.ModeratorId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ExhibitorsId)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Topic)
@@ -68,9 +59,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Room.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AttendantsId)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

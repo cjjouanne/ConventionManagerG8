@@ -29,7 +29,7 @@ namespace ConventionManager.Models
         public int RoomId { get; set; }
         public Room Room { get; set; }
 
-        public List<string> AttendantsId { get; set; }
+        public ICollection<Subscription> Subscriptions { get; set; }
 
         public string OutOfRangeMessage = "Event not created. The entered " +
             "dates already happened, are out of range with the Conference " +
