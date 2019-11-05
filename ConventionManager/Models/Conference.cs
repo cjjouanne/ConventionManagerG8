@@ -47,6 +47,10 @@ namespace ConventionManager.Models
                 {
                     return false;
                 }
+                if ((startInConferenceA <= 0) && (endInConferenceB >= 0))
+                {
+                    return false;
+                }
             }
             return true;
         }
