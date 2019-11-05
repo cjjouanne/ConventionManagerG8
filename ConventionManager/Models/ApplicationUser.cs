@@ -13,8 +13,7 @@ namespace ConventionManager.Models
         public byte[] ProfilePicture { get; set; }
         public byte[] Curriculum { get; set; }
 
-        public List<int> SuscribedEvents { get; set; }
-        public List<int> SuscribedConferences { get; set; }
+        public ICollection<Subscription> Subscriptions { get; set; }
 
         public string FullName()
         {
