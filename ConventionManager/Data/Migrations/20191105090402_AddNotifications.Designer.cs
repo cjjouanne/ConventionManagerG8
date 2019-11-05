@@ -3,15 +3,17 @@ using System;
 using ConventionManager.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ConventionManager.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191105090402_AddNotifications")]
+    partial class AddNotifications
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -183,8 +185,6 @@ namespace ConventionManager.Data.Migrations
 
                     b.Property<string>("Message");
 
-                    b.Property<DateTime>("SentOn");
-
                     b.Property<int>("SubscriptionId");
 
                     b.Property<string>("UserId");
@@ -285,22 +285,22 @@ namespace ConventionManager.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "945ab59b-0082-4356-99f7-687f98527270",
-                            ConcurrencyStamp = "5b4bcb74-c4b7-4a16-897c-ad091999456e",
+                            Id = "c68252da-5e98-4841-b5e8-08892fc4fb2a",
+                            ConcurrencyStamp = "3d986232-709e-43ba-8388-73050e7bbcc5",
                             Name = "Organizer",
                             NormalizedName = "ORGANIZER"
                         },
                         new
                         {
-                            Id = "903eac62-6a61-472b-8e8d-04f3a6a43ea8",
-                            ConcurrencyStamp = "035806b9-00e3-40db-8a2f-0e9523c446d8",
+                            Id = "906c280e-8735-474f-bcf1-84e36df13972",
+                            ConcurrencyStamp = "4d8b38aa-b587-4cae-bd1e-bf0fb3cadd1e",
                             Name = "Exhibitor",
                             NormalizedName = "EXHIBITOR"
                         },
                         new
                         {
-                            Id = "8f5cd594-ebc7-46e4-a00f-eaf877eadfab",
-                            ConcurrencyStamp = "2a7ced93-5d56-466f-9792-b7bf09434881",
+                            Id = "0d70dc96-0ed4-4b18-a223-98414dc9704f",
+                            ConcurrencyStamp = "aff780c8-5891-4ec4-b56c-32ace7be33b8",
                             Name = "User",
                             NormalizedName = "USER"
                         });
