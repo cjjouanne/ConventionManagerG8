@@ -13,6 +13,7 @@ namespace ConventionManager.Models
         public int Id { get; set; }
 
         public string UserId { get; set; }
+        public ApplicationUser User { get; set; }
 
         public int ConferenceId { get; set; }
 
@@ -20,7 +21,7 @@ namespace ConventionManager.Models
         public Event Event { get; set; }
 
         public string CollisionWithEventMessage = "Not possible to subscribe. You are trying to " +
-            "subscribe to two events that take place at the same time";
+            "subscribe to two events that take place at the same time.";
 
         public string GetSubscriptionType()
         {
