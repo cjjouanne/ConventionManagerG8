@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace ConventionManager.Models
 {
@@ -8,7 +9,8 @@ namespace ConventionManager.Models
         public string UserId { get; set; }
         public ApplicationUser User { get; set; }
         public int SubscriptionId { get; set; }
+        [Required(ErrorMessage = "The message cannot be empty.")]
         public string Message { get; set; }
-        public DateTime SentOn { get; set; } = DateTime.Now;
+        public DateTime SentOn { get; set; }
     }
 }
