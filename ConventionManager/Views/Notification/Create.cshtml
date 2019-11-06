@@ -1,27 +1,29 @@
 @model ConventionManager.Models.Notification
 
 @{
-    ViewData["Title"] = "Create";
-    
+    ViewData["Title"] = "New Notification";
 }
 
 <h1>Notification to Attendants</h1>
-@{   
-    var eventId = ViewBag.EventId;  
-} 
+
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="SendNotificationToEventAttendants">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" id="eventId" value=@eventId/>
+            <input type="hidden" name="eventId" value="@Context.Request.Query["eventId"]"/>
             <div class="form-group">
-                <label asp-for="Message" class="control-label"></label>
+                <label asp-for="Message" class="control-label"> <h5> Message </h5> </label>
                 <input asp-for="Message" class="form-control"/>
                 <span asp-validation-for="Message" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="SendNotification" class="btn btn-primary"/>
+                <input id="mailing" type="checkbox" value="true" name="mailing"/>
+                <input type="hidden" value="false" name="mailing"/>
+                <label> <h5> Send Notification by Email </h5></label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Send Notification" class="btn btn-primary"/>
             </div>
         </form>
     </div>

@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -26,60 +28,20 @@ namespace ConventionManager.Controllers
         public async Task<IActionResult> Index()
         {
             var notifications = _context.Notifications.Include(n => n.User)
-                                            .Where(n => n.UserId == _userManager.GetUserId(HttpContext.User));
+                .Where(n => n.UserId == _userManager.GetUserId(HttpContext.User));
             return View(await notifications.ToListAsync());
         }
-
-        // GET: Notification/Details/5
-
         // GET: Notification/Create
         public IActionResult Create(int eventId)
         {
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
-            ViewBag.EventId = eventId;
+            ViewData["EventId"] = eventId;
             return View();
         }
 
-        // POST: Notification/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserId,SubscriptionId,Message,SentOn")] Notification notification)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(notification);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", notification.UserId);
-            return View(notification);
-        }
-
-        // GET: Notification/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var notification = await _context.Notifications
-                .Include(n => n.User)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (notification == null)
-            {
-                return NotFound();
-            }
-
-            return View(notification);
-        }
-
         // POST: Notification/Delete/5
-        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> Delete([FromRoute]int id)
         {
             var notification = await _context.Notifications.FindAsync(id);
             _context.Notifications.Remove(notification);
@@ -87,22 +49,59 @@ namespace ConventionManager.Controllers
             return RedirectToAction(nameof(Index));
         }
         
-        public async Task<IActionResult> SendNotificationToEventAttendants(int eventId, string message)
+        public async Task<IActionResult> SendNotificationToEventAttendants(int eventId, string message, bool mailing)
         {    
             var @event = await _context.Events.FirstOrDefaultAsync(e => e.Id == eventId);
-            var subscriptions = _context.AttendantSubscriptions.Where(s => s.EventId == eventId).ToArray();
+            var subscriptions = _context.AttendantSubscriptions.Where(s => s.Event.Id == eventId).ToArray();
             foreach (var s in subscriptions)
             {
                 var notification = new Notification() {
-                    UserId = _userManager.GetUserId(HttpContext.User),
+                    UserId = s.UserId,
                     SubscriptionId = s.Id,
                     Message = message,
                     SentOn = DateTime.Now
                 };
                 _context.Add(notification);
                 await _context.SaveChangesAsync();
+                if(mailing)
+                {
+                    var user = _context.Users.First(u => u.Id == s.UserId);
+                    var address = user.Email;
+                    var subject = "Notification from Event " + @event.Name;
+                    SendMail(address, message, subject);
+                }
             }
             return RedirectToAction("Details", @event.GetEventType(), new { id = @event.Id });
+        }
+
+        public void SendMail(string address, string message, string subject)
+        {
+            // Credentials
+            var credentials = new NetworkCredential("apikey", "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");
+
+            // Mail message
+            var mail = new MailMessage
+            {
+                From = new MailAddress("notifications@conferences.com", "ConferenceManager"),
+                Body = message,
+                Subject = subject,
+                IsBodyHtml = false,
+            };
+
+            mail.To.Add(address);
+
+            // Smtp client
+            var client = new SmtpClient()
+            {
+                Port = 587,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Host = "smtp.sendgrid.com",
+                EnableSsl = false,
+                Credentials = credentials
+            };
+
+            client.Send(mail);
         }
 
         private bool NotificationExists(int id)
