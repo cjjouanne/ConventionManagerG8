@@ -89,7 +89,7 @@ namespace ConventionManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,EventCenterId,Name,Capacity,Location")] Room room)
+        public async Task<IActionResult> Create([Bind("Id,EventCenterId,Name,Capacity,Location,Latitude,Longitude")] Room room)
         {
             if (ModelState.IsValid)
             {
@@ -122,7 +122,7 @@ namespace ConventionManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, int eventCenterId, [Bind("Id,EventCenterId,Name,Capacity,Location")] Room room)
+        public async Task<IActionResult> Edit(int id, int eventCenterId, [Bind("Id,EventCenterId,Name,Capacity,Location,Latitude,Longitude")] Room room)
         {
             if (id != room.Id)
             {
