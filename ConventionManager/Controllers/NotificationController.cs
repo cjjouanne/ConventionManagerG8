@@ -26,19 +26,25 @@ namespace ConventionManager.Controllers
         }
 
         // GET: Notification
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var notifications = _context.Notifications.Where(n => n.UserId == _userManager.GetUserId(HttpContext.User));
-            var results = new List<NotificationConferenceAndEvent>();
-            foreach (var n in notifications)
+            List<NotificationConferenceAndEvent> results = new List<NotificationConferenceAndEvent>();
+            foreach (var notification in notifications)
             {
                 var notificationConferenceAndEvent = new NotificationConferenceAndEvent();
-                notificationConferenceAndEvent.Notification = n;
+                notificationConferenceAndEvent.Notification = notification;
 
-                var subscription = _context.Subscriptions.First(s => s.Id == n.SubscriptionId);
-                notificationConferenceAndEvent.Conference =
-                    _context.Conferences.First(c => c.Id == subscription.ConferenceId);
-                notificationConferenceAndEvent.Event = _context.Events.First(e => e.Id == subscription.EventId);
+                var subscription = _context.Subscriptions.First(s => s.Id == notification.SubscriptionId);
+
+                notificationConferenceAndEvent.Conference = _context.Conferences
+                                                            .First(c => c.Id == subscription.ConferenceId);
+
+                notificationConferenceAndEvent.Event = _context.Events
+                                                        .First(e => e.Id == subscription.EventId);
+
+                var user = await _userManager.FindByIdAsync(notification.SentByUserId);
+                notificationConferenceAndEvent.UserName = user.UserName;
                 results.Add(notificationConferenceAndEvent);
             }
             return View(results);
@@ -51,8 +57,6 @@ namespace ConventionManager.Controllers
         }
 
         // POST: Notification/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
             var notification = await _context.Notifications.FindAsync(id);
@@ -64,7 +68,7 @@ namespace ConventionManager.Controllers
         public async Task<IActionResult> SendConferenceNotification(int id, string receivers, string message,
             bool mailing)
         {
-            var @conference = await _context.Conferences.FirstOrDefaultAsync(c => c.Id == id);
+            var conference = await _context.Conferences.FirstOrDefaultAsync(c => c.Id == id);
             IEnumerable<Subscription> subscriptions = new List<Subscription>();
             if (receivers == "Attendants")
             {
@@ -77,6 +81,7 @@ namespace ConventionManager.Controllers
             foreach (Subscription s in subscriptions)
             {
                 Notification notification = new Notification() {
+                    SentByUserId = _userManager.GetUserId(HttpContext.User),
                     UserId = s.UserId,
                     SubscriptionId = s.Id,
                     ConferenceId = conference.Id,
@@ -85,7 +90,7 @@ namespace ConventionManager.Controllers
                     Type = "Conference"
                 };
 
-                var alreadySent = _context.Notifications.FirstOrDefault(n => n.UserId == s.UserId && n.ConferenceId == conference.Id);
+                var alreadySent = _context.Notifications.FirstOrDefault(n => n.UserId == s.UserId && n.ConferenceId == conference.Id && n.Message == message);
 
                 if (alreadySent == null)
                 {
@@ -95,12 +100,12 @@ namespace ConventionManager.Controllers
                     {
                         var user = _context.Users.First(u => u.Id == s.UserId);
                         var address = user.Email;
-                        var subject = "Notification from Conference " + @conference.Name;
+                        var subject = "Notification from Conference " + conference.Name;
                         SendMail(address, message, subject);
                     }
                 }
             }
-            return RedirectToAction("Details", "Conference", new { id = @conference.Id });
+            return RedirectToAction("Details", "Conference", new { id = conference.Id });
         }
         public async Task<IActionResult> SendEventNotification(int id, string receivers, string message, bool mailing)
         {
@@ -117,6 +122,7 @@ namespace ConventionManager.Controllers
             foreach (var s in subscriptions)
             {
                 var notification = new Notification() {
+                    SentByUserId = _userManager.GetUserId(HttpContext.User),
                     UserId = s.UserId,
                     SubscriptionId = s.Id,
                     EventId = @event.Id,

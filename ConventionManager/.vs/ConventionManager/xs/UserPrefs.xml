@@ -1,27 +1,27 @@
 ﻿<Properties StartupConfiguration="{89E480FD-47D7-48E3-8F15-D3C99768BC94}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/NotificationController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Views/Shared/_LoginPartial.cshtml">
     <Files>
       <File FileName="Controllers/EventCenterController.cs" Line="134" Column="94" />
       <File FileName="Controllers/RoomController.cs" />
-      <File FileName="Controllers/ItineraryController.cs" />
-      <File FileName="Views/Itinerary/ShowItinerary.cshtml" Line="1" Column="1" />
-      <File FileName="Views/Notification/Index.cshtml" Line="19" Column="17" />
-      <File FileName="Controllers/NotificationController.cs" Line="88" Column="133" />
+      <File FileName="Views/Shared/_Layout.cshtml" Line="60" Column="1" />
+      <File FileName="Views/Shared/_LoginPartial.cshtml" Line="8" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="ConventionManager" expanded="True">
             <Node name="ConventionManager" expanded="True">
-              <Node name="Controllers" expanded="True">
-                <Node name="NotificationController.cs" selected="True" />
-              </Node>
+              <Node name="Controllers" expanded="True" />
               <Node name="Views" expanded="True">
-                <Node name="ChatEvent" expanded="True" />
+                <Node name="EventCenter" expanded="True" />
                 <Node name="Itinerary" expanded="True" />
                 <Node name="Notification" expanded="True" />
-                <Node name="Room" expanded="True" />
-                <Node name="Shared" expanded="True" />
+                <Node name="Shared" expanded="True">
+                  <Node name="_LoginPartial.cshtml" selected="True" />
+                </Node>
+              </Node>
+              <Node name="wwwroot" expanded="True">
+                <Node name="css" expanded="True" />
               </Node>
             </Node>
           </Node>

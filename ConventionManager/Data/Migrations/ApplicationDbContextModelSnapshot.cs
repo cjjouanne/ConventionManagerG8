@@ -192,6 +192,8 @@ namespace ConventionManager.Data.Migrations
                     b.Property<string>("Message")
                         .IsRequired();
 
+                    b.Property<string>("SentByUserId");
+
                     b.Property<DateTime>("SentOn");
 
                     b.Property<int>("SubscriptionId");
@@ -300,22 +302,22 @@ namespace ConventionManager.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "327871da-b92e-4ce8-a5a5-a5b6da6e0032",
-                            ConcurrencyStamp = "eaf20c9c-0bc2-4927-b772-25c19408b394",
+                            Id = "4d9beec2-b032-4eac-bb25-d33f13a5e586",
+                            ConcurrencyStamp = "e7368e04-b223-4377-a3b4-099135a73772",
                             Name = "Organizer",
                             NormalizedName = "ORGANIZER"
                         },
                         new
                         {
-                            Id = "a9116879-af6b-4f6d-9d23-071f0133c805",
-                            ConcurrencyStamp = "83d97b42-d5c0-4d8e-82bd-e50cd7774497",
+                            Id = "2be41fcf-e4ac-42c7-86b2-f03b13c542b4",
+                            ConcurrencyStamp = "3dfab308-368c-4a9a-9e04-c7fa8fe7f04f",
                             Name = "Exhibitor",
                             NormalizedName = "EXHIBITOR"
                         },
                         new
                         {
-                            Id = "edf91043-1539-42ff-8df2-8b2d63c759da",
-                            ConcurrencyStamp = "25a742ed-0d66-4d4b-a5a0-e3733a730fae",
+                            Id = "87e84773-58b6-4a7e-a919-d0d3ac17d4e4",
+                            ConcurrencyStamp = "ffd3d877-0efc-4fff-8baf-a9121bff88fb",
                             Name = "User",
                             NormalizedName = "USER"
                         });

@@ -10,6 +10,8 @@ namespace ConventionManager.Models
         public string UserId { get; set; }
         public ApplicationUser User { get; set; }
 
+        public string SentByUserId { get; set; }
+
         public int SubscriptionId { get; set; }
 
         [Required(ErrorMessage = "The message cannot be empty.")]
