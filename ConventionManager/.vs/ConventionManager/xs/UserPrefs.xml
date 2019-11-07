@@ -1,27 +1,25 @@
 ﻿<Properties StartupConfiguration="{89E480FD-47D7-48E3-8F15-D3C99768BC94}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/RoomController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Views/Itinerary/ShowItinerary.cshtml">
     <Files>
-      <File FileName="Views/EventCenter/Details.cshtml" Line="41" Column="97" />
-      <File FileName="Views/Room/Details.cshtml" Line="47" Column="83" />
-      <File FileName="Controllers/EventCenterController.cs" Line="1" Column="1" />
-      <File FileName="Controllers/RoomController.cs" Line="1" Column="1" />
+      <File FileName="Controllers/EventCenterController.cs" Line="134" Column="94" />
+      <File FileName="Controllers/RoomController.cs" Line="26" Column="49" />
+      <File FileName="Controllers/ItineraryController.cs" Line="40" Column="60" />
+      <File FileName="Views/Itinerary/Index.cshtml" Line="58" Column="7" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="ConventionManager" expanded="True">
             <Node name="ConventionManager" expanded="True">
-              <Node name="Controllers" expanded="True">
-                <Node name="RoomController.cs" selected="True" />
-              </Node>
-              <Node name="Data" expanded="True">
-                <Node name="Migrations" expanded="True" />
-              </Node>
-              <Node name="Models" expanded="True" />
+              <Node name="Controllers" expanded="True" />
               <Node name="Views" expanded="True">
-                <Node name="EventCenter" expanded="True" />
+                <Node name="ChatEvent" expanded="True" />
+                <Node name="Itinerary" expanded="True" />
+                <Node name="Notification" expanded="True" />
                 <Node name="Room" expanded="True" />
+                <Node name="Shared" expanded="True" />
               </Node>
+              <Node name="wwwroot" selected="True" />
             </Node>
           </Node>
         </State>

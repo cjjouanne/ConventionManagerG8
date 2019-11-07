@@ -1,0 +1,58 @@
+﻿@model IEnumerable<ConventionManager.Models.Event>
+
+@{
+    ViewData["Title"] = "ShowItinerary";
+}
+
+<h1>My Itinerary</h1>
+<div class="row">
+    <div class="col-sm-8">
+        @if (Model.Count() > 0)
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.StartDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EndDate)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+            @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartDate.DayOfWeek)
+                        @Html.DisplayFor(modelItem => item.StartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndDate.DayOfWeek)
+                        @Html.DisplayFor(modelItem => item.EndDate)
+                    </td>
+                    <td>
+                        <a asp-controller="@item.GetEventType()" asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Details</a>
+                    </td>
+                </tr>
+            }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>You don't have anything scheduled in your agenda.</p>
+        }
+        <a href="javascript:void(0);" onclick="history.go(-1);" class="btn btn-secondary">Go Back</a>
+    </div>
+    <div class="col-ms-4">
+        <a asp-action="" class="btn btn-primary">View in Google Calendar</a>
+    </div>
+</div>
