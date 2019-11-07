@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "New Notification";
+    var sendTypeNotification = $"Send{@Context.Request.Query["type"]}Notification";
 }
 
 <h1>Notification to @Context.Request.Query["receivers"]</h1>
@@ -9,9 +10,9 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="SendEventNotification">
+        <form asp-action="@sendTypeNotification">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" name="eventId" value="@Context.Request.Query["eventId"]"/>
+            <input type="hidden" name="id" value="@Url.ActionContext.RouteData.Values["id"]"/>
             <input type="hidden" name="receivers" value="@Context.Request.Query["receivers"]"/>
             <div class="form-group">
                 <label asp-for="Message" class="control-label"> <h5> Message </h5> </label>
