@@ -66,7 +66,20 @@
                 @foreach (var conference in Model.EventCenter.Conferences)
                         {
                             <div class="card rounded-sm text-white bg-warning mb-3" style="max-width: 20rem;">
-                                <div class="card-header">@Html.DisplayFor(modelItem => conference.StartDate)</div>
+                                <div class="card-header">
+                                    <div>
+                                        @Html.DisplayFor(modelItem => conference.StartDate.DayOfWeek)
+                                        @Html.DisplayFor(modelItem => conference.StartDate.Day) /
+                                        @Html.DisplayFor(modelItem => conference.StartDate.Month) / 
+                                        @Html.DisplayFor(modelItem => conference.StartDate.Year)
+                                    </div>
+                                    <div>
+                                        @Html.DisplayFor(modelItem => conference.EndDate.DayOfWeek)
+                                        @Html.DisplayFor(modelItem => conference.EndDate.Day) /
+                                        @Html.DisplayFor(modelItem => conference.EndDate.Month) / 
+                                        @Html.DisplayFor(modelItem => conference.EndDate.Year)
+                                    </div>
+                                </div>
                                 <div class="card-body">
                                     <h4 class="card-title">
                                         <a asp-controller="Conference" asp-action="Details" asp-route-id="@conference.Id" class="card-title text-white">
