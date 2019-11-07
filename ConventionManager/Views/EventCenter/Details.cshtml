@@ -49,7 +49,7 @@
     </dl>
 </div>
 <div>
-    @if (User.IsInRole("Orgainzer"))
+    @if (User.IsInRole("Organizer"))
     {
         <a asp-action="Edit" asp-route-id="@Model.EventCenter.Id" class="btn btn-secondary">Edit</a>
     }
