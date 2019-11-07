@@ -49,7 +49,7 @@
     </dl>
 </div>
 <div>
-    @if (User.IsInRole("Orgainzer"))
+    @if (User.IsInRole("Organizer"))
     {
         <a asp-action="Edit" asp-route-id="@Model.EventCenter.Id" class="btn btn-secondary">Edit</a>
     }
@@ -141,7 +141,7 @@
                     </td>
                     <td width="30%">
                         <a asp-controller="Room" asp-action="Details" asp-route-id="@room.Id" class="btn btn-secondary">Details</a>
-                        @if (User.IsInRole("Orgainzer"))
+                        @if (User.IsInRole("Organizer"))
                         {
                             <a asp-controller="Room" asp-action="Edit" asp-route-id="@room.Id" class="btn btn-success">Edit</a>
                             <a asp-controller="Room" asp-action="Delete" asp-route-id="@room.Id" class="btn btn-danger">Delete</a>
