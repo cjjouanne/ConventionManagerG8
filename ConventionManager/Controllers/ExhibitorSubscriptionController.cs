@@ -15,16 +15,23 @@ namespace ConventionManager.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public ExhibitorSubscriptionController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public ExhibitorSubscriptionController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _context = context;
             _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         public async Task<IActionResult> CreateSubscription(int eventId)
         {
             var @event = await _context.Events.FirstOrDefaultAsync(e => e.Id == eventId);
+            if (!_signInManager.IsSignedIn(HttpContext.User))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             var userId = _userManager.GetUserId(HttpContext.User);
 
             var exhibitorSubscription = new ExhibitorSubscription()

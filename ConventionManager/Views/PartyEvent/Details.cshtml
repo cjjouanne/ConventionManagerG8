@@ -50,14 +50,7 @@
 <div>
     @if (!Model.Event.Subscriptions.Contains(Model.Subscription))
     {
-        if (User.IsInRole("User"))
-        {
-            <a asp-controller="AttendantSubscription" asp-action="CreateSubscription" asp-route-eventId="@Model.Event.Id" class="btn btn-primary">Join Event</a>
-        }
-        else
-        {
-            <a class="btn btn-primary" asp-area="Identity" asp-page="/Account/Register">Join Event</a>
-        }
+        <a asp-controller="AttendantSubscription" asp-action="CreateSubscription" asp-route-eventId="@Model.Event.Id" class="btn btn-primary">Join Event</a>
     }
     else
     {
@@ -68,10 +61,7 @@
      {
          <a asp-controller="Notification" asp-action="Create" asp-route-id="@Model.Event.Id"
             asp-route-type="Event" asp-route-receivers="Attendants" class="btn btn-primary my-2">Notificate Attendants</a>
-     }
-    <br/>
-     @if (User.IsInRole("Organizer"))
-     {
+         <br />
          <a asp-action="Edit" asp-route-id="@Model.Event.Id" class="btn btn-success">Edit</a>
      }
     <a href="javascript:void(0);" onclick="history.go(-1);" class="btn btn-secondary">Back to List</a>

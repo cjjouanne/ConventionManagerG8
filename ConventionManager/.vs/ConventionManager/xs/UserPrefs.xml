@@ -1,33 +1,31 @@
 ﻿<Properties StartupConfiguration="{89E480FD-47D7-48E3-8F15-D3C99768BC94}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Areas/Identity/Pages/Account/Login.cshtml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Views/TalkEvent/Details.cshtml">
     <Files>
       <File FileName="Controllers/EventCenterController.cs" Line="134" Column="94" />
       <File FileName="Controllers/RoomController.cs" />
-      <File FileName="Views/ChatEvent/Details.cshtml" Line="1" Column="1" />
-      <File FileName="Views/Shared/_Layout.cshtml" Line="1" Column="1" />
-      <File FileName="Areas/Identity/Pages/Account/Login.cshtml" Line="1" Column="1" />
+      <File FileName="Views/ChatEvent/Details.cshtml" Line="62" Column="1" />
+      <File FileName="Views/FoodEvent/Details.cshtml" Line="63" Column="10" />
+      <File FileName="Views/PartyEvent/Details.cshtml" Line="66" Column="7" />
+      <File FileName="Views/PracticalSessionsEvent/Details.cshtml" Line="61" Column="170" />
+      <File FileName="Views/TalkEvent/Details.cshtml" Line="62" Column="8" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="ConventionManager" expanded="True">
             <Node name="ConventionManager" expanded="True">
-              <Node name="Areas" expanded="True">
-                <Node name="Identity" expanded="True">
-                  <Node name="Pages" expanded="True">
-                    <Node name="Account" expanded="True">
-                      <Node name="Login.cshtml" selected="True" />
-                    </Node>
-                  </Node>
-                </Node>
-              </Node>
+              <Node name="Controllers" expanded="True" />
               <Node name="Views" expanded="True">
                 <Node name="ChatEvent" expanded="True" />
                 <Node name="EventCenter" expanded="True" />
+                <Node name="FoodEvent" expanded="True" />
                 <Node name="Itinerary" expanded="True" />
                 <Node name="PartyEvent" expanded="True" />
+                <Node name="PracticalSessionsEvent" expanded="True" />
                 <Node name="Shared" expanded="True" />
-                <Node name="TalkEvent" expanded="True" />
+                <Node name="TalkEvent" expanded="True">
+                  <Node name="Details.cshtml" selected="True" />
+                </Node>
               </Node>
             </Node>
           </Node>
