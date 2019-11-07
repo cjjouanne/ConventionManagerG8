@@ -4,26 +4,70 @@
     ViewData["Title"] = "My Notifications";
 }
 
+<style>
+    /* Chat containers */
+.chatcontainer {
+  border: 2px solid #dedede;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+/* Darker chat container */
+.darker {
+  border-color: #ccc;
+  background-color: #ddd;
+}
+
+/* Clear floats */
+.chatcontainer::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Style images */
+.chatcontainer img {
+  float: left;
+  max-width: 60px;
+  width: 100%;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+
+/* Style the right image */
+.chatcontainer img.right {
+  float: right;
+  margin-left: 20px;
+  margin-right:0;
+}
+
+/* Style time text */
+.time-right {
+  float: right;
+  color: #aaa;
+}
+
+/* Style time text */
+.time-left {
+  float: left;
+  color: #999;
+}
+</style>
+
+
 <h4>My Notifications</h4>
+<hr />
 @if (Model.Any())
 {
-    <table class="table">
-        <thead>
-        <tr>
-            <th>
-                From
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Notification.Message)
-            </th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
+    @foreach (var item in Model)
+    {
+        <div class="chatcontainer">
+            <p>
+                <font color="black">
+                    @item.UserName
+                     on 
                     @if (item.Notification.Type == "Event")
                     {
                         <a asp-controller="@item.Event.GetEventType()" asp-action="Details" asp-route-id="@item.Event.Id">
@@ -36,22 +80,21 @@
                             @Html.DisplayFor(modelItem => item.Conference.Name)
                         </a>
                     }
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Notification.Message)
-                </td>
-                <td>
-                    <form asp-action="Delete">
-                        <input type="hidden" name="id" value="@item.Notification.Id"/>
-                        <input type="submit" value="Delete" class="btn btn-danger"/>
-                    </form>
-                </td>
-            </tr>
-        }
-        </tbody>
-    </table>
+                </font>
+                <span class="time-right">@item.Notification.SentOn</span>
+            </p>
+            <p>
+            <font color="grey">
+                @Html.DisplayFor(modelItem => item.Notification.Message)
+            </font>
+            <span class="time-right">
+                <a asp-action="Delete" asp-route-id="@item.Notification.Id" class="btn btn-danger">Delete Notification</a>
+            </span>
+            </p>
+        </div>
+    }
 }
 else
 {
-    <p>You don't have any notifications yet!</p>
+    <p> You don't have any notifications yet!</p>
 }

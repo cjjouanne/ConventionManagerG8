@@ -5,5 +5,6 @@
         public Conference Conference { get; set; }
         public Event Event { get; set; }
         public Notification Notification { get; set; }
+        public string UserName { get; set; }
     }
 }
