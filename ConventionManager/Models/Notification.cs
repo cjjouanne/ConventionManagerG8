@@ -12,5 +12,6 @@ namespace ConventionManager.Models
         [Required(ErrorMessage = "The message cannot be empty.")]
         public string Message { get; set; }
         public DateTime SentOn { get; set; }
+        public string Type { get; set; }
     }
 }
