@@ -27,6 +27,10 @@ namespace ConventionManager.Models
 
         public string Location { get; set; }
 
+        public float Latitude { get; set; }
+
+        public float Longitude { get; set; }
+
         public ICollection<Event> Events { get; set; }
 
         public int EventCenterId { get; set; }

@@ -1,0 +1,57 @@
+@model IEnumerable<ConventionManager.Models.NotificationConferenceAndEvent>
+
+@{
+    ViewData["Title"] = "My Notifications";
+}
+
+<h4>My Notifications</h4>
+@if (Model.Any())
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>
+                From
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Notification.Message)
+            </th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @if (item.Notification.Type == "Event")
+                    {
+                        <a asp-controller="@item.Event.GetEventType()" asp-action="Details" asp-route-id="@item.Event.Id">
+                            @Html.DisplayFor(modelItem => item.Event.Name)
+                        </a>
+                    }
+                    else if (item.Notification.Type == "Conference")
+                    {
+                        <a asp-controller="Conference" asp-action="Details" asp-route-id="@item.Conference.Id">
+                            @Html.DisplayFor(modelItem => item.Conference.Name)
+                        </a>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Notification.Message)
+                </td>
+                <td>
+                    <form asp-action="Delete">
+                        <input type="hidden" name="id" value="@item.Notification.Id"/>
+                        <input type="submit" value="Delete" class="btn btn-danger"/>
+                    </form>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>You don't have any notifications yet!</p>
+}

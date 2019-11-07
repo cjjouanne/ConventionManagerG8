@@ -136,7 +136,11 @@ namespace ConventionManager.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<float>("Latitude");
+
                     b.Property<string>("Location");
+
+                    b.Property<float>("Longitude");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -176,6 +180,33 @@ namespace ConventionManager.Data.Migrations
                     b.ToTable("Foods");
                 });
 
+            modelBuilder.Entity("ConventionManager.Models.Notification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ConferenceId");
+
+                    b.Property<int>("EventId");
+
+                    b.Property<string>("Message")
+                        .IsRequired();
+
+                    b.Property<DateTime>("SentOn");
+
+                    b.Property<int>("SubscriptionId");
+
+                    b.Property<string>("Type");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Notifications");
+                });
+
             modelBuilder.Entity("ConventionManager.Models.Room", b =>
                 {
                     b.Property<int>("Id")
@@ -185,7 +216,11 @@ namespace ConventionManager.Data.Migrations
 
                     b.Property<int>("EventCenterId");
 
+                    b.Property<float>("Latitude");
+
                     b.Property<string>("Location");
+
+                    b.Property<float>("Longitude");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -265,22 +300,22 @@ namespace ConventionManager.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "0bc9c44b-8b84-486d-9a07-59f8c74633ef",
-                            ConcurrencyStamp = "03db3f90-5806-4024-b88d-4ad9aa31a8aa",
+                            Id = "327871da-b92e-4ce8-a5a5-a5b6da6e0032",
+                            ConcurrencyStamp = "eaf20c9c-0bc2-4927-b772-25c19408b394",
                             Name = "Organizer",
                             NormalizedName = "ORGANIZER"
                         },
                         new
                         {
-                            Id = "898ac6e5-4e05-4ce2-a4b6-0be65e2810cb",
-                            ConcurrencyStamp = "7d599a6e-55d7-4058-bf3b-58cf1edc9452",
+                            Id = "a9116879-af6b-4f6d-9d23-071f0133c805",
+                            ConcurrencyStamp = "83d97b42-d5c0-4d8e-82bd-e50cd7774497",
                             Name = "Exhibitor",
                             NormalizedName = "EXHIBITOR"
                         },
                         new
                         {
-                            Id = "16e72fc4-d456-4bc9-8f76-7127470046a3",
-                            ConcurrencyStamp = "2a744631-4629-4106-99b6-bacd2c44715c",
+                            Id = "edf91043-1539-42ff-8df2-8b2d63c759da",
+                            ConcurrencyStamp = "25a742ed-0d66-4d4b-a5a0-e3733a730fae",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -462,6 +497,13 @@ namespace ConventionManager.Data.Migrations
                         .WithMany("Menu")
                         .HasForeignKey("FoodEventId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ConventionManager.Models.Notification", b =>
+                {
+                    b.HasOne("ConventionManager.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("ConventionManager.Models.Room", b =>

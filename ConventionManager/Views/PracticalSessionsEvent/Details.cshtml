@@ -84,6 +84,11 @@
             }
         }
     }
-    <a asp-action="Edit" asp-route-id="@Model.ExhibitorEvent.Id" class="btn btn-success">Edit</a>
+    <br/>
+    <a asp-controller="Notification" asp-action="Create" asp-route-id="@Model.ExhibitorEvent.Id"
+       asp-route-type="Event" asp-route-receivers="Attendants" class="btn btn-primary my-2">Notificate Attendants</a>
+    <a asp-controller="Notification" asp-action="Create" asp-route-id="@Model.ExhibitorEvent.Id" 
+       asp-route-type="Event" asp-route-receivers="Exhibitors" class="btn btn-primary my-2">Notificate Exhibitors</a>
+    <br/>    <a asp-action="Edit" asp-route-id="@Model.ExhibitorEvent.Id" class="btn btn-success">Edit</a>
     <a href="javascript:void(0);" onclick="history.go(-1);" class="btn btn-secondary">Back to List</a>
 </div>

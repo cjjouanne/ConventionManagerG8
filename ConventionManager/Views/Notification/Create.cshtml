@@ -1,0 +1,40 @@
+@model ConventionManager.Models.Notification
+
+@{
+    ViewData["Title"] = "New Notification";
+    var sendTypeNotification = $"Send{@Context.Request.Query["type"]}Notification";
+}
+
+<h1>Notification to @Context.Request.Query["receivers"]</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="@sendTypeNotification">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" name="id" value="@Url.ActionContext.RouteData.Values["id"]"/>
+            <input type="hidden" name="receivers" value="@Context.Request.Query["receivers"]"/>
+            <div class="form-group">
+                <label asp-for="Message" class="control-label"> <h5> Message </h5> </label>
+                <input asp-for="Message" class="form-control"/>
+                <span asp-validation-for="Message" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input id="mailing" type="checkbox" value="true" name="mailing"/>
+                <input type="hidden" value="false" name="mailing"/>
+                <label> <h5> Send Notification by Email </h5></label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Send Notification" class="btn btn-primary"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a href="javascript:void(0);" onclick="history.go(-1);" class="btn btn-secondary">Back</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
