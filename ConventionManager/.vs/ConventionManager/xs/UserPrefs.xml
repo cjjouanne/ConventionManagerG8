@@ -1,25 +1,26 @@
 ﻿<Properties StartupConfiguration="{89E480FD-47D7-48E3-8F15-D3C99768BC94}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Models/Subscription.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/RoomController.cs">
     <Files>
-      <File FileName="Controllers/ChatEventController.cs" Line="255" Column="1" />
-      <File FileName="Views/Conference/ChooseEventType.cshtml" Line="21" Column="14" />
-      <File FileName="Models/ApplicationUser.cs" Line="16" Column="67" />
-      <File FileName="Models/Subscription.cs" Line="16" Column="48" />
+      <File FileName="Views/EventCenter/Details.cshtml" Line="41" Column="97" />
+      <File FileName="Views/Room/Details.cshtml" Line="47" Column="83" />
+      <File FileName="Controllers/EventCenterController.cs" Line="1" Column="1" />
+      <File FileName="Controllers/RoomController.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="ConventionManager" expanded="True">
             <Node name="ConventionManager" expanded="True">
-              <Node name="Controllers" expanded="True" />
+              <Node name="Controllers" expanded="True">
+                <Node name="RoomController.cs" selected="True" />
+              </Node>
               <Node name="Data" expanded="True">
                 <Node name="Migrations" expanded="True" />
               </Node>
-              <Node name="Models" expanded="True">
-                <Node name="Subscription.cs" selected="True" />
-              </Node>
+              <Node name="Models" expanded="True" />
               <Node name="Views" expanded="True">
-                <Node name="Conference" expanded="True" />
+                <Node name="EventCenter" expanded="True" />
+                <Node name="Room" expanded="True" />
               </Node>
             </Node>
           </Node>

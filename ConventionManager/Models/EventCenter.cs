@@ -21,6 +21,10 @@ namespace ConventionManager.Models
 
         public string Location { get; set; }
 
+        public float Latitude { get; set; }
+
+        public float Longitude { get; set; }
+
         public ICollection<Room> Rooms { get; set; }
 
         public ICollection<Conference> Conferences { get; set; }
