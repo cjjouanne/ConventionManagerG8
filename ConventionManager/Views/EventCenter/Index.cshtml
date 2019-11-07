@@ -5,14 +5,17 @@
 }
 
 <h1>All Event Centers</h1>
-
-<p>
-    <a asp-action="Create" class="btn btn-primary">Create New Event Center</a>
-</p>
+@if (User.IsInRole("Organizer"))
+{
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Create New Event Center</a>
+    </p>
+}
+<br/>
 <div class="card-columns">
     @foreach (var item in Model)
         {
-            <div class="card text-white bg-light mb-3" style="max-width: 20rem;">
+            <div class="card rounded-sm text-white bg-light mb-3" style="max-width: 20rem;">
                 <div class="card-header">@Html.DisplayFor(modelItem => item.Type)</div>
                 <div class="card-body">
                     <a asp-action="Details" asp-route-id="@item.Id" >
@@ -22,10 +25,13 @@
                     </a>
                     <p class="card-text">Location: @Html.DisplayFor(modelItem => item.Location)</p>
                 </div>
-                <div class="card-footer">
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
-                </div>
+                @if (User.IsInRole("Organizer"))
+                {
+                    <div class="card-footer">
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                    </div>
+                }
             </div>
         }
 </div>
