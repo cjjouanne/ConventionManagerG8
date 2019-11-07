@@ -3,8 +3,12 @@
     <Files>
       <File FileName="Controllers/EventCenterController.cs" Line="134" Column="94" />
       <File FileName="Controllers/RoomController.cs" />
-      <File FileName="Views/Shared/_Layout.cshtml" Line="60" Column="1" />
-      <File FileName="Views/Shared/_LoginPartial.cshtml" Line="8" Column="1" />
+      <File FileName="Views/EventCenter/Details.cshtml" />
+      <File FileName="Views/Event/Details.cshtml" />
+      <File FileName="Views/TalkEvent/Create.cshtml" />
+      <File FileName="Views/PartyEvent/Details.cshtml" Line="63" Column="84" />
+      <File FileName="Views/Shared/_Layout.cshtml" Line="1" Column="1" />
+      <File FileName="Views/Shared/_LoginPartial.cshtml" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -13,15 +17,14 @@
             <Node name="ConventionManager" expanded="True">
               <Node name="Controllers" expanded="True" />
               <Node name="Views" expanded="True">
+                <Node name="Event" expanded="True" />
                 <Node name="EventCenter" expanded="True" />
                 <Node name="Itinerary" expanded="True" />
-                <Node name="Notification" expanded="True" />
+                <Node name="PartyEvent" expanded="True" />
                 <Node name="Shared" expanded="True">
                   <Node name="_LoginPartial.cshtml" selected="True" />
                 </Node>
-              </Node>
-              <Node name="wwwroot" expanded="True">
-                <Node name="css" expanded="True" />
+                <Node name="TalkEvent" expanded="True" />
               </Node>
             </Node>
           </Node>
