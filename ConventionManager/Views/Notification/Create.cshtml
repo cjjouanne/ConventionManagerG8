@@ -4,14 +4,15 @@
     ViewData["Title"] = "New Notification";
 }
 
-<h1>Notification to Attendants</h1>
+<h1>Notification to @Context.Request.Query["receivers"]</h1>
 
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="SendNotificationToEventAttendants">
+        <form asp-action="SendEventNotification">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" name="eventId" value="@Context.Request.Query["eventId"]"/>
+            <input type="hidden" name="receivers" value="@Context.Request.Query["receivers"]"/>
             <div class="form-group">
                 <label asp-for="Message" class="control-label"> <h5> Message </h5> </label>
                 <input asp-for="Message" class="form-control"/>
@@ -30,7 +31,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a href="javascript:void(0);" onclick="history.go(-1);" class="btn btn-secondary">Back</a>
 </div>
 
 @section Scripts {

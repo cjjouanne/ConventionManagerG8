@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -32,16 +33,16 @@ namespace ConventionManager.Controllers
             return View(await notifications.ToListAsync());
         }
         // GET: Notification/Create
-        public IActionResult Create(int eventId)
+        public IActionResult Create(int eventId, string receivers)
         {
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
-            ViewData["EventId"] = eventId;
             return View();
         }
 
         // POST: Notification/Delete/5
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete([FromRoute]int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var notification = await _context.Notifications.FindAsync(id);
             _context.Notifications.Remove(notification);
@@ -49,10 +50,18 @@ namespace ConventionManager.Controllers
             return RedirectToAction(nameof(Index));
         }
         
-        public async Task<IActionResult> SendNotificationToEventAttendants(int eventId, string message, bool mailing)
-        {    
+        public async Task<IActionResult> SendEventNotification(int eventId, string receivers, string message, bool mailing)
+        {
             var @event = await _context.Events.FirstOrDefaultAsync(e => e.Id == eventId);
-            var subscriptions = _context.AttendantSubscriptions.Where(s => s.Event.Id == eventId).ToArray();
+            IEnumerable<Subscription> subscriptions = new List<Subscription>();
+            if (receivers == "Attendants")
+            {
+                subscriptions = _context.AttendantSubscriptions.Where(s => s.Event.Id == eventId).ToArray();
+            }
+            else if (receivers == "Exhibitors")
+            {
+                subscriptions = _context.ExhibitorSubscriptions.Where(s => s.Event.Id == eventId).ToArray();
+            }
             foreach (var s in subscriptions)
             {
                 var notification = new Notification() {
