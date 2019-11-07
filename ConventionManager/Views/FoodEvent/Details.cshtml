@@ -56,9 +56,15 @@
         <a asp-controller="AttendantSubscription" asp-action="DeleteSubscription" asp-route-eventId="@Model.Event.Id" class="btn btn-danger">Quit Event</a>
     }
     <br/>
-    <a asp-controller="Notification" asp-action="Create" asp-route-Id="@Model.Event.Id" 
-       asp-route-type="Event" asp-route-receivers="Attendants" class="btn btn-primary my-2">Notificate Attendants</a>
+     @if (User.IsInRole("Organizer"))
+     {
+         <a asp-controller="Notification" asp-action="Create" asp-route-Id="@Model.Event.Id"
+            asp-route-type="Event" asp-route-receivers="Attendants" class="btn btn-primary my-2">Notificate Attendants</a>
+     }
     <br/>
-    <a asp-action="Edit" asp-route-id="@Model.Event.Id" class="btn btn-success">Edit</a>
+     @if (User.IsInRole("Organizer"))
+     {
+         <a asp-action="Edit" asp-route-id="@Model.Event.Id" class="btn btn-success">Edit</a>
+     }
     <a href="javascript:void(0);" onclick="history.go(-1);" class="btn btn-secondary">Back to List</a>
 </div>
