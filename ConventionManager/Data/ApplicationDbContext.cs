@@ -25,6 +25,7 @@ namespace ConventionManager.Data
         public DbSet<Subscription> Subscriptions { get; set; }
         public DbSet<AttendantSubscription> AttendantSubscriptions { get; set; }
         public DbSet<ExhibitorSubscription> ExhibitorSubscriptions { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
