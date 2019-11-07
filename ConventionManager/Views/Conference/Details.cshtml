@@ -40,6 +40,11 @@
     </dl>
 </div>
 <div>
+    <a asp-controller="Notification" asp-action="Create" asp-route-id="@Model.Conference.Id" asp-route-type="Conference"
+       asp-route-receivers="Attendants" class="btn btn-primary my-2">Notificate Attendants</a>
+    <a asp-controller="Notification" asp-action="Create" asp-route-id="@Model.Conference.Id" asp-route-type="Conference" 
+       asp-route-receivers="Exhibitors" class="btn btn-primary my-2">Notificate Exhibitors</a>
+    <br/>
     <a asp-action="Edit" asp-route-id="@Model.Conference.Id" class="btn btn-success">Edit</a>
     <a asp-controller="EventCenter" asp-action="Details" asp-route-id="@Model.Conference.EventCenterId" class="btn btn-secondary">Back to List</a>
 </div>

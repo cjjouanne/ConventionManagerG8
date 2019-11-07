@@ -84,6 +84,8 @@
           <e p="20191105093325_AddDateToNotifications.Designer.cs" t="Include" />
           <e p="20191106012734_ValidateNotifications.cs" t="Include" />
           <e p="20191106012734_ValidateNotifications.Designer.cs" t="Include" />
+          <e p="20191107084256_AddTypeToNotifications.cs" t="Include" />
+          <e p="20191107084256_AddTypeToNotifications.Designer.cs" t="Include" />
           <e p="ApplicationDbContextModelSnapshot.cs" t="Include" />
         </e>
       </e>
@@ -105,6 +107,7 @@
         <e p="FoodEvent.cs" t="Include" />
         <e p="INotification.cs" t="Include" />
         <e p="Notification.cs" t="Include" />
+        <e p="NotificationConferenceAndEvent.cs" t="Include" />
         <e p="PartyEvent.cs" t="Include" />
         <e p="PracticalSessionsEvent.cs" t="Include" />
         <e p="Room.cs" t="Include" />

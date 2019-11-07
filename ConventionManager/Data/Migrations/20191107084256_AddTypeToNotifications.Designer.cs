@@ -3,15 +3,17 @@ using System;
 using ConventionManager.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ConventionManager.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191107084256_AddTypeToNotifications")]
+    partial class AddTypeToNotifications
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -136,11 +138,7 @@ namespace ConventionManager.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<float>("Latitude");
-
                     b.Property<string>("Location");
-
-                    b.Property<float>("Longitude");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -212,11 +210,7 @@ namespace ConventionManager.Data.Migrations
 
                     b.Property<int>("EventCenterId");
 
-                    b.Property<float>("Latitude");
-
                     b.Property<string>("Location");
-
-                    b.Property<float>("Longitude");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -296,22 +290,22 @@ namespace ConventionManager.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "30bac4b7-9c18-46df-a0ae-f6068bb47e0f",
-                            ConcurrencyStamp = "99b3ef9a-b60e-47d4-97c6-bc41d2d7135b",
+                            Id = "ed3340c4-33cb-42ef-a587-ea4491c65df9",
+                            ConcurrencyStamp = "65270c00-af35-4940-8b7e-aceb9b2dfe36",
                             Name = "Organizer",
                             NormalizedName = "ORGANIZER"
                         },
                         new
                         {
-                            Id = "d0c55872-566c-4b6b-afde-d0c7e9df52b3",
-                            ConcurrencyStamp = "46ecec52-da7e-4a36-9555-8d5c03755205",
+                            Id = "694072c7-f096-4ad3-ba32-656924f76892",
+                            ConcurrencyStamp = "dc8289e1-3d8f-4872-bfea-64dbf2fadf22",
                             Name = "Exhibitor",
                             NormalizedName = "EXHIBITOR"
                         },
                         new
                         {
-                            Id = "bd06f069-ff42-4fbc-8226-9e01ca1f759a",
-                            ConcurrencyStamp = "7724312c-5b3f-4f73-9a47-f2f991c639ab",
+                            Id = "302fea05-da37-4bca-a141-472b05d1d38c",
+                            ConcurrencyStamp = "07623915-25d6-4509-b795-aff653a88016",
                             Name = "User",
                             NormalizedName = "USER"
                         });
