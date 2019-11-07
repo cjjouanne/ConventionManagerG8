@@ -58,14 +58,7 @@
     {
         @if (!User.IsInRole("Exhibitor"))
         {
-            if (User.IsInRole("User"))
-            {
-                <a asp-controller="AttendantSubscription" asp-action="CreateSubscription" asp-route-eventId="@Model.ExhibitorEvent.Id" class="btn btn-primary">Join Event</a>
-            }
-            else
-            {
-                <a class="btn btn-primary" asp-area="Identity" asp-page="/Account/Register">Join Event</a>
-            }
+            <a asp-controller="AttendantSubscription" asp-action="CreateSubscription" asp-route-eventId="@Model.ExhibitorEvent.Id" class="btn btn-primary">Join Event</a>
         }
         else
         {
