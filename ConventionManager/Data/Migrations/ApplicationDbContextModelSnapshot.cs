@@ -185,6 +185,10 @@ namespace ConventionManager.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int>("ConferenceId");
+
+                    b.Property<int>("EventId");
+
                     b.Property<string>("Message")
                         .IsRequired();
 
@@ -296,22 +300,22 @@ namespace ConventionManager.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "30bac4b7-9c18-46df-a0ae-f6068bb47e0f",
-                            ConcurrencyStamp = "99b3ef9a-b60e-47d4-97c6-bc41d2d7135b",
+                            Id = "327871da-b92e-4ce8-a5a5-a5b6da6e0032",
+                            ConcurrencyStamp = "eaf20c9c-0bc2-4927-b772-25c19408b394",
                             Name = "Organizer",
                             NormalizedName = "ORGANIZER"
                         },
                         new
                         {
-                            Id = "d0c55872-566c-4b6b-afde-d0c7e9df52b3",
-                            ConcurrencyStamp = "46ecec52-da7e-4a36-9555-8d5c03755205",
+                            Id = "a9116879-af6b-4f6d-9d23-071f0133c805",
+                            ConcurrencyStamp = "83d97b42-d5c0-4d8e-82bd-e50cd7774497",
                             Name = "Exhibitor",
                             NormalizedName = "EXHIBITOR"
                         },
                         new
                         {
-                            Id = "bd06f069-ff42-4fbc-8226-9e01ca1f759a",
-                            ConcurrencyStamp = "7724312c-5b3f-4f73-9a47-f2f991c639ab",
+                            Id = "edf91043-1539-42ff-8df2-8b2d63c759da",
+                            ConcurrencyStamp = "25a742ed-0d66-4d4b-a5a0-e3733a730fae",
                             Name = "User",
                             NormalizedName = "USER"
                         });

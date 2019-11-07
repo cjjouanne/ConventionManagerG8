@@ -34,6 +34,7 @@ namespace ConventionManager.Controllers
             {
                 var notificationConferenceAndEvent = new NotificationConferenceAndEvent();
                 notificationConferenceAndEvent.Notification = n;
+
                 var subscription = _context.Subscriptions.First(s => s.Id == n.SubscriptionId);
                 notificationConferenceAndEvent.Conference =
                     _context.Conferences.First(c => c.Id == subscription.ConferenceId);
@@ -73,23 +74,30 @@ namespace ConventionManager.Controllers
             {
                 subscriptions = _context.ExhibitorSubscriptions.Where(s => s.ConferenceId == id).ToArray();
             }
-            foreach (var s in subscriptions)
+            foreach (Subscription s in subscriptions)
             {
-                var notification = new Notification() {
+                Notification notification = new Notification() {
                     UserId = s.UserId,
                     SubscriptionId = s.Id,
+                    ConferenceId = conference.Id,
                     Message = message,
                     SentOn = DateTime.Now,
                     Type = "Conference"
                 };
-                _context.Add(notification);
-                await _context.SaveChangesAsync();
-                if(mailing)
+
+                var alreadySent = _context.Notifications.FirstOrDefault(n => n.UserId == s.UserId && n.ConferenceId == conference.Id);
+
+                if (alreadySent == null)
                 {
-                    var user = _context.Users.First(u => u.Id == s.UserId);
-                    var address = user.Email;
-                    var subject = "Notification from Conference " + @conference.Name;
-                    SendMail(address, message, subject);
+                    _context.Add(notification);
+                    await _context.SaveChangesAsync();
+                    if (mailing)
+                    {
+                        var user = _context.Users.First(u => u.Id == s.UserId);
+                        var address = user.Email;
+                        var subject = "Notification from Conference " + @conference.Name;
+                        SendMail(address, message, subject);
+                    }
                 }
             }
             return RedirectToAction("Details", "Conference", new { id = @conference.Id });
@@ -111,6 +119,7 @@ namespace ConventionManager.Controllers
                 var notification = new Notification() {
                     UserId = s.UserId,
                     SubscriptionId = s.Id,
+                    EventId = @event.Id,
                     Message = message,
                     SentOn = DateTime.Now,
                     Type = "Event"
