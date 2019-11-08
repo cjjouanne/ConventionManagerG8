@@ -79,7 +79,7 @@ namespace ConventionManager.Models
                 int endInEventA = DateTime.Compare(this.EndDate, @event.StartDate);
                 int endInEventB = DateTime.Compare(this.EndDate, @event.EndDate);
 
-                if (this.ConferenceId == @event.ConferenceId || this.RoomId == @event.RoomId)
+                if (this.RoomId == @event.RoomId)
                 {
                     if ((startInEventA >= 0 && startInEventB <= 0) || (endInEventA >= 0 && endInEventB <= 0))
                     {
@@ -93,7 +93,6 @@ namespace ConventionManager.Models
             }
             return true;
         }
-
 
         public abstract void SendNotificationToAttendants(string message);
         public abstract void SendNotificationToExhibitors(string message);

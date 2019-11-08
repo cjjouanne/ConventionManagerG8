@@ -69,49 +69,40 @@
     <h4>Events in this Room</h4>
     @if (Model.Room.Events.Count > 0)
     {
-        <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Event.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Event.StartDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Event.EndDate)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-        @foreach (var item in Model.Room.Events) {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.StartDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.EndDate)
-                    </td>
-                    <td width="30%">
-                        <a asp-controller=@item.GetEventType() asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary">Details</a>
-                        @if (User.IsInRole("Organizer"))
-                        {
-                            <a asp-controller=@item.GetEventType() asp-action="Edit" asp-route-id="@item.Id" asp-route-fromWhere="Room" class="btn btn-success">Edit</a>
-                            <a asp-controller=@item.GetEventType() asp-action="Delete" asp-route-id="@item.Id" asp-route-fromWhere="Room" class="btn btn-danger">Delete</a>
-                        }
-                    </td>
-                </tr>
-        }
-            </tbody>
-        </table>
+        <div class="card-columns">
+            @foreach (var item in Model.Room.Events)
+            {
+                <div class="card rounded-sm text-white bg-primary mb-3" style="max-width: 20rem;">
+                    <div class="card-header">
+                        Begins on
+                        @Html.DisplayFor(modelItem => item.StartDate.DayOfWeek)
+                        @Html.DisplayFor(modelItem => item.StartDate.Day) /
+                        @Html.DisplayFor(modelItem => item.StartDate.Month) /
+                        @Html.DisplayFor(modelItem => item.StartDate.Year)
+                    </div>
+                    <div class="card-body">
+                        <a asp-controller="@item.GetEventType()" asp-action="Details" asp-route-id="@item.Id" >
+                            <h4 class="card-title text-white">
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </h4>
+                        </a>
+                        <p class="card-text"> Start: @Html.DisplayFor(modelItem => item.StartDate)</p>
+                        <p class="card-text"> End: @Html.DisplayFor(modelItem => item.EndDate)</p>
+                    </div>
+                     @if (User.IsInRole("Organizer"))
+                     {
+                         <div class="card-footer">
+                             <a asp-controller="@item.GetEventType()" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success">Edit</a>
+                             <a asp-controller="@item.GetEventType()" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                         </div>
+                     }
+                </div>
+            }
+        </div>
     }
     else
     {
-        <p>This Room does not have any Events yet. You can create one below.</p>
+        <p>This Room does not have any Events yet.</p>
     }
     @if (User.IsInRole("Organizer"))
     {
