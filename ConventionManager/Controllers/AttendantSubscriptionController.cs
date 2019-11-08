@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using ConventionManager.Data;
 using ConventionManager.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ConventionManager.Controllers
 {
+    [Authorize(Roles = "Organizer,Exhibitor,User")]
     public class AttendantSubscriptionController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -26,13 +28,22 @@ namespace ConventionManager.Controllers
 
         public async Task<IActionResult> CreateSubscription(int eventId)
         {
-            var @event = await _context.Events.FirstOrDefaultAsync(e => e.Id == eventId);
-
             if (!_signInManager.IsSignedIn(HttpContext.User))
             {
                 return RedirectToAction("Index", "Home");
             }
+
+            var @event = await _context.Events
+                .Include(s => s.Subscriptions)
+                .FirstOrDefaultAsync(e => e.Id == eventId);
+            var room = await _context.Rooms.FirstOrDefaultAsync(r => r.Id == @event.RoomId);
             var userId = _userManager.GetUserId(HttpContext.User);
+
+            if (room.Capacity - @event.Subscriptions.Count() <= 0)
+            {
+                TempData["NoMoreVacancies"] = room.NoMoreVacanciesMessage;
+                return RedirectToAction("Details", @event.GetEventType(), new { id = @event.Id });
+            }
 
             var attendantSubscription = new AttendantSubscription() {
                 UserId = userId,

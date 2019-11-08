@@ -10,7 +10,10 @@
 {
  <p class="alert alert-warning alert-dismissible" id="errorMessage">@TempData["SubscriptionCollision"]</p>
 }
-
+@if (TempData["NoMoreVacancies"] != null)
+{
+ <p class="alert alert-warning alert-dismissible" id="errorMessage">@TempData["NoMoreVacancies"]</p>
+}
 <div>
     <h4>Food Event</h4>
     <hr />
@@ -44,6 +47,13 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Event.Room.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            Vacancies
+        </dt>
+        <dd class = "col-sm-10">
+            @Model.Event.Room.GetVacancies(Model.Event)
+        </dd>
     </dl>
 </div>
 <div>

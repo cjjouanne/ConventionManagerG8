@@ -13,6 +13,7 @@
         {
             <div class="card rounded-sm text-white bg-primary mb-3" style="max-width: 20rem;">
                 <div class="card-header">
+                    Begins on
                     @Html.DisplayFor(modelItem => item.StartDate.DayOfWeek)
                     @Html.DisplayFor(modelItem => item.StartDate.Day) /
                     @Html.DisplayFor(modelItem => item.StartDate.Month) /
@@ -24,8 +25,8 @@
                             @Html.DisplayFor(modelItem => item.Name)
                         </h4>
                     </a>
-                    <p class="card-text"> Start: @Html.DisplayFor(modelItem => item.StartDate.TimeOfDay)</p>
-                    <p class="card-text"> End: @Html.DisplayFor(modelItem => item.EndDate.TimeOfDay)</p>
+                    <p class="card-text"> Start: @Html.DisplayFor(modelItem => item.StartDate)</p>
+                    <p class="card-text"> End: @Html.DisplayFor(modelItem => item.EndDate)</p>
                 </div>
                  @if (User.IsInRole("Organizer"))
                  {
@@ -40,5 +41,5 @@
 }
 else
 {
-    <p>There are no Events scheduled at this moment. You can create one in a Conference or in a Room at any Event Center.</p>
+    <p>There are no Events scheduled at this moment.</p>
 }
