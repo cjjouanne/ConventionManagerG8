@@ -59,6 +59,12 @@ namespace ConventionManager.Controllers
             return View(results);
         }
 
+        public IActionResult Create(int id, string type, string receivers)
+        {
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
+            return View();
+        }
+
         // POST: Notification/Delete/5
         public async Task<IActionResult> Delete(int id)
         {
@@ -110,6 +116,7 @@ namespace ConventionManager.Controllers
             }
             return RedirectToAction("Details", "Conference", new { id = conference.Id });
         }
+
         public async Task<IActionResult> SendEventNotification(int id, string receivers, string message, bool mailing)
         {
             var @event = await _context.Events.FirstOrDefaultAsync(e => e.Id == id);
