@@ -49,11 +49,62 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.EventCenter.Id" class="btn btn-secondary">Edit</a>
+    @if (User.IsInRole("Organizer"))
+    {
+        <a asp-action="Edit" asp-route-id="@Model.EventCenter.Id" class="btn btn-success">Edit</a>
+    }
     <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>
 
 <br />
+<div>
+    <h4>All Conferences in @Html.DisplayFor(model => model.EventCenter.Name)</h4>
+    <br/>
+        @if (Model.EventCenter.Conferences.Count > 0)
+        {
+            <div class="card-columns">
+                @foreach (var conference in Model.EventCenter.Conferences)
+                        {
+                            <div class="card rounded-sm text-white bg-warning mb-3" style="max-width: 20rem;">
+                                <div class="card-header">
+                                    <div>
+                                        @Html.DisplayFor(modelItem => conference.StartDate.DayOfWeek)
+                                        @Html.DisplayFor(modelItem => conference.StartDate.Day) /
+                                        @Html.DisplayFor(modelItem => conference.StartDate.Month) / 
+                                        @Html.DisplayFor(modelItem => conference.StartDate.Year)
+                                    </div>
+                                    <div>
+                                        @Html.DisplayFor(modelItem => conference.EndDate.DayOfWeek)
+                                        @Html.DisplayFor(modelItem => conference.EndDate.Day) /
+                                        @Html.DisplayFor(modelItem => conference.EndDate.Month) / 
+                                        @Html.DisplayFor(modelItem => conference.EndDate.Year)
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <h4 class="card-title">
+                                        <a asp-controller="Conference" asp-action="Details" asp-route-id="@conference.Id" class="card-title text-white">
+                                            @Html.DisplayFor(modelItem => conference.Name)
+                                        </a>
+                                    </h4>
+                                    <p class="card-text">@Html.DisplayFor(modelItem => conference.Description)</p>
+                                </div>
+                                @if (User.IsInRole("Organizer"))
+                                {
+                                    <div class="card-footer">
+                                        <a asp-controller="Conference" asp-action="Edit" asp-route-id="@conference.Id" class="btn btn-success">Edit</a>
+                                        <a asp-controller="Conference" asp-action="Delete" asp-route-id="@conference.Id" class="btn btn-danger">Delete</a>
+                                    </div>
+                                }
+                            </div>
+                        }
+            </div>
+    
+        }
+        else
+        {
+            <p>This Event Center does not have any Conferences yet.</p>
+        }
+</div>
 <br />
 
 <div>
@@ -89,9 +140,12 @@
                         @Html.DisplayFor(modelItem => room.Location)
                     </td>
                     <td width="30%">
-                        <a asp-controller="Room" asp-action="Details" asp-route-id="@room.Id" class="btn btn-secondary">Details</a>
-                        <a asp-controller="Room" asp-action="Edit" asp-route-id="@room.Id" class="btn btn-success">Edit</a>
-                        <a asp-controller="Room" asp-action="Delete" asp-route-id="@room.Id" class="btn btn-danger">Delete</a>
+                        <a asp-controller="Room" asp-action="Details" asp-route-id="@room.Id" class="btn btn-info">Details</a>
+                        @if (User.IsInRole("Orgainzer"))
+                        {
+                            <a asp-controller="Room" asp-action="Edit" asp-route-id="@room.Id" class="btn btn-success">Edit</a>
+                            <a asp-controller="Room" asp-action="Delete" asp-route-id="@room.Id" class="btn btn-danger">Delete</a>
+                        }
                     </td>
                 </tr>
             }
@@ -100,49 +154,24 @@
     }
     else
     {
-        <p>This Event Center does not have any existing rooms yet. You can create one below.</p>
+        <p>This Event Center does not have any existing rooms yet.</p>
     }
-    <a asp-controller="Room" asp-action="Create" asp-route-id="@Model.EventCenter.Id" class="btn btn-primary">Create a new Room</a>
+    @if (User.IsInRole("Organizer"))
+    {
+        <a asp-controller="Room" asp-action="Create" asp-route-id="@Model.EventCenter.Id" class="btn btn-primary">Create a new Room</a>
+    }
 </div>
 
 <br/>
 <br/>
 
 <div>
-    <h4>All Conferences in @Html.DisplayFor(model => model.EventCenter.Name)</h4>
-    @if (Model.EventCenter.Conferences.Count > 0)
-    {
-        <div class="card-columns">
-            @foreach (var conference in Model.EventCenter.Conferences)
-                    {
-                        <div class="card text-white bg-warning mb-3" style="max-width: 20rem;">
-                            <div class="card-header">@Html.DisplayFor(modelItem => conference.StartDate)</div>
-                            <div class="card-body">
-                                <h4 class="card-title">
-                                    <a asp-controller="Conference" asp-action="Details" asp-route-id="@conference.Id" class="card-title text-white">
-                                        @Html.DisplayFor(modelItem => conference.Name)
-                                    </a>
-                                </h4>
-                                <p class="card-text">@Html.DisplayFor(modelItem => conference.Description)</p>
-                            </div>
-                            <div class="card-footer">
-                                <a asp-controller="Conference" asp-action="Edit" asp-route-id="@conference.Id" class="btn btn-success">Edit</a>
-                                <a asp-controller="Conference" asp-action="Delete" asp-route-id="@conference.Id" class="btn btn-danger">Delete</a>
-                            </div>
-                        </div>
-                    }
-        </div>
-
-    }
-    else
-    {
-        <p>This Event Center does not have any Conferences yet. You can create one below.</p>
-    }
-
     <br />
+    @if (User.IsInRole("Organizer"))
+    {
 
-    <h4>Create a Conference</h4>
-    <form asp-action="CreateConference", asp-route-id="@Model.EventCenter.Id">
+        <h4>Create a Conference</h4>
+        <form asp-action="CreateConference", asp-route-id="@Model.EventCenter.Id">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="@Model.Conference.Name" class="control-label"></label>
@@ -165,10 +194,8 @@
                 <span asp-validation-for="@Model.Conference.EndDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary"/>
             </div>
         </form>
+    }
 </div>
-
-<br />
-<br />

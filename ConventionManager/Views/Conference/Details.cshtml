@@ -40,60 +40,65 @@
     </dl>
 </div>
 <div>
-    <a asp-controller="Notification" asp-action="Create" asp-route-id="@Model.Conference.Id" asp-route-type="Conference"
-       asp-route-receivers="Attendants" class="btn btn-primary my-2">Notificate Attendants</a>
-    <a asp-controller="Notification" asp-action="Create" asp-route-id="@Model.Conference.Id" asp-route-type="Conference" 
-       asp-route-receivers="Exhibitors" class="btn btn-primary my-2">Notificate Exhibitors</a>
-    <br/>
-    <a asp-action="Edit" asp-route-id="@Model.Conference.Id" class="btn btn-success">Edit</a>
+     @if (User.IsInRole("Organizer"))
+     {
+         <a asp-controller="Notification" asp-action="Create" asp-route-id="@Model.Conference.Id" asp-route-type="Conference"
+            asp-route-receivers="Attendants" class="btn btn-primary my-2">Notificate Attendants</a>
+         <a asp-controller="Notification" asp-action="Create" asp-route-id="@Model.Conference.Id" asp-route-type="Conference"
+            asp-route-receivers="Exhibitors" class="btn btn-primary my-2">Notificate Exhibitors</a>
+         <br/>
+         <a asp-action="Edit" asp-route-id="@Model.Conference.Id" class="btn btn-success">Edit</a>
+     }
     <a asp-controller="EventCenter" asp-action="Details" asp-route-id="@Model.Conference.EventCenterId" class="btn btn-secondary">Back to List</a>
 </div>
 
 <br />
 <br />
-
-<div>
-    <h4>Sponsors</h4>
-    @if (Model.Conference.Sponsors.Count > 0)
-    {
-        <ul>
-            @foreach(var sponsor in Model.Conference.Sponsors)
-            {
-                <li>@sponsor.Name</li>
-            }
-        </ul>
-    }
-    else
-    {
-        <p>This Conference does not have any Sponsors yet. You can add one below.</p>
-    }
-    <h4>Add a new Sponsor</h4>
-    <form asp-action="AddSponsor", asp-route-id="@Model.Conference.Id">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="@Model.Sponsor.Name" class="control-label"></label>
-                <input asp-for="@Model.Sponsor.Name" class="form-control" />
-                <span asp-validation-for="@Model.Sponsor.Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Add" class="btn btn-primary" />
-            </div>
-        </form>
-</div>
-
+ @if (User.IsInRole("Organizer"))
+ {
+     <div>
+         <h4>Sponsors</h4>
+         @if (Model.Conference.Sponsors.Count > 0)
+         {
+             <ul>
+                 @foreach (var sponsor in Model.Conference.Sponsors)
+                 {
+                     <li>@sponsor.Name</li>
+                 }
+             </ul>
+         }
+         else
+         {
+             <p>This Conference does not have any Sponsors yet. You can add one below.</p>
+         }
+         <h4>Add a new Sponsor</h4>
+         <form asp-action="AddSponsor", asp-route-id="@Model.Conference.Id">
+             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+             <div class="form-group">
+                 <label asp-for="@Model.Sponsor.Name" class="control-label"></label>
+                 <input asp-for="@Model.Sponsor.Name" class="form-control"/>
+                 <span asp-validation-for="@Model.Sponsor.Name" class="text-danger"></span>
+             </div>
+             <div class="form-group">
+                 <input type="submit" value="Add" class="btn btn-primary"/>
+             </div>
+         </form>
+     </div>
+ }
 <br />
 <br />
 
 <div>
     <h4>Events in this Conference</h4>
+    <br/>
     @if (Model.Conference.Events.Count > 0)
     {
         <div class="card-columns">
             @foreach (var conferenceEvent in Model.Conference.Events)
             {
-                <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+                <div class="card rounded-sm text-white bg-primary mb-3" style="max-width: 20rem;">
                     <div class="card-header">
-                        
+                        Begins on
                         @Html.DisplayFor(modelItem => conferenceEvent.StartDate.DayOfWeek)
                         @Html.DisplayFor(modelItem => conferenceEvent.StartDate.Day) /
                         @Html.DisplayFor(modelItem => conferenceEvent.StartDate.Month) /
@@ -106,21 +111,27 @@
                                 @Html.DisplayFor(modelItem => conferenceEvent.Name)
                             </a>
                         </h4>
-                        <p class="card-text">Start: @Html.DisplayFor(modelItem => conferenceEvent.StartDate.TimeOfDay)</p>
-                        <p class="card-text">End: @Html.DisplayFor(modelItem => conferenceEvent.EndDate.TimeOfDay)</p>
+                        <p class="card-text">Start: @Html.DisplayFor(modelItem => conferenceEvent.StartDate)</p>
+                        <p class="card-text">End: @Html.DisplayFor(modelItem => conferenceEvent.EndDate)</p>
                     </div>
-                    <div class="card-footer">
-                        <a asp-controller=@conferenceEvent.GetEventType() asp-action="Edit" asp-route-id="@conferenceEvent.Id" asp-route-fromWhere="Conference" class="btn btn-success">Edit</a>
-                        <a asp-controller=@conferenceEvent.GetEventType() asp-action="Delete" asp-route-id="@conferenceEvent.Id" asp-route-fromWhere="Conference" class="btn btn-danger">Delete</a>
-                    </div>
+                     @if (User.IsInRole("Organizer"))
+                     {
+                         <div class="card-footer">
+                             <a asp-controller=@conferenceEvent.GetEventType() asp-action="Edit" asp-route-id="@conferenceEvent.Id" asp-route-fromWhere="Conference" class="btn btn-success">Edit</a>
+                             <a asp-controller=@conferenceEvent.GetEventType() asp-action="Delete" asp-route-id="@conferenceEvent.Id" asp-route-fromWhere="Conference" class="btn btn-danger">Delete</a>
+                         </div>
+                     }
                 </div>
             }
         </div>
     }
     else
     {
-        <p>This Conference does not have any Events yet. You can create one below.</p>
+        <p>This Conference does not have any Events yet.</p>
     }
     <br/>
-    <a asp-action="ChooseEventType" asp-route-id="@Model.Conference.Id" class="btn btn-primary">Create a new Event</a>
+     @if (User.IsInRole("Organizer"))
+     {
+         <a asp-action="ChooseEventType" asp-route-id="@Model.Conference.Id" class="btn btn-primary">Create a new Event</a>
+     }
 </div>

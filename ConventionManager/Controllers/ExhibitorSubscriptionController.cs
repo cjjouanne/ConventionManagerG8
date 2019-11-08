@@ -8,24 +8,42 @@ using Microsoft.EntityFrameworkCore;
 using ConventionManager.Data;
 using ConventionManager.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ConventionManager.Controllers
 {
+    [Authorize(Roles = "Exhibitor")]
     public class ExhibitorSubscriptionController : Controller
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public ExhibitorSubscriptionController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public ExhibitorSubscriptionController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _context = context;
             _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         public async Task<IActionResult> CreateSubscription(int eventId)
         {
-            var @event = await _context.Events.FirstOrDefaultAsync(e => e.Id == eventId);
+            if (!_signInManager.IsSignedIn(HttpContext.User))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var @event = await _context.Events
+                .Include(s => s.Subscriptions)
+                .FirstOrDefaultAsync(e => e.Id == eventId);
+            var room = await _context.Rooms.FirstOrDefaultAsync(r => r.Id == @event.RoomId);
             var userId = _userManager.GetUserId(HttpContext.User);
+
+            if (room.Capacity - @event.Subscriptions.Count() <= 0)
+            {
+                TempData["NoMoreVacancies"] = room.NoMoreVacanciesMessage;
+                return RedirectToAction("Details", @event.GetEventType(), new { id = @event.Id });
+            }
 
             var exhibitorSubscription = new ExhibitorSubscription()
             {
