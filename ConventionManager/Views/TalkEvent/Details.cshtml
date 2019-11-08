@@ -10,17 +10,14 @@
 {
  <p class="alert alert-warning alert-dismissible" id="errorMessage">@TempData["SubscriptionCollision"]</p>
 }
-
+@if (TempData["NoMoreVacancies"] != null)
+{
+ <p class="alert alert-warning alert-dismissible" id="errorMessage">@TempData["NoMoreVacancies"]</p>
+}
 <div>
     <h4>Talk Event</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ExhibitorEvent.Topic)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ExhibitorEvent.Topic)
-        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.ExhibitorEvent.Name)
         </dt>
@@ -40,6 +37,12 @@
             @Html.DisplayFor(model => model.ExhibitorEvent.EndDate)
         </dd>
         <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ExhibitorEvent.Topic)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ExhibitorEvent.Topic)
+        </dd>
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.ExhibitorEvent.Conference)
         </dt>
         <dd class = "col-sm-10">
@@ -50,6 +53,12 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.ExhibitorEvent.Room.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            Vacancies
+        </dt>
+        <dd class = "col-sm-10">
+            @Model.ExhibitorEvent.Room.GetVacancies(Model.ExhibitorEvent)
         </dd>
     </dl>
 </div>
