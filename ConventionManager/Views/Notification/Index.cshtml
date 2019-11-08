@@ -88,7 +88,7 @@
                 @Html.DisplayFor(modelItem => item.Notification.Message)
             </font>
             <span class="time-right">
-                <a asp-action="Delete" asp-route-id="@item.Notification.Id" class="btn btn-danger">Delete Notification</a>
+                <a asp-action="Delete" asp-route-id="@item.Notification.Id" class="btn rounded-sm btn-danger">Delete Notification</a>
             </span>
             </p>
         </div>
@@ -98,3 +98,6 @@ else
 {
     <p> You don't have any notifications yet!</p>
 }
+<div>
+    <a href="javascript:void(0);" onclick="history.go(-1);" class="btn rounded-sm btn-light">Go Back</a>
+</div>

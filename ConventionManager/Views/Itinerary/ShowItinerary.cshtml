@@ -39,7 +39,7 @@
                         @Html.DisplayFor(modelItem => item.EndDate)
                     </td>
                     <td>
-                        <a asp-controller="@item.GetEventType()" asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Details</a>
+                        <a asp-controller="@item.GetEventType()" asp-action="Details" asp-route-id="@item.Id" class="btn rounded-sm btn-info">Details</a>
                     </td>
                 </tr>
             }
@@ -50,9 +50,9 @@
         {
             <p>You don't have anything scheduled in your agenda.</p>
         }
-        <a href="javascript:void(0);" onclick="history.go(-1);" class="btn btn-secondary">Go Back</a>
+        <a href="javascript:void(0);" onclick="history.go(-1);" class="btn rounded-sm btn-light">Go Back</a>
     </div>
     <div class="col-ms-4">
-        <a asp-action="" class="btn btn-primary">View in Google Calendar</a>
+        <a asp-action="" class="btn rounded-sm btn-primary">View in Google Calendar</a>
     </div>
 </div>
