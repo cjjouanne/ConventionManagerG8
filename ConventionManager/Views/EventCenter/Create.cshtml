@@ -14,7 +14,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
+                <input asp-for="Name" class="rounded-sm form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -27,28 +27,28 @@
             </div>
             <div class="form-group">
                 <label asp-for="Location" class="control-label"></label>
-                <input asp-for="Location" class="form-control" />
+                <input asp-for="Location" class="rounded-sm form-control" />
                 <span asp-validation-for="Location" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Latitude" class="control-label"></label>
-                <input asp-for="Latitude" class="form-control" required/>
+                <input asp-for="Latitude" class="rounded-sm form-control" required/>
                 <span asp-validation-for="Latitude" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Longitude" class="control-label"></label>
-                <input asp-for="Longitude" class="form-control" required/>
+                <input asp-for="Longitude" class="rounded-sm form-control" required/>
                 <span asp-validation-for="Longitude" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn rounded-sm btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    <a asp-action="Index" class="btn rounded-sm btn-light">Go Back</a>
 </div>
 
 @section Scripts {

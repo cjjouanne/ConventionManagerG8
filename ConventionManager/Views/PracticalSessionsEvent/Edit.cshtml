@@ -16,22 +16,22 @@
             <input type="hidden" name="fromWhere" value=@ViewData["From"]>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
+                <input asp-for="Name" class="rounded-sm form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="StartDate" class="control-label">Start Date</label>
-                <input asp-for="StartDate" class="form-control" />
+                <input asp-for="StartDate" class="rounded-sm form-control" />
                 <span asp-validation-for="StartDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="EndDate" class="control-label">End Date</label>
-                <input asp-for="EndDate" class="form-control" />
+                <input asp-for="EndDate" class="rounded-sm form-control" />
                 <span asp-validation-for="EndDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Topic" class="control-label"></label>
-                <input asp-for="Topic" class="form-control" />
+                <input asp-for="Topic" class="rounded-sm form-control" />
                 <span asp-validation-for="Topic" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -45,14 +45,14 @@
                 <span asp-validation-for="RoomId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn rounded-sm btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a href="javascript:void(0);" onclick="history.go(-1);" class="btn btn-secondary">Back to List</a>
+    <a href="javascript:void(0);" onclick="history.go(-1);" class="btn rounded-sm btn-light">Go Back</a>
 </div>
 
 @section Scripts {

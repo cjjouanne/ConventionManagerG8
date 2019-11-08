@@ -15,12 +15,12 @@
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
                     <label>Username</label>
-                    <input asp-for="Input.UserName" class="form-control" />
+                    <input asp-for="Input.UserName" class="rounded-sm form-control" />
                     <span asp-validation-for="Input.UserName" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Input.Password"></label>
-                    <input asp-for="Input.Password" class="form-control" />
+                    <input asp-for="Input.Password" class="rounded-sm form-control" />
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -32,17 +32,17 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Log in</button>
+                    <button type="submit" class="btn rounded-sm btn-primary">Log in</button>
                 </div>
                 <div>
-                    <a asp-controller="EventCenter" asp-action="Index" class="btn btn-primary">Enter anonymously</a>
+                    <a asp-controller="EventCenter" asp-action="Index" class="btn rounded-sm btn-primary">Enter anonymously</a>
                 </div>
                 <div class="form-group">
                     <p>
                         <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
                     </p>
                     <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-secondary">Register as a new user</a>
+                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="btn rounded-sm btn-secondary">Register as a new user</a>
                     </p>
                 </div>
             </form>

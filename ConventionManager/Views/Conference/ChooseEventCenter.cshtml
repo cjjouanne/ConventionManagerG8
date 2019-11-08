@@ -35,7 +35,7 @@
                 @Html.DisplayFor(modelItem => item.Location)
             </td>
             <td width="30%">
-                <a asp-action="Create" asp-route-id="@item.Id" class="btn btn-primary">Choose this Event Center</a>
+                <a asp-action="Create" asp-route-id="@item.Id" class="btn rounded-sm btn-primary">Choose this Event Center</a>
             </td>
         </tr>
     }
@@ -43,5 +43,5 @@
 </table>
 
 <div>
-    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    <a asp-action="Index" class="btn rounded-sm btn-light">Go Back</a>
 </div>

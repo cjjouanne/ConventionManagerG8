@@ -11,9 +11,11 @@ using Microsoft.EntityFrameworkCore;
 using ConventionManager.Data;
 using ConventionManager.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ConventionManager.Controllers
 {
+    [Authorize(Roles = "Organizer,Exhibitor,User")]
     public class NotificationController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -44,16 +46,17 @@ namespace ConventionManager.Controllers
                                                         .First(e => e.Id == subscription.EventId);
 
                 var user = await _userManager.FindByIdAsync(notification.SentByUserId);
-                notificationConferenceAndEvent.UserName = user.UserName;
+                if (_userManager.GetUserName(HttpContext.User) == user.UserName)
+                {
+                    notificationConferenceAndEvent.UserName = "Me";
+                }
+                else
+                {
+                    notificationConferenceAndEvent.UserName = user.UserName;
+                }
                 results.Add(notificationConferenceAndEvent);
             }
             return View(results);
-        }
-        // GET: Notification/Create
-        public IActionResult Create(int id, string type, string receivers)
-        {
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
-            return View();
         }
 
         // POST: Notification/Delete/5

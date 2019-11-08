@@ -14,33 +14,33 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="@Model.Conference.Name" class="control-label"></label>
-                <input asp-for="@Model.Conference.Name" class="form-control" />
+                <input asp-for="@Model.Conference.Name" class="rounded-sm form-control" />
                 <span asp-validation-for="@Model.Conference.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="@Model.Conference.Description" class="control-label"></label>
-                <input asp-for="@Model.Conference.Description" class="form-control" />
+                <input asp-for="@Model.Conference.Description" class="rounded-sm form-control" />
                 <span asp-validation-for="@Model.Conference.Description" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="@Model.Conference.StartDate" class="control-label">Start Date</label>
-                <input asp-for="@Model.Conference.StartDate" class="form-control" />
+                <input asp-for="@Model.Conference.StartDate" class="rounded-sm form-control" />
                 <span asp-validation-for="@Model.Conference.StartDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="@Model.Conference.EndDate" class="control-label">End Date</label>
-                <input asp-for="@Model.Conference.EndDate" class="form-control" />
+                <input asp-for="@Model.Conference.EndDate" class="rounded-sm form-control" />
                 <span asp-validation-for="@Model.Conference.EndDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn rounded-sm btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a href="javascript:void(0);" onclick="history.go(-1);" class="btn btn-secondary">Back to List</a>
+    <a href="javascript:void(0);" onclick="history.go(-1);" class="btn rounded-sm btn-light">Go Back</a>
 </div>
 
 @section Scripts {

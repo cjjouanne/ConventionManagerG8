@@ -40,7 +40,7 @@
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         <input type="hidden" name="eventCenterId" value="@Model.EventCenterId" />
-        <input type="submit" value="Delete" class="btn btn-danger" />
-        <a href="javascript:void(0);" onclick="history.go(-1);" class="btn btn-secondary">Back to List</a>
+        <input type="submit" value="Delete" class="btn rounded-sm btn-danger" />
+        <a href="javascript:void(0);" onclick="history.go(-1);" class="btn rounded-sm btn-light">Go Back</a>
     </form>
 </div>

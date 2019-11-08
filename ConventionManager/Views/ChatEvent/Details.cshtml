@@ -67,29 +67,29 @@
     {
         @if (!User.IsInRole("Exhibitor"))
         {
-            <a asp-controller="AttendantSubscription" asp-action="CreateSubscription" asp-route-eventId="@Model.ExhibitorEvent.Id" class="btn btn-primary">Join Event</a>
+            <a asp-controller="AttendantSubscription" asp-action="CreateSubscription" asp-route-eventId="@Model.ExhibitorEvent.Id" class="btn rounded-sm btn-primary">Join Event</a>
         }
         else
         {
-            <a asp-controller="AttendantSubscription" asp-action="CreateSubscription" asp-route-eventId="@Model.ExhibitorEvent.Id" class="btn btn-primary">Join Event</a>
-            <a asp-controller="ExhibitorSubscription" asp-action="CreateSubscription" asp-route-eventId="@Model.ExhibitorEvent.Id" class="btn btn-primary">Join Event as Exhibitor</a>
+            <a asp-controller="AttendantSubscription" asp-action="CreateSubscription" asp-route-eventId="@Model.ExhibitorEvent.Id" class="btn rounded-sm btn-primary">Join Event</a>
+            <a asp-controller="ExhibitorSubscription" asp-action="CreateSubscription" asp-route-eventId="@Model.ExhibitorEvent.Id" class="btn rounded-sm btn-primary">Join Event as Exhibitor</a>
         }
     }
     else
     {
         @if (!User.IsInRole("Exhibitor"))
         {
-            <a asp-controller="AttendantSubscription" asp-action="DeleteSubscription" asp-route-eventId="@Model.ExhibitorEvent.Id" class="btn btn-danger">Quit Event</a>
+            <a asp-controller="AttendantSubscription" asp-action="DeleteSubscription" asp-route-eventId="@Model.ExhibitorEvent.Id" class="btn rounded-sm btn-danger">Quit Event</a>
         }
         else
         {
             @if (Model.Subscription.GetSubscriptionType() == "AttendantSubscription")
             {
-                <a asp-controller="AttendantSubscription" asp-action="DeleteSubscription" asp-route-eventId="@Model.ExhibitorEvent.Id" class="btn btn-danger">Quit Event</a>
+                <a asp-controller="AttendantSubscription" asp-action="DeleteSubscription" asp-route-eventId="@Model.ExhibitorEvent.Id" class="btn rounded-sm btn-danger">Quit Event</a>
             }
             else
             {
-                <a asp-controller="ExhibitorSubscription" asp-action="DeleteSubscription" asp-route-eventId="@Model.ExhibitorEvent.Id" class="btn btn-danger">Quit Event as Exhibitor</a>
+                <a asp-controller="ExhibitorSubscription" asp-action="DeleteSubscription" asp-route-eventId="@Model.ExhibitorEvent.Id" class="btn rounded-sm btn-danger">Quit Event as Exhibitor</a>
             }
         }
     }
@@ -97,11 +97,11 @@
      @if (User.IsInRole("Organizer"))
      {
          <a asp-controller="Notification" asp-action="Create" asp-route-Id="@Model.ExhibitorEvent.Id"
-            asp-route-type="Event" asp-route-receivers="Attendants" class="btn btn-primary my-2">Notificate Attendants</a>
+            asp-route-type="Event" asp-route-receivers="Attendants" class="btn rounded-sm btn-primary my-2">Notificate Attendants</a>
          <a asp-controller="Notification" asp-action="Create" asp-route-Id="@Model.ExhibitorEvent.Id"
-            asp-route-type="Event" asp-route-receivers="Exhibitors" class="btn btn-primary my-2">Notificate Exhibitors</a>
+            asp-route-type="Event" asp-route-receivers="Exhibitors" class="btn rounded-sm btn-primary my-2">Notificate Exhibitors</a>
          <br/>
-         <a asp-action="Edit" asp-route-id="@Model.ExhibitorEvent.Id" class="btn btn-success">Edit</a>
+         <a asp-action="Edit" asp-route-id="@Model.ExhibitorEvent.Id" class="btn rounded-sm btn-success">Edit</a>
      }
-    <a href="javascript:void(0);" onclick="history.go(-1);" class="btn btn-secondary">Back to List</a>
+    <a href="javascript:void(0);" onclick="history.go(-1);" class="btn rounded-sm btn-light">Go Back</a>
 </div>

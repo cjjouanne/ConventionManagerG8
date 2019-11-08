@@ -57,9 +57,9 @@
 <div>
     @if (User.IsInRole("Organizer"))
     {
-        <a asp-action="Edit" asp-route-id="@Model.Room.Id" class="btn btn-success">Edit</a>
+        <a asp-action="Edit" asp-route-id="@Model.Room.Id" class="btn rounded-sm btn-success">Edit</a>
     }
-    <a asp-controller="EventCenter" asp-action="Details" asp-route-id="@Model.Room.EventCenterId" class="btn btn-secondary">Back to List</a>
+    <a asp-controller="EventCenter" asp-action="Details" asp-route-id="@Model.Room.EventCenterId" class="btn rounded-sm btn-light">GoBack</a>
 </div>
 
 <br />
@@ -92,8 +92,8 @@
                      @if (User.IsInRole("Organizer"))
                      {
                          <div class="card-footer">
-                             <a asp-controller="@item.GetEventType()" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success">Edit</a>
-                             <a asp-controller="@item.GetEventType()" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                             <a asp-controller="@item.GetEventType()" asp-action="Edit" asp-route-id="@item.Id" class="btn rounded-sm btn-success">Edit</a>
+                             <a asp-controller="@item.GetEventType()" asp-action="Delete" asp-route-id="@item.Id" class="btn rounded-sm btn-danger">Delete</a>
                          </div>
                      }
                 </div>
@@ -106,7 +106,7 @@
     }
     @if (User.IsInRole("Organizer"))
     {
-        <a asp-action="ChooseEventType" asp-route-id="@Model.Room.Id" class="btn btn-primary">Create a new Event</a>
+        <a asp-action="ChooseEventType" asp-route-id="@Model.Room.Id" class="btn rounded-sm btn-primary">Create a new Event</a>
     }
     
 </div>
