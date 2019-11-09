@@ -5,11 +5,14 @@ using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using ConventionManager.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.WindowsAzure.Storage;
 
 namespace ConventionManager.Areas.Identity.Pages.Account
 {
@@ -20,17 +23,21 @@ namespace ConventionManager.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private IConfiguration _configuration;
+        private readonly IUpload _uploadService;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender, IConfiguration configuration, IUpload upload, IUpload uploadService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _configuration = configuration;
+            _uploadService = uploadService;
         }
 
         [BindProperty]
@@ -72,11 +79,12 @@ namespace ConventionManager.Areas.Identity.Pages.Account
             [Display(Name = "Phone Number (Optional)")]
             public string PhoneNumber { get; set; }
 
+            [Required]
             [Display(Name = "Profile Picture (Optional)")]
-            public string ProfilePicture { get; set; }
+            public IFormFile ProfilePicture { get; set; }
 
             [Display(Name = "Curriculum (Optional)")]
-            public string Curriculum { get; set; }
+            public IFormFile Curriculum { get; set; }
         }
 
         public void OnGet(string returnUrl = null)
@@ -92,6 +100,20 @@ namespace ConventionManager.Areas.Identity.Pages.Account
                 // PhoneNumber, Curriculum and ProfilePicture not yet needed, add later
                 var user = new ApplicationUser { UserName = Input.UserName, Email = Input.Email,
                     FirstName = Input.FirstName, LastName = Input.LastName };
+                var container = _uploadService.GetPicturesContainer();
+                var file = Input.ProfilePicture;
+                var filename = file.FileName.Trim('"');
+                var blockBlob = container.GetBlockBlobReference(filename);
+                await blockBlob.UploadFromStreamAsync(file.OpenReadStream());
+                /*
+                var pdfContainer = _uploadService.GetPdfsContainer();
+                var pdfFile = Input.Curriculum;
+                var pdfFilename = pdfFile.FileName.Trim('"');
+                var pdfBlockBlob = pdfContainer.GetBlockBlobReference(pdfFilename);
+                await pdfBlockBlob.UploadFromStreamAsync(file.OpenReadStream());
+                */
+                user.ProfilePictureUrl = blockBlob.Uri.AbsoluteUri;
+                user.CurriculumUrl = blockBlob.Uri.AbsoluteUri;
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
