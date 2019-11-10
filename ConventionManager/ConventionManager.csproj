@@ -28,5 +28,6 @@
     </ItemGroup>
     <ItemGroup>
       <Folder Include="Views\Itinerary\" />
+      <Folder Include="Views\Search\" />
     </ItemGroup>
 </Project>

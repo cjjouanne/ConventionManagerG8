@@ -12,6 +12,9 @@
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap2.css" />
         <link rel="stylesheet" href="~/css/sidenav.css" />
+        <link rel="stylesheet" href="~/css/searchbar.css" />
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
@@ -38,31 +41,7 @@
                     <ul class="navbar-nav flex-grow-1">
                         @if (SignInManager.IsSignedIn(User))
                         {
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Where do you want to go?
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" asp-area="" asp-controller="EventCenter" asp-action="Index">Home</a>
-                                    <a class="dropdown-item" asp-controller="Conference" asp-action="Index">Conferences</a>
-                                    <a class="dropdown-item" asp-controller="Event" asp-action="Index">Events</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" asp-area="" asp-controller="Notification" asp-action="Index">My Notifications</a>
-                                    <a class="dropdown-item" asp-controller="Itinerary" asp-action="ShowItinerary">My Itinerary</a>
-                                    <a class="dropdown-item" asp-controller="" asp-action="">My Profile</a>
-                                </div>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Looking for something?
-                                </a>
-                                <div class="dropdown-menu w-100" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" asp-controller="" asp-action="">A User</a>
-                                    <a class="dropdown-item" asp-controller="" asp-action="">An Event Center</a>
-                                    <a class="dropdown-item" asp-controller="" asp-action="">A Conference</a>
-                                    <a class="dropdown-item" asp-controller="" asp-action="">An Event</a>
-                                </div>
-                            </li>
+                            //Center navbar items
                         }
                     </ul>
                 </div>
