@@ -1,10 +1,12 @@
 ﻿<Properties StartupConfiguration="{89E480FD-47D7-48E3-8F15-D3C99768BC94}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Views/PracticalSessionsEvent/Details.cshtml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Views/Shared/_Layout.cshtml">
     <Files>
       <File FileName="Controllers/EventCenterController.cs" Line="134" Column="94" />
-      <File FileName="Controllers/RoomController.cs" />
-      <File FileName="Controllers/NotificationController.cs" Line="60" Column="10" />
-      <File FileName="Views/PracticalSessionsEvent/Details.cshtml" Line="1" Column="1" />
+      <File FileName="Controllers/RoomController.cs" Line="1" Column="1" />
+      <File FileName="Views/EventCenter/Create.cshtml" Line="53" Column="7" />
+      <File FileName="Models/EventCenter.cs" Line="24" Column="44" />
+      <File FileName="Views/Room/Create.cshtml" Line="40" Column="76" />
+      <File FileName="Views/Shared/_Layout.cshtml" Line="77" Column="11" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -12,11 +14,16 @@
           <Node name="ConventionManager" expanded="True">
             <Node name="ConventionManager" expanded="True">
               <Node name="Controllers" expanded="True" />
+              <Node name="Models" expanded="True" />
               <Node name="Views" expanded="True">
-                <Node name="Notification" expanded="True" />
-                <Node name="PracticalSessionsEvent" expanded="True">
-                  <Node name="Details.cshtml" selected="True" />
+                <Node name="EventCenter" expanded="True" />
+                <Node name="Shared" expanded="True">
+                  <Node name="_Layout.cshtml" selected="True" />
                 </Node>
+              </Node>
+              <Node name="wwwroot" expanded="True">
+                <Node name="css" expanded="True" />
+                <Node name="js" expanded="True" />
               </Node>
             </Node>
           </Node>

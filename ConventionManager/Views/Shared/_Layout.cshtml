@@ -11,6 +11,8 @@
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap2.css" />
+        <link rel="stylesheet" href="~/css/sidenav.css" />
+        <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -24,6 +26,7 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
+            <button class="openbtn rounded-lg" onclick="openNav()">Menu</button>
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="EventCenter" asp-action="Index">Conference Manager</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -66,6 +69,14 @@
             </div>
         </nav>
     </header>
+
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a asp-controller="EventCenter" asp-action="Index">Event Centers</a>
+        <a asp-controller="Conference" asp-action="Index">Conferences</a>
+        <a asp-controller="Event" asp-action="Index">Events</a>
+    </div>
+
     <div class="container">
         <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3">

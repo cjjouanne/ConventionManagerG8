@@ -38,6 +38,8 @@ namespace ConventionManager.Models
         public string CollisionWithEventMessage = "Event not created. The " +
             "Event collides with another Event in the Conference or in a Room";
 
+        public string CannotDeleteEventMessage = "This event can't be deleted because there " +
+                                                    "is at least someone subscribed to it.";
 
         // Gets the name of the event type with GetType() method
         public string GetEventType()
@@ -53,11 +55,11 @@ namespace ConventionManager.Models
             int currentDate = DateTime.Compare(this.StartDate, DateTime.Now);
             int startAndEnd = DateTime.Compare(this.StartDate, this.EndDate);
 
-            if (startInConference <= 0 || endInConference >= 0)
+            if (startInConference < 0 || endInConference > 0)
             {
                 return false;
             }
-            else if (currentDate <= 0)
+            else if (currentDate < 0)
             {
                 return false;
             }

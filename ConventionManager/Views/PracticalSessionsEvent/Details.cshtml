@@ -8,11 +8,11 @@
 
 @if (TempData["SubscriptionCollision"] != null)
 {
- <p class="alert alert-warning alert-dismissible" id="errorMessage">@TempData["SubscriptionCollision"]</p>
+ <p class="alert alert-warning rounded-sm alert-dismissible" id="errorMessage">@TempData["SubscriptionCollision"]</p>
 }
 @if (TempData["NoMoreVacancies"] != null)
 {
- <p class="alert alert-warning alert-dismissible" id="errorMessage">@TempData["NoMoreVacancies"]</p>
+ <p class="alert alert-warning rounded-sm alert-dismissible" id="errorMessage">@TempData["NoMoreVacancies"]</p>
 }
 <div>
     <h4>Practical Sessions Event</h4>
@@ -94,7 +94,7 @@
         }
     }
     <br/>
-     @if (User.IsInRole("Organizer"))
+     @if (User.IsInRole("Organizer") || User.IsInRole("Exhibitor"))
      {
          <a asp-controller="Notification" asp-action="Create" asp-route-id="@Model.ExhibitorEvent.Id"
             asp-route-type="Event" asp-route-receivers="Attendants" class="btn rounded-sm btn-primary my-2">Notificate Attendants</a>
@@ -102,9 +102,9 @@
             asp-route-type="Event" asp-route-receivers="Exhibitors" class="btn rounded-sm btn-primary my-2">Notificate Exhibitors</a>
      }
     <br/>    
-     @if (User.IsInRole("Organizer"))
-     {
-         <a asp-action="Edit" asp-route-id="@Model.ExhibitorEvent.Id" class="btn rounded-sm btn-success">Edit</a>
-     }
+    @if (User.IsInRole("Organizer"))
+    {
+        <a asp-action="Edit" asp-route-id="@Model.ExhibitorEvent.Id" class="btn rounded-sm btn-success">Edit</a>
+    }
     <a href="javascript:void(0);" onclick="history.go(-1);" class="btn rounded-sm btn-light">Go Back</a>
 </div>
