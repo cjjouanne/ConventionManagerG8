@@ -26,9 +26,12 @@
                 </select>
             </div>
             <div class="form-group">
-                <label asp-for="Location" class="control-label"></label>
-                <input asp-for="Location" class="rounded-sm form-control" />
-                <span asp-validation-for="Location" class="text-danger"></span>
+                <select asp-for="Location" class="form-control" id="shell">
+                    @foreach (string item in Model.Locations)
+                    {
+                        <option value="@item">@item</option>
+                    }
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="Latitude" class="control-label"></label>
@@ -39,6 +42,8 @@
                 <label asp-for="Longitude" class="control-label"></label>
                 <input asp-for="Longitude" class="rounded-sm form-control" required/>
                 <span asp-validation-for="Longitude" class="text-danger"></span>
+                <br />
+                <a href="https://www.mapcoordinates.net/es" target="_blank">Need help with the coordinates?</a>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn rounded-sm btn-primary" />

@@ -8,11 +8,15 @@
 
 @if (TempData["DateOutOfRange"] != null)
 {
- <p class="alert alert-warning alert-dismissible" id="errorMessage">@TempData["DateOutOfRange"]</p>
+ <p class="alert alert-warning rounded-sm alert-dismissible" id="errorMessage">@TempData["DateOutOfRange"]</p>
 }
 @if (TempData["EventCollision"] != null)
 {
- <p class="alert alert-warning alert-dismissible" id="errorMessage">@TempData["EventCollision"]</p>
+ <p class="alert alert-warning rounded-sm alert-dismissible" id="errorMessage">@TempData["EventCollision"]</p>
+}
+@if (TempData["CannotDeleteEvent"] != null)
+{
+ <p class="alert alert-warning rounded-sm alert-dismissible" id="errorMessage">@TempData["CannotDeleteEvent"]</p>
 }
 
 <div>

@@ -1,10 +1,12 @@
 ﻿<Properties StartupConfiguration="{89E480FD-47D7-48E3-8F15-D3C99768BC94}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Views/PracticalSessionsEvent/Details.cshtml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Views/Search/GlobalSearch.cshtml">
     <Files>
       <File FileName="Controllers/EventCenterController.cs" Line="134" Column="94" />
-      <File FileName="Controllers/RoomController.cs" />
-      <File FileName="Controllers/NotificationController.cs" Line="60" Column="10" />
-      <File FileName="Views/PracticalSessionsEvent/Details.cshtml" Line="1" Column="1" />
+      <File FileName="Controllers/RoomController.cs" Line="12" Column="40" />
+      <File FileName="Startup.cs" Line="84" Column="14" />
+      <File FileName="Controllers/SearchController.cs" Line="59" Column="21" />
+      <File FileName="Views/Search/GlobalSearch.cshtml" Line="192" Column="45" />
+      <File FileName="Models/SearchResults.cs" Line="12" Column="36" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -12,11 +14,13 @@
           <Node name="ConventionManager" expanded="True">
             <Node name="ConventionManager" expanded="True">
               <Node name="Controllers" expanded="True" />
+              <Node name="Models" expanded="True" />
               <Node name="Views" expanded="True">
-                <Node name="Notification" expanded="True" />
-                <Node name="PracticalSessionsEvent" expanded="True">
-                  <Node name="Details.cshtml" selected="True" />
+                <Node name="Room" expanded="True" />
+                <Node name="Search" expanded="True">
+                  <Node name="GlobalSearch.cshtml" selected="True" />
                 </Node>
+                <Node name="Shared" expanded="True" />
               </Node>
             </Node>
           </Node>
