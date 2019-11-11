@@ -44,13 +44,13 @@
     </dl>
 </div>
 <div>
+     @if (User.IsInRole("Organizer") || User.IsInRole("Exhibitor"))
+     {
+         <partial name="../_ConferenceNotificationPopup.cshtml" />
+         <br />
+     }
      @if (User.IsInRole("Organizer"))
      {
-         <a asp-controller="Notification" asp-action="Create" asp-route-id="@Model.Conference.Id" asp-route-type="Conference"
-            asp-route-receivers="Attendants" class="btn rounded-sm btn-primary my-2">Notificate Attendants</a>
-         <a asp-controller="Notification" asp-action="Create" asp-route-id="@Model.Conference.Id" asp-route-type="Conference"
-            asp-route-receivers="Exhibitors" class="btn rounded-sm btn-primary my-2">Notificate Exhibitors</a>
-         <br/>
          <a asp-action="Edit" asp-route-id="@Model.Conference.Id" class="btn rounded-sm btn-success">Edit</a>
      }
     <a asp-controller="EventCenter" asp-action="Details" asp-route-id="@Model.Conference.EventCenterId" class="btn rounded-sm btn-light">Go Back</a>
