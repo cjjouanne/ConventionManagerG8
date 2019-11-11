@@ -1,9 +1,7 @@
 ﻿<Properties StartupConfiguration="{89E480FD-47D7-48E3-8F15-D3C99768BC94}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/NotificationController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/UserController.cs">
     <Files>
-      <File FileName="Views/Conference/Details.cshtml" Line="50" Column="16" />
-      <File FileName="Views/Notification/Index.cshtml" Line="91" Column="22" />
-      <File FileName="Controllers/NotificationController.cs" Line="1" Column="1" />
+      <File FileName="Controllers/UserController.cs" Line="70" Column="18" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -11,10 +9,10 @@
           <Node name="ConventionManager" expanded="True">
             <Node name="ConventionManager" expanded="True">
               <Node name="Controllers" expanded="True">
-                <Node name="NotificationController.cs" selected="True" />
+                <Node name="UserController.cs" selected="True" />
               </Node>
               <Node name="Views" expanded="True">
-                <Node name="Notification" expanded="True" />
+                <Node name="User" expanded="True" />
               </Node>
             </Node>
           </Node>
