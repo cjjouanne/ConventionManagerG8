@@ -91,9 +91,12 @@
           <e p="20191107115428_AddConferenceAndEventIdToNotification.Designer.cs" t="Include" />
           <e p="20191107153839_AddSentByToNotifications.cs" t="Include" />
           <e p="20191107153839_AddSentByToNotifications.Designer.cs" t="Include" />
+          <e p="20191108222531_AddedUrlsToUser.cs" t="Include" />
+          <e p="20191108222531_AddedUrlsToUser.Designer.cs" t="Include" />
           <e p="ApplicationDbContextModelSnapshot.cs" t="Include" />
         </e>
       </e>
+      <e p="IUpload.cs" t="Include" />
       <e p="Models" t="Include">
         <e p="ApplicationUser.cs" t="Include" />
         <e p="AttendantSubscription.cs" t="Include" />
@@ -134,6 +137,7 @@
       </e>
       <e p="ScaffoldingReadme.txt" t="Include" />
       <e p="Startup.cs" t="Include" />
+      <e p="UploadService.cs" t="Include" />
       <e p="Views" t="Include">
         <e p="_ViewImports.cshtml" t="Include" />
         <e p="_ViewStart.cshtml" t="Include" />

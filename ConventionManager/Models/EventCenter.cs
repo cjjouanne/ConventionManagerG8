@@ -37,5 +37,16 @@ namespace ConventionManager.Models
             {"Theater", "Theater" },
             {"Other", "Other" },
         };
+
+        public List<string> Locations = new List<string>(new string[] {
+            "Cerrillos", "Cerro Navia", "Conchalí", "El Bosque", "Estación Central",
+            "Huechuraba", "Independencia", "La Cisterna", "La Florida", "La Granja",
+            "La Pintana", "La Reina", "Las Condes", "Lo Barnechea", "Lo Espejo",
+            "Lo Prado", "Macul", "Maipú", "Ñuñoa", "Padre Hurtado", "Pedro Aguirre Cerda",
+            "Peñalolén", "Providencia", "Pudahuel", "Puente Alto", "Quilicura",
+            "Quinta Normal", "Recoleta", "Renca", "San Bernardo", "San Joaquín",
+            "San Miguel", "San Ramón", "Santiago", "Vitacura"
+        });
+
     }
 }

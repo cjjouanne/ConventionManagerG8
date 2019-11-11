@@ -44,16 +44,3 @@ namespace ConventionManager.Data
         }
     }
 }
-
-/* Agregar en este archivo
- * public DbSet<Modelo> Modelos {get;set;}
- *
- * Crear Migracion
- * dotnet ef migrations add MigrationName
- *
- * Correr Migracion
- * dotnet ef database update
- *
- * Crear Controldor
- * dotnet aspnet-codegenerator controller -name ConferenceController -m Conference -dc ApplicationDbContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
- */

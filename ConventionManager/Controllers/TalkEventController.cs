@@ -230,8 +230,17 @@ namespace ConventionManager.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id, string fromWhere)
         {
             var talkEvent = await _context.TalkEvents.FindAsync(id);
-            _context.TalkEvents.Remove(talkEvent);
-            await _context.SaveChangesAsync();
+            IEnumerable<Subscription> subscriptions = _context.Subscriptions.Where(s => s.Event.Id == id).ToArray();
+            if (subscriptions.Any())
+            {
+                TempData["CannotDeleteEvent"] = talkEvent.CannotDeleteEventMessage;
+            }
+            else
+            {
+                _context.TalkEvents.Remove(talkEvent);
+                await _context.SaveChangesAsync();
+            }
+            
             // Checks where the request came from to redirect correctly
             switch (fromWhere)
             {

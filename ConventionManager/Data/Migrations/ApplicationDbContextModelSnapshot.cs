@@ -29,7 +29,7 @@ namespace ConventionManager.Data.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
-                    b.Property<byte[]>("Curriculum");
+                    b.Property<string>("CurriculumUrl");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256);
@@ -56,7 +56,7 @@ namespace ConventionManager.Data.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
-                    b.Property<byte[]>("ProfilePicture");
+                    b.Property<string>("ProfilePictureUrl");
 
                     b.Property<string>("SecurityStamp");
 
@@ -302,22 +302,22 @@ namespace ConventionManager.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "4d9beec2-b032-4eac-bb25-d33f13a5e586",
-                            ConcurrencyStamp = "e7368e04-b223-4377-a3b4-099135a73772",
+                            Id = "a17e24a0-f22f-448d-a8e4-9274ccdb1945",
+                            ConcurrencyStamp = "60f21ee6-9cf2-4c1f-9588-127f11d8cbbb",
                             Name = "Organizer",
                             NormalizedName = "ORGANIZER"
                         },
                         new
                         {
-                            Id = "2be41fcf-e4ac-42c7-86b2-f03b13c542b4",
-                            ConcurrencyStamp = "3dfab308-368c-4a9a-9e04-c7fa8fe7f04f",
+                            Id = "31d41b33-4355-4b14-91d1-dd464b3b38c0",
+                            ConcurrencyStamp = "e2795972-6458-44d3-9482-b172af00ae57",
                             Name = "Exhibitor",
                             NormalizedName = "EXHIBITOR"
                         },
                         new
                         {
-                            Id = "87e84773-58b6-4a7e-a919-d0d3ac17d4e4",
-                            ConcurrencyStamp = "ffd3d877-0efc-4fff-8baf-a9121bff88fb",
+                            Id = "694af55f-4e0f-4f47-bbf9-6c668cf2ff67",
+                            ConcurrencyStamp = "685beb96-5517-4272-b097-1b85a37d22ed",
                             Name = "User",
                             NormalizedName = "USER"
                         });

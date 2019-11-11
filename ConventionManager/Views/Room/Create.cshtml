@@ -24,7 +24,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="@Model.Room.Location" class="control-label"></label>
-                <input asp-for="@Model.Room.Location" class="rounded-sm form-control" />
+                <input asp-for="@Model.Room.Location" value="@Model.EventCenter.Location" class="rounded-sm form-control" readonly/>
                 <span asp-validation-for="@Model.Room.Location" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -36,6 +36,8 @@
                 <label asp-for="@Model.Room.Longitude" class="control-label"></label>
                 <input asp-for="@Model.Room.Longitude" class="rounded-sm form-control" required/>
                 <span asp-validation-for="@Model.Room.Longitude" class="text-danger"></span>
+                <br />
+                <a href="https://www.mapcoordinates.net/es" target="_blank">Need help with the coordinates?</a>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn rounded-sm btn-primary" />
