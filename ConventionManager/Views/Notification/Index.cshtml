@@ -88,7 +88,10 @@
                 @Html.DisplayFor(modelItem => item.Notification.Message)
             </font>
             <span class="time-right">
-                <a asp-action="Delete" asp-route-id="@item.Notification.Id" class="btn rounded-sm btn-danger">Delete Notification</a>
+                @if (item.UserName == "Me")
+                {
+                    <a asp-action="Delete" asp-route-id="@item.Notification.Id" class="btn rounded-sm btn-danger">Delete Notification</a>
+                }
             </span>
             </p>
         </div>

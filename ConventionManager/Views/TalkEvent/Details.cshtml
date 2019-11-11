@@ -96,10 +96,7 @@
     <br/>
      @if (User.IsInRole("Organizer") || User.IsInRole("Exhibitor"))
      {
-         <a asp-controller="Notification" asp-action="Create" asp-route-id="@Model.ExhibitorEvent.Id"
-            asp-route-type="Event" asp-route-receivers="Attendants" class="btn rounded-sm btn-primary my-2">Notificate Attendants</a>
-         <a asp-controller="Notification" asp-action="Create" asp-route-id="@Model.ExhibitorEvent.Id"
-            asp-route-type="Event" asp-route-receivers="Exhibitors" class="btn rounded-sm btn-primary my-2">Notificate Exhibitors</a>
+         <partial name="../_ExhibitorNotificationPopup.cshtml" />
      }
     <br/>
     @if (User.IsInRole("Organizer"))

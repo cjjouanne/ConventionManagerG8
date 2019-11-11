@@ -8,5 +8,7 @@ namespace ConventionManager.Models
         public ExhibitorEvent ExhibitorEvent { get; set; }
 
         public Subscription Subscription { get; set; }
+
+        public Notification Notification { get; set; }
     }
 }

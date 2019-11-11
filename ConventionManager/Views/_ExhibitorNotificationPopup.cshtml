@@ -1,0 +1,53 @@
+﻿@namespace ConventionManager.Views
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model ConventionManager.Models.EventAndSubscription
+
+<br />
+<button class="btn rounded-sm btn-primary" id="myBtn">Notificate Attendants</button>
+<div id="myModal" class="modal">
+    <div class="rounded-sm modal-content">
+        <h3>Sending Notification to Attendants<span class="close">&times;</span></h3>
+        <form asp-controller="Notification" asp-action="SendEventNotification">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" name="id" value="@Model.ExhibitorEvent.Id"/>
+            <input type="hidden" name="receivers" value="Attendants"/>
+            <div class="form-group">
+                <label asp-for="@Model.Notification.Message" class="control-label"> Message </label>
+                <input type="text" name="message" class="rounded-sm form-control"/>
+            </div>
+            <div class="form-group">
+                <input id="mailing" type="checkbox" value="true" name="mailing"/>
+                <input type="hidden" value="false" name="mailing"/>
+                <label>Send Notification by Email</label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Send Notification" class="btn rounded-sm btn-primary"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<button class="btn rounded-sm btn-primary" id="myBtn2">Notificate Exhibitors</button>
+<div id="myModal2" class="modal2">
+    <div class="rounded-sm modal2-content">
+        <h3>Sending Notification to Exhibitors<span class="close2">&times;</span></h3>
+        <form asp-controller="Notification" asp-action="SendEventNotification">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" name="id" value="@Model.ExhibitorEvent.Id"/>
+            <input type="hidden" name="receivers" value="Exhibitors"/>
+            <div class="form-group">
+                <label asp-for="@Model.Notification.Message" class="control-label"> Message </label>
+                <input type="text" name="message" class="rounded-sm form-control"/>
+            </div>
+            <div class="form-group">
+                <input id="mailing" type="checkbox" value="true" name="mailing"/>
+                <input type="hidden" value="false" name="mailing"/>
+                <label>Send Notification by Email</label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Send Notification" class="btn rounded-sm btn-primary"/>
+            </div>
+        </form>
+    </div>
+</div>
+<br />

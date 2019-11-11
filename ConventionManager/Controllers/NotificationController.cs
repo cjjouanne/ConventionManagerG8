@@ -74,6 +74,7 @@ namespace ConventionManager.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpPost]
         public async Task<IActionResult> SendConferenceNotification(int id, string receivers, string message,
             bool mailing)
         {
@@ -117,6 +118,7 @@ namespace ConventionManager.Controllers
             return RedirectToAction("Details", "Conference", new { id = conference.Id });
         }
 
+        [HttpPost]
         public async Task<IActionResult> SendEventNotification(int id, string receivers, string message, bool mailing)
         {
             var @event = await _context.Events.FirstOrDefaultAsync(e => e.Id == id);
