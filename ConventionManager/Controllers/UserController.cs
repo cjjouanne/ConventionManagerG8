@@ -20,11 +20,13 @@ namespace ConventionManager.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public UserController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public UserController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _context = context;
             _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         public async Task<IActionResult> ShowProfile(string userName)
@@ -44,6 +46,39 @@ namespace ConventionManager.Controllers
             ViewData["thisUserName"] = thisUserName;
 
             return View(user);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Organizer")]
+        public IActionResult ChangeRole()
+        {
+            var users = _context.Users.Where(u => u.Id != _userManager.GetUserId(HttpContext.User)).ToList();
+            ViewData["Roles"] = new SelectList(_roleManager.Roles, "Id", "Name");
+            return View(users);
+        }
+
+        [HttpPost]
+        [Authorize(Roles ="Organizer")]
+        public async Task<IActionResult> ChangeUserRole(string userId, string roleId)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByIdAsync(userId);
+                var newRole = _roleManager.Roles.SingleOrDefault(r => r.Id == roleId);
+
+                if (user == null)
+                {
+                    return NotFound();
+                }
+                await _userManager.AddToRoleAsync(user, newRole.Name);
+                    
+                
+                _context.Entry(user).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("Index", "EventCenter");
+            }
+            return View();
         }
     }
 }
