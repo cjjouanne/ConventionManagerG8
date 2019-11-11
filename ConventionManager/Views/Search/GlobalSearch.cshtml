@@ -4,6 +4,9 @@
     ViewData["Title"] = "Search";
 }
 
+<h1>You searched for @ViewData["searchInput"]</h1>
+<br />
+
 @if (Model.EventCenters != null)
 {
     <h1>Event Centers</h1>
@@ -192,7 +195,7 @@
                         @Model.User.UserName
                     </td>
                     <td width="30%">
-                        <a asp-controller="" asp-action="" asp-route-id="@Model.User.Id" class="btn rounded-sm btn-info">View Profile</a>
+                        <a asp-controller="User" asp-action="ShowProfile" asp-route-userName="@Model.User.UserName" class="btn rounded-sm btn-info">View Profile</a>
                     </td>
                 </tr>
                 </tbody>

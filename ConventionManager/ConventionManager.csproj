@@ -29,5 +29,6 @@
     <ItemGroup>
       <Folder Include="Views\Itinerary\" />
       <Folder Include="Views\Search\" />
+      <Folder Include="Views\User\" />
     </ItemGroup>
 </Project>

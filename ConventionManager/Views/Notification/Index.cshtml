@@ -66,7 +66,7 @@
         <div class="chatcontainer">
             <p>
                 <font color="black">
-                    @item.UserName
+                    <a asp-controller="User" asp-action="ShowProfile" asp-route-userName="@item.UserName">@item.UserName</a>
                      on 
                     @if (item.Notification.Type == "Event")
                     {
