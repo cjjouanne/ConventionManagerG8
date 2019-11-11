@@ -52,9 +52,13 @@
 
     <div id="mySidebar" class="sidebar">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a asp-controller="EventCenter" asp-action="Index">Centers</a>
+        <a asp-controller="EventCenter" asp-action="Index">Event Centers</a>
         <a asp-controller="Conference" asp-action="Index">Conferences</a>
         <a asp-controller="Event" asp-action="Index">Events</a>
+        @if (User.IsInRole("Organizer"))
+        {
+            <a asp-controller="User" asp-action="ChangeRole">Manage Roles</a>
+        }
     </div>
 
     <div class="container">
