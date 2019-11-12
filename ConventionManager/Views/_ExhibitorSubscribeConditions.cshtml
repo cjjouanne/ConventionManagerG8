@@ -1,0 +1,35 @@
+﻿@namespace ConventionManager.Views
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model ConventionManager.Models.EventAndSubscription
+
+
+@if (!Model.ExhibitorEvent.Subscriptions.Contains(Model.Subscription))
+{
+    @if (!User.IsInRole("Exhibitor"))
+    {
+        <a asp-controller="AttendantSubscription" asp-action="CreateSubscription" asp-route-eventId="@Model.ExhibitorEvent.Id" class="btn rounded-sm btn-primary">Join Event</a>
+    }
+    else
+    {
+        <a asp-controller="AttendantSubscription" asp-action="CreateSubscription" asp-route-eventId="@Model.ExhibitorEvent.Id" class="btn rounded-sm btn-primary">Join Event</a>
+        <a asp-controller="ExhibitorSubscription" asp-action="CreateSubscription" asp-route-eventId="@Model.ExhibitorEvent.Id" class="btn rounded-sm btn-primary">Join Event as Exhibitor</a>
+    }
+}
+else
+{
+    @if (!User.IsInRole("Exhibitor"))
+    {
+        <a asp-controller="AttendantSubscription" asp-action="DeleteSubscription" asp-route-eventId="@Model.ExhibitorEvent.Id" class="btn rounded-sm btn-danger">Quit Event</a>
+    }
+    else
+    {
+        @if (Model.Subscription.GetSubscriptionType() == "AttendantSubscription")
+        {
+            <a asp-controller="AttendantSubscription" asp-action="DeleteSubscription" asp-route-eventId="@Model.ExhibitorEvent.Id" class="btn rounded-sm btn-danger">Quit Event</a>
+        }
+        else
+        {
+            <a asp-controller="ExhibitorSubscription" asp-action="DeleteSubscription" asp-route-eventId="@Model.ExhibitorEvent.Id" class="btn rounded-sm btn-danger">Quit Event as Exhibitor</a>
+        }
+    }
+}

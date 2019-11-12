@@ -37,6 +37,12 @@ namespace ConventionManager.Controllers
                 eventsList.Add(@event);
             }
 
+            var allModeratorEvents = _context.ChatEvents.Where(ce => ce.ModeratorId == userId);
+            foreach (Event moderatorEvent in allModeratorEvents)
+            {
+                eventsList.Add(moderatorEvent);
+            }
+
             return View(eventsList.OrderBy(c => c.StartDate));
         }
     }

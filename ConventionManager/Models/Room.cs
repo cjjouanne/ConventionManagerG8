@@ -30,8 +30,12 @@ namespace ConventionManager.Models
         public int EventCenterId { get; set; }
         public EventCenter EventCenter { get; set; }
 
-        public int GetVacancies(Event @event)
+        public int GetVacancies(Event @event, bool moderator = false)
         {
+            if (moderator)
+            {
+                return this.Capacity - @event.Subscriptions.Count() - 1;
+            }
             return this.Capacity - @event.Subscriptions.Count();
         }
 

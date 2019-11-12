@@ -6,10 +6,15 @@ namespace ConventionManager.Models
         public Event Event { get; set; }
 
         public ExhibitorEvent ExhibitorEvent { get; set; }
-        public ChatEvent ChatEvent { get; set; }
+
         public Subscription Subscription { get; set; }
+
         public Notification Notification { get; set; }
+
+        public ChatEvent ChatEvent { get; set; }
+
         public string UserId { get; set; }
+
         public ApplicationUser Moderator { get; set; }
     }
 }

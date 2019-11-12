@@ -14,6 +14,10 @@
 {
  <p class="alert alert-warning rounded-sm alert-dismissible" id="errorMessage">@TempData["NoMoreVacancies"]</p>
 }
+@if (TempData["NoModeratorYet"] != null)
+{
+ <p class="alert alert-warning rounded-sm alert-dismissible" id="errorMessage">@TempData["NoModeratorYet"]</p>
+}
 <div>
     <h4>Chat Event</h4>
     <hr />
@@ -58,66 +62,50 @@
             Moderator
         </dt>
         <dd class = "col-sm-10">
-        @if (Model.ChatEvent.ModeratorId != null)
-        {
-            <a asp-controller="User" asp-action="ShowProfile" asp-route-userName="@Model.Moderator.UserName">
-                @Model.Moderator.FirstName @Model.Moderator.LastName
-            </a>
-        }
-        else 
-        {
-            <p> No moderador has joined yet. </p>
-        }
+            @if (Model.ChatEvent.ModeratorId != "0")
+            {
+                <a asp-controller="User" asp-action="ShowProfile" asp-route-userName="@Model.Moderator.UserName">
+                    @Model.Moderator.FirstName @Model.Moderator.LastName (@Model.Moderator.UserName)
+                </a>
+            }
+            else 
+            {
+                <a>No moderador has joined yet.</a>
+            }
         </dd>
         <dt class = "col-sm-2">
             Vacancies
         </dt>
         <dd class = "col-sm-10">
-            @Model.ExhibitorEvent.Room.GetVacancies(Model.ExhibitorEvent)
+            @if (Model.ChatEvent.ModeratorId == "0")
+            {
+                @Model.ExhibitorEvent.Room.GetVacancies(Model.ExhibitorEvent)
+            }
+            else
+            {
+                @Model.ExhibitorEvent.Room.GetVacancies(Model.ExhibitorEvent, true)
+            }
         </dd>
     </dl>
 </div>
 <div>
+    @if (Model.ChatEvent.ModeratorId != Model.UserId)
+    {
+        <partial name="../_ExhibitorSubscribeConditions.cshtml" />
+    }
     @if (!Model.ExhibitorEvent.Subscriptions.Contains(Model.Subscription))
     {
-        @if (!User.IsInRole("Exhibitor"))
+        @if (Model.ChatEvent.ModeratorId == "0" || Model.ChatEvent.ModeratorId == Model.UserId)
         {
-            <a asp-controller="AttendantSubscription" asp-action="CreateSubscription" asp-route-eventId="@Model.ExhibitorEvent.Id" class="btn rounded-sm btn-primary">Join Event</a>
-        }
-        else
-        {
-            <a asp-controller="AttendantSubscription" asp-action="CreateSubscription" asp-route-eventId="@Model.ExhibitorEvent.Id" class="btn rounded-sm btn-primary">Join Event</a>
-            <a asp-controller="ExhibitorSubscription" asp-action="CreateSubscription" asp-route-eventId="@Model.ExhibitorEvent.Id" class="btn rounded-sm btn-primary">Join Event as Exhibitor</a>
-        }
-    }
-    else
-    {
-        @if (!User.IsInRole("Exhibitor"))
-        {
-            <a asp-controller="AttendantSubscription" asp-action="DeleteSubscription" asp-route-eventId="@Model.ExhibitorEvent.Id" class="btn rounded-sm btn-danger">Quit Event</a>
-        }
-        else
-        {
-            @if (Model.Subscription.GetSubscriptionType() == "AttendantSubscription")
+            <br/>
+            if (Model.ChatEvent.ModeratorId == "0")
             {
-                <a asp-controller="AttendantSubscription" asp-action="DeleteSubscription" asp-route-eventId="@Model.ExhibitorEvent.Id" class="btn rounded-sm btn-danger">Quit Event</a>
+                <a asp-action="AddModerator" asp-route-id="@Model.ExhibitorEvent.Id" class="btn rounded-sm btn-primary mt-2">Join as Moderator</a>
             }
             else
             {
-                <a asp-controller="ExhibitorSubscription" asp-action="DeleteSubscription" asp-route-eventId="@Model.ExhibitorEvent.Id" class="btn rounded-sm btn-danger">Quit Event as Exhibitor</a>
+                <a asp-action="RemoveModerator" asp-route-id="@Model.ExhibitorEvent.Id" class="btn rounded-sm btn-danger mt-2">Quit as Moderator</a>
             }
-        }
-    }
-    <br/>
-    @if (Model.ChatEvent.ModeratorId == null || Model.ChatEvent.ModeratorId == Model.UserId)
-    {
-        if (Model.ChatEvent.ModeratorId == null)
-        {
-            <a asp-action="AddModerator" asp-route-id="@Model.ExhibitorEvent.Id" class="btn rounded-sm btn-primary mt-2">Join as Moderator</a>
-        }
-        else
-        {
-            <a asp-action="RemoveModerator" asp-route-id="@Model.ExhibitorEvent.Id" class="btn rounded-sm btn-danger mt-2">Quit as Moderator</a>
         }
     }
     <br/>

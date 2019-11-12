@@ -39,7 +39,22 @@ namespace ConventionManager.Controllers
             var room = await _context.Rooms.FirstOrDefaultAsync(r => r.Id == @event.RoomId);
             var userId = _userManager.GetUserId(HttpContext.User);
 
-            if (room.Capacity - @event.Subscriptions.Count() <= 0)
+            if (@event.GetEventType() == "ChatEvent")
+            {
+                var chatEvent = _context.ChatEvents.FirstOrDefault(ce => ce.Id == @event.Id);
+                if (chatEvent.ModeratorId == "0" && room.GetVacancies(@event) == 1)
+                {
+                    TempData["NoModeratorYet"] = @event.NoModeratorYetMessage;
+                    return RedirectToAction("Details", @event.GetEventType(), new { id = @event.Id });
+                }
+                else if (chatEvent.ModeratorId != "0" && room.GetVacancies(@event, true) <= 0)
+                {
+                    TempData["NoMoreVacancies"] = room.NoMoreVacanciesMessage;
+                    return RedirectToAction("Details", @event.GetEventType(), new { id = @event.Id });
+                }
+            }
+
+            if (room.GetVacancies(@event) <= 0)
             {
                 TempData["NoMoreVacancies"] = room.NoMoreVacanciesMessage;
                 return RedirectToAction("Details", @event.GetEventType(), new { id = @event.Id });
