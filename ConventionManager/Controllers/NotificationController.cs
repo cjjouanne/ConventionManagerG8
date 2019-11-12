@@ -37,7 +37,7 @@ namespace ConventionManager.Controllers
                 var notificationConferenceAndEvent = new NotificationConferenceAndEvent();
                 notificationConferenceAndEvent.Notification = notification;
 
-                var subscription = _context.Subscriptions.First(s => s.Id == notification.SubscriptionId);
+                var subscription = _context.Subscriptions.FirstOrDefault(s => s.Id == notification.SubscriptionId);
                 if(subscription != null)
                 {
                     notificationConferenceAndEvent.Conference = _context.Conferences

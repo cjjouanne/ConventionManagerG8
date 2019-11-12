@@ -54,6 +54,21 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.ExhibitorEvent.Room.Name)
         </dd>
+        <dt class="col-sm-2">
+            Moderator
+        </dt>
+        <dd class = "col-sm-10">
+        @if (Model.ChatEvent.ModeratorId != null)
+        {
+            <a asp-controller="User" asp-action="ShowProfile" asp-route-userName="@Model.Moderator.UserName">
+                @Model.Moderator.FirstName @Model.Moderator.LastName
+            </a>
+        }
+        else 
+        {
+            <p> No moderador has joined yet. </p>
+        }
+        </dd>
         <dt class = "col-sm-2">
             Vacancies
         </dt>
@@ -91,6 +106,18 @@
             {
                 <a asp-controller="ExhibitorSubscription" asp-action="DeleteSubscription" asp-route-eventId="@Model.ExhibitorEvent.Id" class="btn rounded-sm btn-danger">Quit Event as Exhibitor</a>
             }
+        }
+    }
+    <br/>
+    @if (Model.ChatEvent.ModeratorId == null || Model.ChatEvent.ModeratorId == Model.UserId)
+    {
+        if (Model.ChatEvent.ModeratorId == null)
+        {
+            <a asp-action="AddModerator" asp-route-id="@Model.ExhibitorEvent.Id" class="btn rounded-sm btn-primary mt-2">Join as Moderator</a>
+        }
+        else
+        {
+            <a asp-action="RemoveModerator" asp-route-id="@Model.ExhibitorEvent.Id" class="btn rounded-sm btn-danger mt-2">Quit as Moderator</a>
         }
     }
     <br/>

@@ -49,16 +49,18 @@ namespace ConventionManager.Controllers
                 .FirstOrDefaultAsync(m => m.Id == id);
             var userId = _userManager.GetUserId(HttpContext.User);
             var subscription = await _context.Subscriptions.FirstOrDefaultAsync(s => s.UserId == userId && s.EventId == chatEvent.Id);
-
+            
             var eventAndSubscription = new EventAndSubscription()
             {
                 ExhibitorEvent = chatEvent,
-                Subscription = subscription
+                Subscription = subscription,
+                ChatEvent = chatEvent,
+                UserId = userId
             };
-
-            if (chatEvent == null)
+            
+            if (chatEvent.ModeratorId != null)
             {
-                return NotFound();
+                eventAndSubscription.Moderator = _context.Users.First(u => u.Id == chatEvent.ModeratorId);
             }
 
             return View(eventAndSubscription);
@@ -253,6 +255,24 @@ namespace ConventionManager.Controllers
                 default:
                     return RedirectToAction("Details", "Conference", new { id = chatEvent.ConferenceId });
             }
+        }
+
+        public async Task<IActionResult> AddModerator(int id)
+        {
+            var chatEvent = _context.ChatEvents.First(e => e.Id == id);
+            chatEvent.ModeratorId = _userManager.GetUserId(HttpContext.User);
+            _context.Update(chatEvent);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Details", "ChatEvent", new { id = chatEvent.Id });
+        }
+        
+        public async Task<IActionResult> RemoveModerator(int id)
+        {
+            var chatEvent = _context.ChatEvents.First(e => e.Id == id);
+            chatEvent.ModeratorId = null;
+            _context.Update(chatEvent);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Details", "ChatEvent", new { id = chatEvent.Id });
         }
 
         private bool ChatEventExists(int id)

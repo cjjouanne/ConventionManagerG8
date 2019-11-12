@@ -7,7 +7,7 @@ using ConventionManager.Data;
 
 namespace ConventionManager.Models
 {
-    public abstract class Event : INotification
+    public abstract class Event
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -95,8 +95,5 @@ namespace ConventionManager.Models
             }
             return true;
         }
-
-        public abstract void SendNotificationToAttendants(string message);
-        public abstract void SendNotificationToExhibitors(string message);
     }
 }

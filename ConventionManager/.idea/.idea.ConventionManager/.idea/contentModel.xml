@@ -97,6 +97,8 @@
           <e p="20191107153839_AddSentByToNotifications.Designer.cs" t="Include" />
           <e p="20191108222531_AddedUrlsToUser.cs" t="Include" />
           <e p="20191108222531_AddedUrlsToUser.Designer.cs" t="Include" />
+          <e p="20191112071657_ChatEventModeratorIdType.cs" t="Include" />
+          <e p="20191112071657_ChatEventModeratorIdType.Designer.cs" t="Include" />
           <e p="ApplicationDbContextModelSnapshot.cs" t="Include" />
         </e>
       </e>
@@ -117,7 +119,6 @@
         <e p="ExhibitorSubscription.cs" t="Include" />
         <e p="Food.cs" t="Include" />
         <e p="FoodEvent.cs" t="Include" />
-        <e p="INotification.cs" t="Include" />
         <e p="Notification.cs" t="Include" />
         <e p="NotificationConferenceAndEvent.cs" t="Include" />
         <e p="PartyEvent.cs" t="Include" />
