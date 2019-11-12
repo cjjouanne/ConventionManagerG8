@@ -25,6 +25,13 @@ else
         <p><strong>Curriculum:</strong> @Model.CurriculumUrl</p>
     </div>
 </div>
+@if (Model.UserName == ViewData["thisUserName"].ToString())
+{
+    <div>
+        <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" class="btn rounded-sm btn-success">Edit Profile</a>
+    </div>
+    <br />
+}
 
 <div>
     <a href="javascript:void(0);" onclick="history.go(-1);" class="btn rounded-sm btn-light">Go Back</a>

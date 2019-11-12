@@ -25,6 +25,9 @@
 
     <ItemGroup>
       <Content Remove="appsettings.Development.json" />
+      <Content Remove="Areas\Identity\Pages\Account\Manage\_ManageNav.cshtml" />
+      <Content Remove="Areas\Identity\Pages\Account\Manage\_ViewImports.cshtml" />
+      <Content Remove="Areas\Identity\Pages\Account\Manage\Index.cshtml" />
     </ItemGroup>
     <ItemGroup>
       <Folder Include="Views\Itinerary\" />
