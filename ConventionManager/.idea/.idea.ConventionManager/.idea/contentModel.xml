@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="$PROJECT_DIR$" t="IncludeRecursive">
+    <e p="C:\Users\sebastián\.Rider2019.2\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\sebastián\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_ConventionManager.730488146.00" t="ExcludeRecursive" />
+    <e p="C:\Users\sebastián\Documents\ConventionManagerG8\ConventionManager" t="IncludeRecursive">
       <e p=".gitignore" t="Include" />
       <e p="app.db" t="Include" />
       <e p="appsettings.json" t="Include" />
@@ -38,7 +40,9 @@
         <e p="PartyEventController.cs" t="Include" />
         <e p="PracticalSessionsEventController.cs" t="Include" />
         <e p="RoomController.cs" t="Include" />
+        <e p="SearchController.cs" t="Include" />
         <e p="TalkEventController.cs" t="Include" />
+        <e p="UserController.cs" t="Include" />
       </e>
       <e p="ConventionManager.csproj" t="IncludeRecursive" />
       <e p="ConventionManager.sln" t="IncludeFlat" />
@@ -119,6 +123,7 @@
         <e p="PartyEvent.cs" t="Include" />
         <e p="PracticalSessionsEvent.cs" t="Include" />
         <e p="Room.cs" t="Include" />
+        <e p="SearchResults.cs" t="Include" />
         <e p="Sponsor.cs" t="Include" />
         <e p="Subscription.cs" t="Include" />
         <e p="TalkEvent.cs" t="Include" />
@@ -139,6 +144,9 @@
       <e p="Startup.cs" t="Include" />
       <e p="UploadService.cs" t="Include" />
       <e p="Views" t="Include">
+        <e p="_AttendantNotificationPopup.cshtml" t="Include" />
+        <e p="_ConferenceNotificationPopup.cshtml" t="Include" />
+        <e p="_ExhibitorNotificationPopup.cshtml" t="Include" />
         <e p="_ViewImports.cshtml" t="Include" />
         <e p="_ViewStart.cshtml" t="Include" />
         <e p="ChatEvent" t="Include">
@@ -211,6 +219,9 @@
           <e p="Edit.cshtml" t="Include" />
           <e p="Index.cshtml" t="Include" />
         </e>
+        <e p="Search" t="Include">
+          <e p="GlobalSearch.cshtml" t="Include" />
+        </e>
         <e p="Shared" t="Include">
           <e p="_CookieConsentPartial.cshtml" t="Include" />
           <e p="_Layout.cshtml" t="Include" />
@@ -225,9 +236,16 @@
           <e p="Edit.cshtml" t="Include" />
           <e p="Index.cshtml" t="Include" />
         </e>
+        <e p="User" t="Include">
+          <e p="ChangeRole.cshtml" t="Include" />
+          <e p="ShowProfile.cshtml" t="Include" />
+        </e>
       </e>
       <e p="wwwroot" t="Include">
         <e p="css" t="Include">
+          <e p="modals.css" t="Include" />
+          <e p="searchbar.css" t="Include" />
+          <e p="Sidenav.css" t="Include" />
           <e p="site.css" t="Include" />
         </e>
         <e p="favicon.ico" t="Include" />
@@ -290,7 +308,5 @@
         </e>
       </e>
     </e>
-    <e p="$USER_HOME$/Library/Caches/Rider2019.2/extResources" t="IncludeRecursive" />
-    <e p="$USER_HOME$/Library/Caches/Rider2019.2/resharper-host/local/Transient/ReSharperHost/v192/SolutionCaches/_ConventionManager.146504993.00" t="ExcludeRecursive" />
   </component>
 </project>

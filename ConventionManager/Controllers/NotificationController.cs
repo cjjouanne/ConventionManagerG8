@@ -38,23 +38,25 @@ namespace ConventionManager.Controllers
                 notificationConferenceAndEvent.Notification = notification;
 
                 var subscription = _context.Subscriptions.First(s => s.Id == notification.SubscriptionId);
-
-                notificationConferenceAndEvent.Conference = _context.Conferences
-                                                            .First(c => c.Id == subscription.ConferenceId);
-
-                notificationConferenceAndEvent.Event = _context.Events
-                                                        .First(e => e.Id == subscription.EventId);
-
-                var user = await _userManager.FindByIdAsync(notification.SentByUserId);
-                if (_userManager.GetUserName(HttpContext.User) == user.UserName)
+                if(subscription != null)
                 {
-                    notificationConferenceAndEvent.UserName = "Me";
+                    notificationConferenceAndEvent.Conference = _context.Conferences
+                        .FirstOrDefault(c => c.Id == subscription.ConferenceId);
+
+                    notificationConferenceAndEvent.Event = _context.Events
+                        .FirstOrDefault(e => e.Id == subscription.EventId);
+
+                    var user = await _userManager.FindByIdAsync(notification.SentByUserId);
+                    if (_userManager.GetUserName(HttpContext.User) == user.UserName)
+                    {
+                        notificationConferenceAndEvent.UserName = "Me";
+                    }
+                    else
+                    {
+                        notificationConferenceAndEvent.UserName = user.UserName;
+                    }
+                    results.Add(notificationConferenceAndEvent);   
                 }
-                else
-                {
-                    notificationConferenceAndEvent.UserName = user.UserName;
-                }
-                results.Add(notificationConferenceAndEvent);
             }
             return View(results);
         }
