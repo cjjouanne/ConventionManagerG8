@@ -14,47 +14,81 @@
 {
  <p class="alert alert-warning rounded-sm alert-dismissible" id="errorMessage">@TempData["NoMoreVacancies"]</p>
 }
-<div>
-    <h4>Food Event</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Event.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Event.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Event.StartDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Event.StartDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Event.EndDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Event.EndDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Event.Conference)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Event.Conference.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Event.Room)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Event.Room.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            Vacancies
-        </dt>
-        <dd class = "col-sm-10">
-            @Model.Event.Room.GetVacancies(Model.Event)
-        </dd>
-    </dl>
+<div class="row">
+    <div class="col-sm-6">
+        <div>
+            <h4>Food Event</h4>
+            <hr />
+            <dl>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Event.Name)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Event.Name)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Event.StartDate)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Event.StartDate)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Event.EndDate)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Event.EndDate)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Event.Conference)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Event.Conference.Name)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Event.Room)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Event.Room.Name)
+                </dd>
+                <dt>
+                    Vacancies
+                </dt>
+                <dd>
+                    @Model.Event.Room.GetVacancies(Model.Event)
+                </dd>
+                <dt>
+                    Menu
+                </dt>
+                <dd>
+                    <button class="btn rounded-sm btn-dark" id="myBtn">Show Menu</button>
+                    <div id="myModal" class="modal">
+                        <div class="rounded-sm modal-content">
+                            @if (Model.FoodEvent.Menu.Count() > 0)
+                            {
+                                <h3>Menu<span class="close">&times;</span></h3>
+                                <ul>
+                                    @foreach (Food food in Model.FoodEvent.Menu)
+                                    {
+                                        <li>@food.Name (@food.TypeOfFood)<details>@food.Description</details></li>
+                                    }
+                                </ul>
+                            }
+                            else
+                            {
+                                <p>There isn't anything in the menu yet.<span class="close">&times;</span></p>
+                            }
+                        </div>
+                    </div>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    @if (User.IsInRole("Organizer"))
+    {
+        <div class="col-sm-6">
+            <a asp-controller="FoodEvent" asp-action="CreateFood" asp-route-foodEventId="@Model.Event.Id" class="btn rounded-sm btn-info">Add Food to Menu</a>
+        </div>
+    }
 </div>
 <div>
     @if (!Model.Event.Subscriptions.Contains(Model.Subscription))

@@ -1,35 +1,26 @@
 ﻿<Properties StartupConfiguration="{89E480FD-47D7-48E3-8F15-D3C99768BC94}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Areas/Identity/Pages/Account/Register.cshtml.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Views/FoodEvent/Details.cshtml">
     <Files>
       <File FileName="Controllers/UserController.cs" Line="70" Column="18" />
-      <File FileName="Controllers/NotificationController.cs" Line="1" Column="1" />
-      <File FileName="Views/User/ShowProfile.cshtml" Line="34" Column="1" />
-      <File FileName="Areas/Identity/Pages/Account/Manage/Index.cshtml" Line="9" Column="50" />
-      <File FileName="Areas/Identity/Pages/Account/Manage/Index.cshtml.cs" Line="81" Column="43" />
-      <File FileName="Areas/Identity/Pages/Account/Register.cshtml.cs" Line="107" Column="64" />
+      <File FileName="Controllers/NotificationController.cs" />
+      <File FileName="Views/User/ShowProfile.cshtml" Line="1" Column="1" />
+      <File FileName="Views/FoodEvent/Details.cshtml" Line="62" Column="20" />
+      <File FileName="Controllers/FoodEventController.cs" Line="64" Column="1" />
+      <File FileName="Models/Food.cs" Line="1" Column="1" />
+      <File FileName="Views/FoodEvent/CreateFood.cshtml" Line="22" Column="53" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="ConventionManager" expanded="True">
             <Node name="ConventionManager" expanded="True">
-              <Node name="Areas" expanded="True">
-                <Node name="Identity" expanded="True">
-                  <Node name="Pages" expanded="True">
-                    <Node name="Account" expanded="True">
-                      <Node name="Manage" expanded="True" />
-                      <Node name="Register.cshtml" expanded="True">
-                        <Node name="Register.cshtml.cs" selected="True" />
-                      </Node>
-                    </Node>
-                  </Node>
-                </Node>
-              </Node>
               <Node name="Controllers" expanded="True" />
+              <Node name="Models" expanded="True" />
               <Node name="Views" expanded="True">
-                <Node name="Itinerary" expanded="True" />
-                <Node name="Shared" expanded="True" />
-                <Node name="User" expanded="True" />
+                <Node name="Conference" expanded="True" />
+                <Node name="FoodEvent" expanded="True">
+                  <Node name="Details.cshtml" selected="True" />
+                </Node>
               </Node>
             </Node>
           </Node>
