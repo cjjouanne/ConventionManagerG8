@@ -1,0 +1,56 @@
+﻿@model ConventionManager.Models.FoodEventAndFood
+
+@{
+    ViewData["Title"] = "Create Food";
+}
+
+<h1>Creating Food</h1>
+
+<div> 
+    @if (Model.FoodEvent.Menu.Count > 0)
+    {
+        <h3>Already in the Menu</h3>
+        <ul>
+            @foreach (var menuItem in Model.FoodEvent.Menu)
+            {
+                <li>@menuItem.Name (@menuItem.TypeOfFood)</li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>There isn't anything in the menu yet.</p>
+    }
+</div>
+
+<div class="row">
+    <h3>Please specify the food you would like to be added to the menu</h3>
+    <div class="col-md-4">
+        <form asp-action="CreateFood">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" name="foodEventId" value="@ViewData["FoodEventId"]" />
+            <div class="form-group">
+                <label asp-for="@Model.Food.Name" class="control-label"></label>
+                <input asp-for="@Model.Food.Name" class="rounded-sm form-control" />
+                <span asp-validation-for="@Model.Food.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Food.TypeOfFood" class="control-label"></label>
+                <input asp-for="@Model.Food.TypeOfFood" class="rounded-sm form-control" />
+                <span asp-validation-for="@Model.Food.TypeOfFood" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Food.Description" class="control-label"></label>
+                <input asp-for="@Model.Food.Description" class="rounded-sm form-control" />
+                <span asp-validation-for="@Model.Food.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="CreateFood" class="btn rounded-sm btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a href="javascript:void(0);" onclick="history.go(-1);" class="btn rounded-sm btn-light">Go Back</a>
+</div>
