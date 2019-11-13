@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\sebastián\.Rider2019.2\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\sebastián\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_ConventionManager.730488146.00" t="ExcludeRecursive" />
-    <e p="C:\Users\sebastián\Documents\ConventionManagerG8\ConventionManager" t="IncludeRecursive">
+    <e p="$USER_HOME$/Library/Caches/Rider2019.2/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/Library/Caches/Rider2019.2/resharper-host/local/Transient/ReSharperHost/v192/SolutionCaches/_ConventionManager.1317294834.00" t="ExcludeRecursive" />
+    <e p="$PROJECT_DIR$" t="IncludeRecursive">
       <e p=".gitignore" t="Include" />
       <e p="app.db" t="Include" />
       <e p="appsettings.json" t="Include" />
@@ -19,6 +19,10 @@
               <e p="Login.cshtml.cs" t="Include" />
               <e p="Logout.cshtml" t="Include" />
               <e p="Logout.cshtml.cs" t="Include" />
+              <e p="Manage" t="Include">
+                <e p="Index.cshtml.cs" t="Include" />
+                <e p="ManageNavPages.cs" t="Include" />
+              </e>
               <e p="Register.cshtml" t="Include" />
               <e p="Register.cshtml.cs" t="Include" />
             </e>
@@ -148,6 +152,7 @@
         <e p="_AttendantNotificationPopup.cshtml" t="Include" />
         <e p="_ConferenceNotificationPopup.cshtml" t="Include" />
         <e p="_ExhibitorNotificationPopup.cshtml" t="Include" />
+        <e p="_ExhibitorSubscribeConditions.cshtml" t="Include" />
         <e p="_ViewImports.cshtml" t="Include" />
         <e p="_ViewStart.cshtml" t="Include" />
         <e p="ChatEvent" t="Include">

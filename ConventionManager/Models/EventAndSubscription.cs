@@ -13,6 +13,8 @@ namespace ConventionManager.Models
 
         public ChatEvent ChatEvent { get; set; }
 
+        public FoodEvent FoodEvent { get; set; }
+
         public string UserId { get; set; }
 
         public ApplicationUser Moderator { get; set; }

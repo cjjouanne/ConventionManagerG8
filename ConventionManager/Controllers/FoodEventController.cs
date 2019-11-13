@@ -45,6 +45,7 @@ namespace ConventionManager.Controllers
                 .Include(f => f.Conference)
                 .Include(f => f.Room)
                 .Include(s => s.Subscriptions)
+                .Include(m => m.Menu)
                 .FirstOrDefaultAsync(m => m.Id == id);
             var userId = _userManager.GetUserId(HttpContext.User);
             var subscription = await _context.Subscriptions.FirstOrDefaultAsync(s => s.UserId == userId && s.EventId == foodEvent.Id);
@@ -52,6 +53,7 @@ namespace ConventionManager.Controllers
             var eventAndSubscription = new EventAndSubscription()
             {
                 Event = foodEvent,
+                FoodEvent = foodEvent,
                 Subscription = subscription
             };
 
@@ -61,6 +63,40 @@ namespace ConventionManager.Controllers
             }
 
             return View(eventAndSubscription);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CreateFood(int foodEventId)
+        {
+            FoodEvent foodEvent = await _context.FoodEvents
+                .Include(m => m.Menu)
+                .FirstOrDefaultAsync(e => e.Id == foodEventId);
+            if (foodEvent == null)
+            {
+                return NotFound();
+            }
+            var foodEventAndFood = new FoodEventAndFood(){ FoodEvent = foodEvent };
+
+            IEnumerable<Food> currentMenu = _context.Foods.Where(f => f.FoodEventId == foodEvent.Id).ToArray();
+            foreach (Food food in currentMenu)
+            {
+                foodEvent.Menu.Add(food);
+            }
+
+            ViewData["FoodEventId"] = foodEvent.Id;
+
+            return View(foodEventAndFood);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateFood(int foodEventId, Food food)
+        {
+            FoodEvent foodEvent = await _context.FoodEvents
+                .Include(m => m.Menu)
+                .FirstOrDefaultAsync(e => e.Id == foodEventId);
+            foodEvent.Menu.Add(food);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Details", "FoodEvent", new { id = foodEventId });
         }
 
         // GET: FoodEvent/Create
