@@ -7,7 +7,7 @@ using ConventionManager.Data;
 
 namespace ConventionManager.Models
 {
-    public abstract class Event : INotification
+    public abstract class Event
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -40,6 +40,9 @@ namespace ConventionManager.Models
 
         public string CannotDeleteEventMessage = "This event can't be deleted because there " +
                                                     "is at least someone subscribed to it.";
+
+        public string NoModeratorYetMessage = "This Event Needs a Moderator before " +
+            "emptying its capacity. You could join as one if you wish to.";
 
         // Gets the name of the event type with GetType() method
         public string GetEventType()
@@ -95,8 +98,5 @@ namespace ConventionManager.Models
             }
             return true;
         }
-
-        public abstract void SendNotificationToAttendants(string message);
-        public abstract void SendNotificationToExhibitors(string message);
     }
 }

@@ -29,8 +29,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="Location" class="control-label"></label>
-                <input asp-for="Location" class="rounded-sm form-control" />
-                <span asp-validation-for="Location" class="text-danger"></span>
+                <select asp-for="Location" class="form-control" id="shell">
+                    @foreach (string item in Model.Locations)
+                    {
+                        <option value="@item">@item</option>
+                    }
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="Latitude" class="control-label"></label>

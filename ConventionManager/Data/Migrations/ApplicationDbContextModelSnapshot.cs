@@ -302,22 +302,22 @@ namespace ConventionManager.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "a17e24a0-f22f-448d-a8e4-9274ccdb1945",
-                            ConcurrencyStamp = "60f21ee6-9cf2-4c1f-9588-127f11d8cbbb",
+                            Id = "ffead207-60f5-4a3e-ac55-4de46f48414d",
+                            ConcurrencyStamp = "ebabcb7f-2046-4a67-b46f-57917317554d",
                             Name = "Organizer",
                             NormalizedName = "ORGANIZER"
                         },
                         new
                         {
-                            Id = "31d41b33-4355-4b14-91d1-dd464b3b38c0",
-                            ConcurrencyStamp = "e2795972-6458-44d3-9482-b172af00ae57",
+                            Id = "160aad0c-7f2b-4aa5-b390-2ab6ccedde1d",
+                            ConcurrencyStamp = "82f20389-06aa-46b0-b065-783cd803cea3",
                             Name = "Exhibitor",
                             NormalizedName = "EXHIBITOR"
                         },
                         new
                         {
-                            Id = "694af55f-4e0f-4f47-bbf9-6c668cf2ff67",
-                            ConcurrencyStamp = "685beb96-5517-4272-b097-1b85a37d22ed",
+                            Id = "33eee70b-b23c-478b-b3c1-5d7428e3ebd0",
+                            ConcurrencyStamp = "c18c5d65-4d89-4226-93a7-4e556e39bdc9",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -453,7 +453,7 @@ namespace ConventionManager.Data.Migrations
                 {
                     b.HasBaseType("ConventionManager.Models.ExhibitorEvent");
 
-                    b.Property<int>("ModeratorId");
+                    b.Property<string>("ModeratorId");
 
                     b.HasDiscriminator().HasValue("ChatEvent");
                 });
