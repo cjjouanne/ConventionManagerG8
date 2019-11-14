@@ -108,7 +108,9 @@ namespace ConventionManager.Controllers
                 return NotFound();
             }
 
-            var room = await _context.Rooms.FindAsync(id);
+            var room = await _context.Rooms
+                .Include(ec => ec.EventCenter)
+                .FirstOrDefaultAsync(r => r.Id == id);
             if (room == null)
             {
                 return NotFound();
