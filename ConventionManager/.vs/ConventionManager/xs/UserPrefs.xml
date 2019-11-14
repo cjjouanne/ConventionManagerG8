@@ -1,13 +1,14 @@
 ﻿<Properties StartupConfiguration="{89E480FD-47D7-48E3-8F15-D3C99768BC94}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Views/FoodEvent/Details.cshtml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Views/Notification/Index.cshtml">
     <Files>
       <File FileName="Controllers/UserController.cs" Line="70" Column="18" />
       <File FileName="Controllers/NotificationController.cs" />
-      <File FileName="Views/User/ShowProfile.cshtml" Line="1" Column="1" />
-      <File FileName="Views/FoodEvent/Details.cshtml" Line="62" Column="20" />
+      <File FileName="Views/User/ShowProfile.cshtml" />
+      <File FileName="Views/FoodEvent/Details.cshtml" Line="79" Column="30" />
       <File FileName="Controllers/FoodEventController.cs" Line="64" Column="1" />
-      <File FileName="Models/Food.cs" Line="1" Column="1" />
+      <File FileName="Models/Food.cs" />
       <File FileName="Views/FoodEvent/CreateFood.cshtml" Line="22" Column="53" />
+      <File FileName="Views/Notification/Index.cshtml" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -17,9 +18,9 @@
               <Node name="Controllers" expanded="True" />
               <Node name="Models" expanded="True" />
               <Node name="Views" expanded="True">
-                <Node name="Conference" expanded="True" />
-                <Node name="FoodEvent" expanded="True">
-                  <Node name="Details.cshtml" selected="True" />
+                <Node name="FoodEvent" expanded="True" />
+                <Node name="Notification" expanded="True">
+                  <Node name="Index.cshtml" selected="True" />
                 </Node>
               </Node>
             </Node>
