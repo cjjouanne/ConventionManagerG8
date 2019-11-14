@@ -16,40 +16,43 @@
     <div class="card-columns">
         @foreach (var item in Model)
         {
-            <div class="card rounded-sm text-white bg-warning mb-3" style="max-width: 20rem;">
-                <div class="card-header">
-                    <div>
-                        Start:
-                        @Html.DisplayFor(modelItem => item.StartDate.DayOfWeek)
-                        @Html.DisplayFor(modelItem => item.StartDate.Day) /
-                        @Html.DisplayFor(modelItem => item.StartDate.Month) /
-                        @Html.DisplayFor(modelItem => item.StartDate.Year)
-                    </div>
-                    <div>
-                        End:
-                        @Html.DisplayFor(modelItem => item.EndDate.DayOfWeek)
-                        @Html.DisplayFor(modelItem => item.EndDate.Day) /
-                        @Html.DisplayFor(modelItem => item.EndDate.Month) /
-                        @Html.DisplayFor(modelItem => item.EndDate.Year)
+            @if (User.IsInRole("Organizer") || DateTime.Compare(item.EndDate, DateTime.Now) > 0)
+            {
+                <div class="card rounded-sm text-white bg-warning mb-3" style="max-width: 20rem;">
+                    <div class="card-header">
+                        <div>
+                            Start:
+                            @Html.DisplayFor(modelItem => item.StartDate.DayOfWeek)
+                            @Html.DisplayFor(modelItem => item.StartDate.Day) /
+                            @Html.DisplayFor(modelItem => item.StartDate.Month) /
+                            @Html.DisplayFor(modelItem => item.StartDate.Year)
                         </div>
+                        <div>
+                            End:
+                            @Html.DisplayFor(modelItem => item.EndDate.DayOfWeek)
+                            @Html.DisplayFor(modelItem => item.EndDate.Day) /
+                            @Html.DisplayFor(modelItem => item.EndDate.Month) /
+                            @Html.DisplayFor(modelItem => item.EndDate.Year)
+                            </div>
 
-                </div>
-                <div class="card-body">
-                    <a asp-action="Details" asp-route-id="@item.Id" >
-                        <h4 class="card-title text-white">
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </h4>
-                    </a>
-                    <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
-                </div>
-                @if (User.IsInRole("Organizer"))
-                {
-                    <div class="card-footer">
-                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn rounded-sm btn-success">Edit</a>
-                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn rounded-sm btn-danger">Delete</a>
                     </div>
-                }
-            </div>
+                    <div class="card-body">
+                        <a asp-action="Details" asp-route-id="@item.Id" >
+                            <h4 class="card-title text-white">
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </h4>
+                        </a>
+                        <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                    </div>
+                    @if (User.IsInRole("Organizer"))
+                    {
+                        <div class="card-footer">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn rounded-sm btn-success">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn rounded-sm btn-danger">Delete</a>
+                        </div>
+                    }
+                </div>
+            }
         }
     </div>
 }

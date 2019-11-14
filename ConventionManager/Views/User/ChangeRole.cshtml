@@ -14,7 +14,7 @@
                 <select name="userId" class="form-control" id="shell">
                     @foreach (ApplicationUser user in Model)
                     {
-                        <option value="@user.Id">@user.FirstName @user.LastName (@user.UserName)</option>
+                        <option value="@user.Id">@user.FullName() (@user.UserName)</option>
                     }
                 </select>
             </div>

@@ -18,7 +18,7 @@ else
         <img src=@Model.ProfilePictureUrl>
     </div>
     <div class="col-sm-10">
-        <p><strong>Full Name:</strong> @Model.FirstName @Model.LastName</p>
+        <p><strong>Full Name:</strong> @Model.FullName()</p>
         <p><strong>Username:</strong> @Model.UserName</p>
         <p><strong>Email:</strong> @Model.Email</p>
         <p><strong>Phone Number:</strong> @Model.PhoneNumber</p>
