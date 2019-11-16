@@ -1,0 +1,75 @@
+@model IEnumerable<ConventionManager.Models.ExhibitorFeedback>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Exhibitor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Overall)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Preparation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Attitude)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Voice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Connection)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Other)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Exhibitor.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Overall)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Preparation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Attitude)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Voice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Connection)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Other)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

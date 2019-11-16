@@ -46,12 +46,14 @@ namespace ConventionManager.Controllers
                 .Include(c => c.Conference)
                 .Include(c => c.Room)
                 .Include(s => s.Subscriptions)
+                .ThenInclude(u => u.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
             var userId = _userManager.GetUserId(HttpContext.User);
             var subscription = await _context.Subscriptions.FirstOrDefaultAsync(s => s.UserId == userId && s.EventId == chatEvent.Id);
             
             var eventAndSubscription = new EventAndSubscription()
             {
+                Event = chatEvent,
                 ExhibitorEvent = chatEvent,
                 Subscription = subscription,
                 ChatEvent = chatEvent,
