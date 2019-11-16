@@ -109,6 +109,8 @@
           <e p="20191114201705_AddFeedback.Designer.cs" t="Include" />
           <e p="20191116041848_AddUserIdToFeedback.cs" t="Include" />
           <e p="20191116041848_AddUserIdToFeedback.Designer.cs" t="Include" />
+          <e p="20191116045156_RemoveHasFoodOfEventFeedback.cs" t="Include" />
+          <e p="20191116045156_RemoveHasFoodOfEventFeedback.Designer.cs" t="Include" />
           <e p="ApplicationDbContextModelSnapshot.cs" t="Include" />
         </e>
       </e>
