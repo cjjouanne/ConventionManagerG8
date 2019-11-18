@@ -1,0 +1,103 @@
+﻿@namespace ConventionManager.Views
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model ConventionManager.Models.EventAndSubscription
+
+<br />
+<button class="btn rounded-sm btn-secondary" id="myBtn4">Feedback Exhibitor</button>
+<div id="myModal4" class="modal4">
+    <div class="rounded-sm modal4-content">
+        <h3> Feedback for Exhibitor <span class="close4">&times;</span></h3>
+        <form asp-controller="ExhibitorFeedback" asp-action="Create" id="ExhibitorFeedback">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <select class="mb-3" name="ExhibitorId" form="ExhibitorFeedback">
+                @foreach (var i in @Model.ExhibitorEvent.Subscriptions)
+                {
+                    if (i.GetSubscriptionType() == "ExhibitorSubscription")
+                    {
+                        <option value="@i.UserId"> @i.User.FirstName @i.User.LastName </option>
+                    }
+                }
+            </select>
+            <input type="hidden" name="UserId" value="@Model.UserId"/>
+            <input type="hidden" name="eventId" value="@Model.Event.Id"/>
+            <input type="hidden" name="Date" value="@DateTime.Now"/>
+            @{var ratings = new List<string>() {"Very Poor", "Poor", "Regular", "Good", "Very Good"}; }
+            <fieldset>
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <label> How do you think the preparation of the exhibitor was? </label>
+                        </div>
+                        <div class="col-md-auto">
+                            @for (int i = 1; i <= 5; i++)
+                            {
+                                <input class="ml-3" type="radio" name="Preparation" value="@i" required="required">
+                                @ratings[i - 1]
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label> How did you feel the attitude of the exhibitor?  </label>
+                        </div>
+                        <div class="col-md-auto">
+                            @for (int i = 1; i <= 5; i++)
+                            {
+                                <input class="ml-3" type="radio" name="Attitude" value="@i" required="required">
+                                @ratings[i - 1]
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label>How proper was the voice of the exhibitor? (modulation, speed and projection)</label>
+                        </div>
+                        <div class="col-md-auto">
+                            @for (int i = 1; i <= 5; i++)
+                            {
+                                <input class="ml-3" type="radio" name="Voice" value="@i" required="required">
+                                @ratings[i - 1]
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label> How was the connection with the audience? 
+                                (there was interaction and catch the attention of people) </label>
+                        </div>
+                        <div class="col-md-auto">
+                            @for (int i = 1; i <= 5; i++)
+                            {
+                                <input class="ml-3" type="radio" name="Connection" value="@i" required="required">
+                                @ratings[i - 1]
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label> Overall, How do you think the exhibitor was? </label>
+                        </div>
+                        <div class="col-md-auto">
+                            @for (int i = 1; i <= 5; i++)
+                            {
+                                <input class="ml-3" type="radio" name="Overall" value="@i" required="required"> 
+                                @ratings[i-1]
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label class="mt-2"> Any other comments, problems, suggestions about the exhibitor? </label>
+                        </div>
+                        <div class="col">
+                            <input type="text" name="Other" class="rounded-sm form-control" 
+                                   placeholder="Write here..."/>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <input type="submit" value="Send Feedback" class="btn rounded-sm btn-primary mt-3"/>
+        </form>
+    </div>
+</div>
+<br />

@@ -3,15 +3,17 @@ using System;
 using ConventionManager.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ConventionManager.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191114201705_AddFeedback")]
+    partial class AddFeedback
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -170,6 +172,8 @@ namespace ConventionManager.Data.Migrations
 
                     b.Property<int>("FoodQuality");
 
+                    b.Property<bool>("HasFood");
+
                     b.Property<int>("Organization");
 
                     b.Property<string>("Other");
@@ -178,15 +182,11 @@ namespace ConventionManager.Data.Migrations
 
                     b.Property<int>("RoomQuality");
 
-                    b.Property<string>("UserId");
-
                     b.Property<int>("WouldRecommend");
 
                     b.HasKey("Id");
 
                     b.HasIndex("EventId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("EventFeedback");
                 });
@@ -210,15 +210,11 @@ namespace ConventionManager.Data.Migrations
 
                     b.Property<int>("Preparation");
 
-                    b.Property<string>("UserId");
-
                     b.Property<int>("Voice");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ExhibitorId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("ExhibitorFeedback");
                 });
@@ -370,22 +366,22 @@ namespace ConventionManager.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "c4942990-f3a2-4a32-a73c-98be29232617",
-                            ConcurrencyStamp = "4e4717a7-2218-43c9-b1a1-faa847d9c6ea",
+                            Id = "980b93a8-93f7-47ad-82d9-cfa8083dc3e6",
+                            ConcurrencyStamp = "3f9002e4-bd73-4e58-acc4-a8cb264c416c",
                             Name = "Organizer",
                             NormalizedName = "ORGANIZER"
                         },
                         new
                         {
-                            Id = "b86fa455-239c-471a-820f-7a83a2322259",
-                            ConcurrencyStamp = "df4ba775-c383-4a1d-9025-87e236c4287a",
+                            Id = "f39bee97-f3ac-40a4-8ee9-4bf97db9f9bf",
+                            ConcurrencyStamp = "e940c9b2-d3db-4167-97e2-ab0b3b594d8d",
                             Name = "Exhibitor",
                             NormalizedName = "EXHIBITOR"
                         },
                         new
                         {
-                            Id = "17c24dc6-8001-45bd-bbbe-ac77e234060f",
-                            ConcurrencyStamp = "5220c291-4ff7-4cab-9fd9-6b49c0aa0665",
+                            Id = "1d9f1f07-1aac-407d-83ec-c92a205b1241",
+                            ConcurrencyStamp = "2d490531-dace-468b-9209-f321d6c3b20a",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -567,10 +563,6 @@ namespace ConventionManager.Data.Migrations
                         .WithMany()
                         .HasForeignKey("EventId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("ConventionManager.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("ConventionManager.Models.ExhibitorFeedback", b =>
@@ -578,10 +570,6 @@ namespace ConventionManager.Data.Migrations
                     b.HasOne("ConventionManager.Models.ApplicationUser", "Exhibitor")
                         .WithMany()
                         .HasForeignKey("ExhibitorId");
-
-                    b.HasOne("ConventionManager.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("ConventionManager.Models.Food", b =>
