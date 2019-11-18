@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using ConventionManager.Models;
@@ -13,6 +14,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace ConventionManager.Areas.Identity.Pages.Account
 {
@@ -83,7 +85,7 @@ namespace ConventionManager.Areas.Identity.Pages.Account
             [Display(Name = "Profile Picture")]
             public IFormFile ProfilePicture { get; set; }
 
-            [Display(Name = "Curriculum (Optional)")]
+            [Display(Name = "Curriculum")]
             public IFormFile Curriculum { get; set; }
         }
 
@@ -105,15 +107,19 @@ namespace ConventionManager.Areas.Identity.Pages.Account
                 var filename = file.FileName.Trim('"');
                 var blockBlob = container.GetBlockBlobReference(filename);
                 await blockBlob.UploadFromStreamAsync(file.OpenReadStream());
-                /*
+                
                 var pdfContainer = _uploadService.GetPdfsContainer();
                 var pdfFile = Input.Curriculum;
                 var pdfFilename = pdfFile.FileName.Trim('"');
                 var pdfBlockBlob = pdfContainer.GetBlockBlobReference(pdfFilename);
-                await pdfBlockBlob.UploadFromStreamAsync(file.OpenReadStream());
-                */
+                await pdfBlockBlob.UploadFromStreamAsync(pdfFile.OpenReadStream());
+                
                 user.ProfilePictureUrl = blockBlob.Uri.AbsoluteUri;
-                user.CurriculumUrl = blockBlob.Uri.AbsoluteUri;
+                user.CurriculumUrl = pdfBlockBlob.Uri.AbsoluteUri;
+                if (Input.PhoneNumber != null)
+                {
+                    user.PhoneNumber = Input.PhoneNumber;
+                }
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
