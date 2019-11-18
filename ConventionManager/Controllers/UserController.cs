@@ -12,6 +12,8 @@ using ConventionManager.Data;
 using ConventionManager.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.Extensions.Configuration;
 
 
 namespace ConventionManager.Controllers
@@ -21,12 +23,16 @@ namespace ConventionManager.Controllers
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private IConfiguration _configuration;
+        private readonly IUpload _uploadService;
 
-        public UserController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        public UserController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IUpload uploadService, IConfiguration configuration)
         {
             _context = context;
             _userManager = userManager;
             _roleManager = roleManager;
+            _uploadService = uploadService;
+            _configuration = configuration;
         }
 
         public async Task<IActionResult> ShowProfile(string userName)

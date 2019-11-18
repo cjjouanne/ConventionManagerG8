@@ -15,14 +15,45 @@ else
 
 <div class="row">
     <div class="col-sm-2">
-        <img src=@Model.ProfilePictureUrl>
+        <img class="centered-and-cropped" width="170" height="170" style="border-radius:50%" src="@Model.ProfilePictureUrl" alt="Bear">
     </div>
     <div class="col-sm-10">
-        <p><strong>Full Name:</strong> @Model.FirstName @Model.LastName</p>
-        <p><strong>Username:</strong> @Model.UserName</p>
-        <p><strong>Email:</strong> @Model.Email</p>
-        <p><strong>Phone Number:</strong> @Model.PhoneNumber</p>
-        <p><strong>Curriculum:</strong> @Model.CurriculumUrl</p>
+        <h1><strong>@Model.FirstName @Model.LastName</strong></h1>
+        <p>@@@Model.UserName</p>
+        <div class="accordion" id="accordionExample">
+          <div class="card">
+            <div class="card-header" id="headingOne">
+              <h5 class="mb-0">
+                <button class="btn btn-link collapsed text-white" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  Contact @Model.FirstName @Model.LastName
+                </button>
+              </h5>
+            </div>
+        
+            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+              <div class="card-body">
+                  <p><strong>Email:</strong> @Model.Email</p>
+                  <p><strong>Phone Number:</strong> @Model.PhoneNumber</p>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="headingTwo">
+              <h5 class="mb-0">
+                <button class="btn btn-link collapsed text-white" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  Curriculum of @Model.FirstName @Model.LastName
+                </button>
+              </h5>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                <div class="card-body">
+                    <form action="@Model.CurriculumUrl">
+                        <input class="btn rounded-sm btn-success" type="submit" value="Download Curriculum in PDF" />
+                    </form>
+                </div>
+            </div>
+          </div>
+        </div>
     </div>
 </div>
 @if (Model.UserName == ViewData["thisUserName"].ToString())

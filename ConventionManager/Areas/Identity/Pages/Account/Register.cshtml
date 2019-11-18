@@ -43,8 +43,17 @@
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Input.PhoneNumber"></label>
+                <input asp-for="Input.PhoneNumber" class="rounded-sm form-control" placeholder="+56 9 9876 5432"/>
+                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Input.ProfilePicture"></label>
-                <input asp-for="Input.ProfilePicture" type="file" accept=".png,.jpg,.jpeg,.gif,.tif"/>
+                <input asp-for="Input.ProfilePicture" class="btn rounded-sm btn-light" type="file" accept=".png,.jpg,.jpeg,.gif,.tif"/>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Curriculum"></label>
+                <input class="btn rounded-sm btn-light" asp-for="Input.Curriculum" type="file" accept=".pdf"/>
             </div>
             <button type="submit" class="btn rounded-sm btn-primary">Register</button>
         </form>

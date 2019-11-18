@@ -54,10 +54,10 @@ namespace ConventionManager.Areas.Identity.Pages.Account.Manage
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
 
-            [Display(Name = "Profile Picture (Optional)")]
+            [Display(Name = "Profile Picture ")]
             public IFormFile ProfilePicture { get; set; }
 
-            [Display(Name = "Curriculum (Optional)")]
+            [Display(Name = "Curriculum")]
             public IFormFile Curriculum { get; set; }
         }
 
@@ -99,11 +99,20 @@ namespace ConventionManager.Areas.Identity.Pages.Account.Manage
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            //var container = _uploadService.GetPicturesContainer();
-            //var file = Input.ProfilePicture;
-            //var filename = file.FileName.Trim('"');
-            //var blockBlob = container.GetBlockBlobReference(filename);
-            //await blockBlob.UploadFromStreamAsync(file.OpenReadStream());
+            var container = _uploadService.GetPicturesContainer();
+            var file = Input.ProfilePicture;
+            var filename = file.FileName.Trim('"');
+            var blockBlob = container.GetBlockBlobReference(filename);
+            await blockBlob.UploadFromStreamAsync(file.OpenReadStream());
+                
+            var pdfContainer = _uploadService.GetPdfsContainer();
+            var pdfFile = Input.Curriculum;
+            var pdfFilename = pdfFile.FileName.Trim('"');
+            var pdfBlockBlob = pdfContainer.GetBlockBlobReference(pdfFilename);
+            await pdfBlockBlob.UploadFromStreamAsync(pdfFile.OpenReadStream());
+            
+            user.ProfilePictureUrl = blockBlob.Uri.AbsoluteUri;
+            user.CurriculumUrl = pdfBlockBlob.Uri.AbsoluteUri;
 
             var email = await _userManager.GetEmailAsync(user);
             if (Input.Email != email)
