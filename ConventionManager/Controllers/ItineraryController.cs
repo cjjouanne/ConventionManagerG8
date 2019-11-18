@@ -31,16 +31,37 @@ namespace ConventionManager.Controllers
 
             List<Event> eventsList = new List<Event>();
 
+            bool isInRole = await _userManager.IsInRoleAsync(user, "Organizer");
+
             foreach (Subscription subscription in user.Subscriptions)
             {
-                var @event = await _context.Events.FirstOrDefaultAsync(e => e.Id == subscription.EventId);
-                eventsList.Add(@event);
+                Event @event;
+                if (isInRole)
+                {
+                    @event = await _context.Events.FirstOrDefaultAsync(e => e.Id == subscription.EventId);
+                    eventsList.Add(@event);
+                }
+                else
+                {
+                    @event = await _context.Events.FirstOrDefaultAsync(e => e.Id == subscription.EventId && DateTime.Compare(e.EndDate, DateTime.Now) > 0);
+                    eventsList.Add(@event);
+                }
             }
 
             var allModeratorEvents = _context.ChatEvents.Where(ce => ce.ModeratorId == userId);
             foreach (Event moderatorEvent in allModeratorEvents)
             {
-                eventsList.Add(moderatorEvent);
+                if (isInRole)
+                {
+                    eventsList.Add(moderatorEvent);
+                }
+                else
+                {
+                    if (DateTime.Compare(moderatorEvent.EndDate, DateTime.Now) > 0)
+                    {
+                        eventsList.Add(moderatorEvent);
+                    }
+                }
             }
 
             return View(eventsList.OrderBy(c => c.StartDate));

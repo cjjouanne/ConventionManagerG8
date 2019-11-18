@@ -99,6 +99,7 @@ namespace ConventionManager.Areas.Identity.Pages.Account.Manage
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
+
             var container = _uploadService.GetPicturesContainer();
             var file = Input.ProfilePicture;
             var filename = file.FileName.Trim('"');
