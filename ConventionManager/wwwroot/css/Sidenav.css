@@ -9,7 +9,7 @@
   background-color: #0d1a26;
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 60px; /* Place content 60px from the top */
-  transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */
+  transition: 0.125s; /* 0.5 second transition effect to slide in the sidebar */
 }
 
 /* The sidebar links */

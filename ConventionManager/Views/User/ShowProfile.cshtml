@@ -18,7 +18,7 @@ else
         <img class="centered-and-cropped" width="170" height="170" style="border-radius:50%" src="@Model.ProfilePictureUrl" alt="Bear">
     </div>
     <div class="col-sm-10">
-        <h1><strong>@Model.FirstName @Model.LastName</strong></h1>
+        <h1><strong>@Model.FullName()</strong></h1>
         <p>@@@Model.UserName</p>
         <div class="accordion" id="accordionExample">
           <div class="card">
@@ -56,6 +56,7 @@ else
         </div>
     </div>
 </div>
+<br />
 @if (Model.UserName == ViewData["thisUserName"].ToString())
 {
     <div>
