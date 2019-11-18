@@ -127,6 +127,7 @@
         <e p="EventCenterConferencesAndRooms.cs" t="Include" />
         <e p="EventFeedback.cs" t="Include" />
         <e p="ExhibitorEvent.cs" t="Include" />
+        <e p="ExhibitorEventsAndTopics.cs" t="Include" />
         <e p="ExhibitorFeedback.cs" t="Include" />
         <e p="ExhibitorSubscription.cs" t="Include" />
         <e p="Food.cs" t="Include" />
@@ -183,11 +184,8 @@
           <e p="Index.cshtml" t="Include" />
         </e>
         <e p="Event" t="Include">
-          <e p="Create.cshtml" t="Include" />
-          <e p="Delete.cshtml" t="Include" />
-          <e p="Details.cshtml" t="Include" />
-          <e p="Edit.cshtml" t="Include" />
           <e p="Index.cshtml" t="Include" />
+          <e p="ViewEventsByTopic.cshtml" t="Include" />
         </e>
         <e p="EventCenter" t="Include">
           <e p="Create.cshtml" t="Include" />
