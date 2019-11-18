@@ -4,6 +4,6 @@ namespace ConventionManager.Models
 {
     public class FoodEvent : Event
     {
-        public List<Food> Menu { get; set; }
+        public ICollection<Food> Menu { get; set; }
     }
 }

@@ -49,7 +49,7 @@
               function initMap() {
                 map = new google.maps.Map(document.getElementById('map'), {
                   center: { lat: @Model.Room.Latitude, lng: @Model.Room.Longitude },
-                  zoom: 16
+                  zoom: 17
                 });
               }
             </script>
@@ -76,7 +76,9 @@
         <div class="card-columns">
             @foreach (var item in Model.Room.Events)
             {
-                <div class="card rounded-sm text-white bg-primary mb-3" style="max-width: 20rem;">
+                @if (User.IsInRole("Organizer") || DateTime.Compare(item.EndDate, DateTime.Now) > 0)
+                {
+                    <div class="card rounded-sm text-white bg-primary mb-3" style="max-width: 20rem;">
                     <div class="card-header">
                         Begins on
                         @Html.DisplayFor(modelItem => item.StartDate.DayOfWeek)
@@ -101,6 +103,7 @@
                          </div>
                      }
                 </div>
+                }
             }
         </div>
     }

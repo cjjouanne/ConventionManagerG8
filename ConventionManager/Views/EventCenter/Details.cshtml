@@ -64,39 +64,42 @@
         {
             <div class="card-columns">
                 @foreach (var conference in Model.EventCenter.Conferences)
-                        {
-                            <div class="card rounded-sm text-white bg-warning mb-3" style="max-width: 20rem;">
-                                <div class="card-header">
-                                    <div>
-                                        @Html.DisplayFor(modelItem => conference.StartDate.DayOfWeek)
-                                        @Html.DisplayFor(modelItem => conference.StartDate.Day) /
-                                        @Html.DisplayFor(modelItem => conference.StartDate.Month) / 
-                                        @Html.DisplayFor(modelItem => conference.StartDate.Year)
-                                    </div>
-                                    <div>
-                                        @Html.DisplayFor(modelItem => conference.EndDate.DayOfWeek)
-                                        @Html.DisplayFor(modelItem => conference.EndDate.Day) /
-                                        @Html.DisplayFor(modelItem => conference.EndDate.Month) / 
-                                        @Html.DisplayFor(modelItem => conference.EndDate.Year)
-                                    </div>
+                {
+                    @if (User.IsInRole("Organizer") || DateTime.Compare(conference.EndDate, DateTime.Now) > 0)
+                    {
+                        <div class="card rounded-sm text-white bg-warning mb-3" style="max-width: 20rem;">
+                            <div class="card-header">
+                                <div>
+                                    @Html.DisplayFor(modelItem => conference.StartDate.DayOfWeek)
+                                    @Html.DisplayFor(modelItem => conference.StartDate.Day) /
+                                    @Html.DisplayFor(modelItem => conference.StartDate.Month) / 
+                                    @Html.DisplayFor(modelItem => conference.StartDate.Year)
                                 </div>
-                                <div class="card-body">
-                                    <h4 class="card-title">
-                                        <a asp-controller="Conference" asp-action="Details" asp-route-id="@conference.Id" class="card-title text-white">
-                                            @Html.DisplayFor(modelItem => conference.Name)
-                                        </a>
-                                    </h4>
-                                    <p class="card-text">@Html.DisplayFor(modelItem => conference.Description)</p>
+                                <div>
+                                    @Html.DisplayFor(modelItem => conference.EndDate.DayOfWeek)
+                                    @Html.DisplayFor(modelItem => conference.EndDate.Day) /
+                                    @Html.DisplayFor(modelItem => conference.EndDate.Month) / 
+                                    @Html.DisplayFor(modelItem => conference.EndDate.Year)
                                 </div>
-                                @if (User.IsInRole("Organizer"))
-                                {
-                                    <div class="card-footer">
-                                        <a asp-controller="Conference" asp-action="Edit" asp-route-id="@conference.Id" class="btn rounded-sm btn-success">Edit</a>
-                                        <a asp-controller="Conference" asp-action="Delete" asp-route-id="@conference.Id" class="btn rounded-sm btn-danger">Delete</a>
-                                    </div>
-                                }
                             </div>
-                        }
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <a asp-controller="Conference" asp-action="Details" asp-route-id="@conference.Id" class="card-title text-white">
+                                        @Html.DisplayFor(modelItem => conference.Name)
+                                    </a>
+                                </h4>
+                                <p class="card-text">@Html.DisplayFor(modelItem => conference.Description)</p>
+                            </div>
+                            @if (User.IsInRole("Organizer"))
+                            {
+                                <div class="card-footer">
+                                    <a asp-controller="Conference" asp-action="Edit" asp-route-id="@conference.Id" class="btn rounded-sm btn-success">Edit</a>
+                                    <a asp-controller="Conference" asp-action="Delete" asp-route-id="@conference.Id" class="btn rounded-sm btn-danger">Delete</a>
+                                </div>
+                            }
+                        </div>
+                    }
+                }
             </div>
     
         }

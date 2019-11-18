@@ -10,7 +10,9 @@
     <div class="card-columns">
         @foreach (var item in Model)
         {
-            <div class="card rounded-sm text-white bg-primary mb-3" style="max-width: 20rem;">
+            @if (User.IsInRole("Organizer") || DateTime.Compare(item.EndDate, DateTime.Now) > 0)
+            {
+                <div class="card rounded-sm text-white bg-primary mb-3" style="max-width: 20rem;">
                 <div class="card-header">
                     Begins on
                     @Html.DisplayFor(modelItem => item.StartDate.DayOfWeek)
@@ -35,6 +37,7 @@
                      </div>
                  }
             </div>
+            }
         }
     </div>
 }

@@ -1,4 +1,5 @@
-﻿@model ConventionManager.Models.SearchResults
+﻿
+@model ConventionManager.Models.SearchResults
 
 @{
     ViewData["Title"] = "Search";
@@ -62,23 +63,27 @@
                     </tr>
                 </thead>
                 <tbody>
-            @foreach (var item in Model.Conferences) {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.StartDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.EndDate)
-                    </td>
-                    <td width="30%">
-                        <a asp-controller="Conference" asp-action="Edit" asp-route-id="@item.Id" class="btn rounded-sm btn-success">Edit</a>
-                        <a asp-controller="Conference" asp-action="Details" asp-route-id="@item.Id" class="btn rounded-sm btn-info">Details</a>
-                        <a asp-controller="Conference" asp-action="Delete" asp-route-id="@item.Id" class="btn rounded-sm btn-danger">Delete</a>
-                    </td>
-                </tr>
+            @foreach (var item in Model.Conferences)
+            {
+                @if (User.IsInRole("Organizer") || DateTime.Compare(item.EndDate, DateTime.Now) > 0)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StartDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EndDate)
+                        </td>
+                        <td width="30%">
+                            <a asp-controller="Conference" asp-action="Edit" asp-route-id="@item.Id" class="btn rounded-sm btn-success">Edit</a>
+                            <a asp-controller="Conference" asp-action="Details" asp-route-id="@item.Id" class="btn rounded-sm btn-info">Details</a>
+                            <a asp-controller="Conference" asp-action="Delete" asp-route-id="@item.Id" class="btn rounded-sm btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
             }
                 </tbody>
             </table>
@@ -102,23 +107,27 @@
                     </tr>
                 </thead>
                 <tbody>
-            @foreach (var item in Model.Events) {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.StartDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.EndDate)
-                    </td>
-                    <td width="30%">
-                        <a asp-controller="@item.GetEventType()" asp-action="Edit" asp-route-id="@item.Id" class="btn rounded-sm btn-success">Edit</a>
-                        <a asp-controller="@item.GetEventType()" asp-action="Details" asp-route-id="@item.Id" class="btn rounded-sm btn-info">Details</a>
-                        <a asp-controller="@item.GetEventType()" asp-action="Delete" asp-route-id="@item.Id" class="btn rounded-sm btn-danger">Delete</a>
-                    </td>
-                </tr>
+            @foreach (var item in Model.Events)
+            {
+                @if (User.IsInRole("Organizer") || DateTime.Compare(item.EndDate, DateTime.Now) > 0)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StartDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EndDate)
+                        </td>
+                        <td width="30%">
+                            <a asp-controller="@item.GetEventType()" asp-action="Edit" asp-route-id="@item.Id" class="btn rounded-sm btn-success">Edit</a>
+                            <a asp-controller="@item.GetEventType()" asp-action="Details" asp-route-id="@item.Id" class="btn rounded-sm btn-info">Details</a>
+                            <a asp-controller="@item.GetEventType()" asp-action="Delete" asp-route-id="@item.Id" class="btn rounded-sm btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
             }
                 </tbody>
             </table>
@@ -169,7 +178,7 @@
 
 }
 
-@if (Model.User != null)
+@if (Model.Users != null)
 {
     <h1>Users</h1>
     <div class="row">
@@ -184,27 +193,29 @@
                     </tr>
                 </thead>
                 <tbody>
+            @foreach (var user in Model.Users) {
                 <tr>
                     <td>
-                        @Model.User.FirstName
+                        @Html.DisplayFor(modelItem => user.FirstName)
                     </td>
                     <td>
-                       @Model.User.LastName
+                        @Html.DisplayFor(modelItem => user.LastName)
                     </td>
                     <td>
-                        @Model.User.UserName
+                        @Html.DisplayFor(modelItem => user.UserName)
                     </td>
                     <td width="30%">
-                        <a asp-controller="User" asp-action="ShowProfile" asp-route-userName="@Model.User.UserName" class="btn rounded-sm btn-info">View Profile</a>
+                        <a asp-controller="User" asp-action="ShowProfile" asp-route-userName="@user.UserName" class="btn rounded-sm btn-info">View Profile</a>
                     </td>
                 </tr>
+            }
                 </tbody>
             </table>
         </div>
     </div>
 }
 
-@if (Model.EventCenters == null && Model.Conferences == null && Model.Events == null && Model.Rooms == null && Model.User == null)
+@if (Model.EventCenters == null && Model.Conferences == null && Model.Events == null && Model.Rooms == null && Model.Users == null)
 {
     <p>Your search gave no results.</p>
 }
