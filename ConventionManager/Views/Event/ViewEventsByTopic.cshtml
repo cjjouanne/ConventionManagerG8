@@ -1,0 +1,50 @@
+﻿@model ConventionManager.Models.ExhibitorEventsAndTopics
+
+@{
+    ViewData["Title"] = "Topic Events";
+}
+
+<h1>Events by topic</h1>
+<br/>
+
+@foreach (string topic in Model.Topics)
+{
+    <h3>@topic</h3>
+    <div class="card-columns">
+    @foreach (var item in Model.ExhibitorEvents.Where(ee => ee.Topic == topic))
+    {
+        <div class="card rounded-sm text-white bg-primary mb-3" style="max-width: 20rem;">
+            <div class="card-header">
+                Begins on
+                @Html.DisplayFor(modelItem => item.StartDate.DayOfWeek)
+                @Html.DisplayFor(modelItem => item.StartDate.Day) /
+                @Html.DisplayFor(modelItem => item.StartDate.Month) /
+                @Html.DisplayFor(modelItem => item.StartDate.Year)
+            </div>
+            <div class="card-body">
+                <a asp-controller="@item.GetEventType()" asp-action="Details" asp-route-id="@item.Id" >
+                    <h4 class="card-title text-white">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </h4>
+                </a>
+                <p class="card-text"> Start: @Html.DisplayFor(modelItem => item.StartDate)</p>
+                <p class="card-text"> End: @Html.DisplayFor(modelItem => item.EndDate)</p>
+            </div>
+                @if (User.IsInRole("Organizer"))
+                {
+                    <div class="card-footer">
+                        <a asp-controller="@item.GetEventType()" asp-action="Edit" asp-route-id="@item.Id" class="btn rounded-sm btn-success">Edit</a>
+                        <a asp-controller="@item.GetEventType()" asp-action="Delete" asp-route-id="@item.Id" class="btn rounded-sm btn-danger">Delete</a>
+                    </div>
+                }
+        </div>
+        }
+    </div>
+}
+
+<div>
+    <a href="javascript:void(0);" onclick="history.go(-1);" class="btn rounded-sm btn-light">Go Back</a>
+</div>
+
+
+

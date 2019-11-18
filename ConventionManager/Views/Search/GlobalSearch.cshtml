@@ -109,25 +109,22 @@
                 <tbody>
             @foreach (var item in Model.Events)
             {
-                @if (User.IsInRole("Organizer") || DateTime.Compare(item.EndDate, DateTime.Now) > 0)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.StartDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.EndDate)
-                        </td>
-                        <td width="30%">
-                            <a asp-controller="@item.GetEventType()" asp-action="Edit" asp-route-id="@item.Id" class="btn rounded-sm btn-success">Edit</a>
-                            <a asp-controller="@item.GetEventType()" asp-action="Details" asp-route-id="@item.Id" class="btn rounded-sm btn-info">Details</a>
-                            <a asp-controller="@item.GetEventType()" asp-action="Delete" asp-route-id="@item.Id" class="btn rounded-sm btn-danger">Delete</a>
-                        </td>
-                    </tr>
-                }
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndDate)
+                    </td>
+                    <td width="30%">
+                        <a asp-controller="@item.GetEventType()" asp-action="Edit" asp-route-id="@item.Id" class="btn rounded-sm btn-success">Edit</a>
+                        <a asp-controller="@item.GetEventType()" asp-action="Details" asp-route-id="@item.Id" class="btn rounded-sm btn-info">Details</a>
+                        <a asp-controller="@item.GetEventType()" asp-action="Delete" asp-route-id="@item.Id" class="btn rounded-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
             }
                 </tbody>
             </table>

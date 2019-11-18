@@ -80,7 +80,7 @@ namespace ConventionManager.Areas.Identity.Pages.Account
             public string PhoneNumber { get; set; }
 
             [Required]
-            [Display(Name = "Profile Picture (Optional)")]
+            [Display(Name = "Profile Picture")]
             public IFormFile ProfilePicture { get; set; }
 
             [Display(Name = "Curriculum (Optional)")]

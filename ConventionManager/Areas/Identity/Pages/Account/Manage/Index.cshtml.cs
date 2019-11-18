@@ -99,11 +99,11 @@ namespace ConventionManager.Areas.Identity.Pages.Account.Manage
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            //var container = _uploadService.GetPicturesContainer();
-            //var file = Input.ProfilePicture;
-            //var filename = file.FileName.Trim('"');
-            //var blockBlob = container.GetBlockBlobReference(filename);
-            //await blockBlob.UploadFromStreamAsync(file.OpenReadStream());
+            var container = _uploadService.GetPicturesContainer();
+            var file = Input.ProfilePicture;
+            var filename = file.FileName.Trim('"');
+            var blockBlob = container.GetBlockBlobReference(filename);
+            await blockBlob.UploadFromStreamAsync(file.OpenReadStream());
 
             var email = await _userManager.GetEmailAsync(user);
             if (Input.Email != email)
@@ -127,8 +127,8 @@ namespace ConventionManager.Areas.Identity.Pages.Account.Manage
                 }
             }
 
-            //user.ProfilePictureUrl = blockBlob.Uri.AbsoluteUri;
-            //user.CurriculumUrl = blockBlob.Uri.AbsoluteUri;
+            user.ProfilePictureUrl = blockBlob.Uri.AbsoluteUri;
+            user.CurriculumUrl = blockBlob.Uri.AbsoluteUri;
 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";

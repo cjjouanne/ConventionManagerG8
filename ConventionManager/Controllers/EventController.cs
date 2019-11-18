@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ConventionManager.Data;
 using ConventionManager.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace ConventionManager.Controllers
 {
@@ -15,137 +16,53 @@ namespace ConventionManager.Controllers
     public class EventController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public EventController(ApplicationDbContext context)
+        public EventController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
-        // GET: Event
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Events.OrderBy(c => c.StartDate).ToListAsync());
+            ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
+            bool isInRole = await _userManager.IsInRoleAsync(user, "Organizer");
+            if (isInRole)
+            {
+                return View(await _context.Events.OrderBy(c => c.StartDate).ToListAsync());
+            }
+            return View(_context.Events.OrderBy(c => c.StartDate).Where(e => DateTime.Compare(e.EndDate, DateTime.Now) > 0));
         }
 
-        // GET: Event/Details/5
-        [AllowAnonymous]
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> ViewEventsByTopic()
         {
-            if (id == null)
+            var exhibitorEventsAndTopics = new ExhibitorEventsAndTopics();
+
+            ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
+            bool isInRole = await _userManager.IsInRoleAsync(user, "Organizer");
+
+            if (isInRole)
             {
-                return NotFound();
+                exhibitorEventsAndTopics.ExhibitorEvents = _context.ExhibitorEvents.ToList();
+            }
+            else
+            {
+                exhibitorEventsAndTopics.ExhibitorEvents = _context.ExhibitorEvents.Where(e => DateTime.Compare(e.EndDate, DateTime.Now) > 0).ToList();
             }
 
-            var @event = await _context.Events
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (@event == null)
+            // All topics
+            List<string> topics = new List<string>();
+            foreach (ExhibitorEvent exhibitorEvent in _context.ExhibitorEvents)
             {
-                return NotFound();
+                topics.Add(exhibitorEvent.Topic);
             }
+            var hashSet = new HashSet<string>(topics);
+            List<string> filteredTopics = hashSet.ToList();
+            exhibitorEventsAndTopics.Topics = filteredTopics;
 
-            return View(@event);
-        }
-
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Event/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] Event @event)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(@event);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(@event);
-        }
-
-        // GET: Event/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var @event = await _context.Events.FindAsync(id);
-            if (@event == null)
-            {
-                return NotFound();
-            }
-            return View(@event);
-        }
-
-        // POST: Event/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Event @event)
-        {
-            if (id != @event.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(@event);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!EventExists(@event.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(@event);
-        }
-
-        // GET: Event/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var @event = await _context.Events
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (@event == null)
-            {
-                return NotFound();
-            }
-
-            return View(@event);
-        }
-
-        // POST: Event/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var @event = await _context.Events.FindAsync(id);
-            _context.Events.Remove(@event);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return View(exhibitorEventsAndTopics);
         }
 
         private bool EventExists(int id)
