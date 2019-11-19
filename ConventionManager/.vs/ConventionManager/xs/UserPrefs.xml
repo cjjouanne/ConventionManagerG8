@@ -1,29 +1,34 @@
 ﻿<Properties StartupConfiguration="{89E480FD-47D7-48E3-8F15-D3C99768BC94}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Views/Event/ViewEventsByTopic.cshtml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/ConferenceController.cs">
     <Files>
-      <File FileName="Controllers/UserController.cs" Line="37" Column="74" />
-      <File FileName="Controllers/NotificationController.cs" Line="22" Column="61" />
-      <File FileName="Views/FoodEvent/Details.cshtml" Line="113" Column="105" />
-      <File FileName="Controllers/FoodEventController.cs" />
-      <File FileName="Views/Event/Index.cshtml" Line="8" Column="66" />
-      <File FileName="Controllers/EventController.cs" Line="52" Column="151" />
-      <File FileName="Views/Event/ViewEventsByTopic.cshtml" Line="46" Column="105" />
-      <File FileName="Models/ExhibitorEventsAndTopics.cs" Line="8" Column="35" />
+      <File FileName="Controllers/UserController.cs" Line="37" Column="1" />
+      <File FileName="Controllers/NotificationController.cs" />
+      <File FileName="Views/Event/Index.cshtml" Line="8" Column="68" />
+      <File FileName="Controllers/EventController.cs" Line="21" Column="102" />
+      <File FileName="appsettings.json" Line="4" Column="81" />
+      <File FileName="Areas/Identity/Pages/Account/Register.cshtml" Line="1" Column="1" />
+      <File FileName="Areas/Identity/Pages/Account/Register.cshtml.cs" Line="120" Column="1" />
+      <File FileName="Views/User/ShowProfile.cshtml" Line="22" Column="33" />
+      <File FileName="Views/Room/Create.cshtml" Line="37" Column="91" />
+      <File FileName="Views/Room/Edit.cshtml" Line="1" Column="1" />
+      <File FileName="Controllers/ConferenceController.cs" Line="31" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="ConventionManager" expanded="True">
             <Node name="ConventionManager" expanded="True">
-              <Node name="Controllers" expanded="True" />
+              <Node name="Controllers" expanded="True">
+                <Node name="ConferenceController.cs" selected="True" />
+              </Node>
               <Node name="Models" expanded="True" />
               <Node name="Views" expanded="True">
-                <Node name="Event" expanded="True">
-                  <Node name="ViewEventsByTopic.cshtml" selected="True" />
-                </Node>
-                <Node name="FoodEvent" expanded="True" />
-                <Node name="Itinerary" expanded="True" />
-                <Node name="Search" expanded="True" />
+                <Node name="ChatEvent" expanded="True" />
+                <Node name="Conference" expanded="True" />
+                <Node name="Event" expanded="True" />
+                <Node name="EventCenter" expanded="True" />
+                <Node name="EventFeedback" expanded="True" />
+                <Node name="Room" expanded="True" />
               </Node>
             </Node>
           </Node>

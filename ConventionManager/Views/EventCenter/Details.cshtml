@@ -8,11 +8,11 @@
 
 @if (TempData["ConferenceCollision"] != null)
 {
- <p class="alert alert-warning alert-dismissible" id="errorMessage">@TempData["ConferenceCollision"]</p>
+ <p class="alert rounded-sm alert-warning alert-dismissible" id="errorMessage">@TempData["ConferenceCollision"]</p>
 }
 @if (TempData["OutOfDate"] != null)
 {
- <p class="alert alert-warning alert-dismissible" id="errorMessage">@TempData["OutOfDate"]</p>
+ <p class="alert rounded-sm alert-warning alert-dismissible" id="errorMessage">@TempData["OutOfDate"]</p>
 }
 
 <div>
@@ -33,7 +33,7 @@
         </dd>
         <dt class="col-sm-2">Map</dt>
         <dd class="col-sm-10">
-            <div id="map" style="height:300px; width:80%;"></div>
+            <div class="rounded-lg" id="map" style="height:300px; width:80%;"></div>
             <script>
               var map;
               function initMap() {
@@ -144,7 +144,7 @@
                     </td>
                     <td width="30%">
                         <a asp-controller="Room" asp-action="Details" asp-route-id="@room.Id" class="btn rounded-sm btn-info">Details</a>
-                        @if (User.IsInRole("Orgainzer"))
+                        @if (User.IsInRole("Organizer"))
                         {
                             <a asp-controller="Room" asp-action="Edit" asp-route-id="@room.Id" class="btn rounded-sm btn-success">Edit</a>
                             <a asp-controller="Room" asp-action="Delete" asp-route-id="@room.Id" class="btn rounded-sm btn-danger">Delete</a>

@@ -14,18 +14,18 @@ else
 }
 
 <div class="row">
-    <div class="col-sm-2">
+    <div class="col-sm-3">
         <img class="centered-and-cropped" width="170" height="170" style="border-radius:50%" src="@Model.ProfilePictureUrl" alt="Bear">
     </div>
-    <div class="col-sm-10">
+    <div class="col-sm-9">
         <h1><strong>@Model.FullName()</strong></h1>
         <p>@@@Model.UserName</p>
         <div class="accordion" id="accordionExample">
-          <div class="card">
+          <div class="rounded-lg card">
             <div class="card-header" id="headingOne">
               <h5 class="mb-0">
                 <button class="btn btn-link collapsed text-white" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                  Contact @Model.FirstName @Model.LastName
+                  Contact @Model.FullName()
                 </button>
               </h5>
             </div>
@@ -37,11 +37,12 @@ else
               </div>
             </div>
           </div>
-          <div class="card">
+            <br />
+          <div class="rounded-lg card">
             <div class="card-header" id="headingTwo">
               <h5 class="mb-0">
                 <button class="btn btn-link collapsed text-white" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                  Curriculum of @Model.FirstName @Model.LastName
+                  Curriculum of @Model.FullName()
                 </button>
               </h5>
             </div>
