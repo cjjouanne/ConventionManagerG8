@@ -102,11 +102,15 @@ namespace ConventionManager.Areas.Identity.Pages.Account
                 // PhoneNumber, Curriculum and ProfilePicture not yet needed, add later
                 var user = new ApplicationUser { UserName = Input.UserName, Email = Input.Email,
                     FirstName = Input.FirstName, LastName = Input.LastName };
-                var container = _uploadService.GetPicturesContainer();
-                var file = Input.ProfilePicture;
-                var filename = file.FileName.Trim('"');
-                var blockBlob = container.GetBlockBlobReference(filename);
-                await blockBlob.UploadFromStreamAsync(file.OpenReadStream());
+                if (Input.ProfilePicture != null)
+                {
+                    var container = _uploadService.GetPicturesContainer();
+                    var file = Input.ProfilePicture;
+                    var filename = file.FileName.Trim('"');
+                    var blockBlob = container.GetBlockBlobReference(filename);
+                    await blockBlob.UploadFromStreamAsync(file.OpenReadStream());
+                    user.ProfilePictureUrl = blockBlob.Uri.AbsoluteUri;
+                }
 
                 if (Input.Curriculum != null)
                 {
@@ -117,9 +121,7 @@ namespace ConventionManager.Areas.Identity.Pages.Account
                     await pdfBlockBlob.UploadFromStreamAsync(pdfFile.OpenReadStream());
                     user.CurriculumUrl = pdfBlockBlob.Uri.AbsoluteUri;
                 }
-                
-                user.ProfilePictureUrl = blockBlob.Uri.AbsoluteUri;
-                
+
                 if (Input.PhoneNumber != null)
                 {
                     user.PhoneNumber = Input.PhoneNumber;

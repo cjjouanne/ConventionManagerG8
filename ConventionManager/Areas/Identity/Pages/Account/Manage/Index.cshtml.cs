@@ -99,21 +99,31 @@ namespace ConventionManager.Areas.Identity.Pages.Account.Manage
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
+            if (Input.ProfilePicture != null)
+            {
+                var container = _uploadService.GetPicturesContainer();
+                var file = Input.ProfilePicture;
+                var filename = file.FileName.Trim('"');
+                var blockBlob = container.GetBlockBlobReference(filename);
+                await blockBlob.UploadFromStreamAsync(file.OpenReadStream());
+                if (user.ProfilePictureUrl != blockBlob.Uri.AbsoluteUri)
+                {
+                    user.ProfilePictureUrl = blockBlob.Uri.AbsoluteUri;
+                }
+            }
 
-            var container = _uploadService.GetPicturesContainer();
-            var file = Input.ProfilePicture;
-            var filename = file.FileName.Trim('"');
-            var blockBlob = container.GetBlockBlobReference(filename);
-            await blockBlob.UploadFromStreamAsync(file.OpenReadStream());
-                
-            var pdfContainer = _uploadService.GetPdfsContainer();
-            var pdfFile = Input.Curriculum;
-            var pdfFilename = pdfFile.FileName.Trim('"');
-            var pdfBlockBlob = pdfContainer.GetBlockBlobReference(pdfFilename);
-            await pdfBlockBlob.UploadFromStreamAsync(pdfFile.OpenReadStream());
-            
-            user.ProfilePictureUrl = blockBlob.Uri.AbsoluteUri;
-            user.CurriculumUrl = pdfBlockBlob.Uri.AbsoluteUri;
+            if (Input.Curriculum != null)
+            {
+                var pdfContainer = _uploadService.GetPdfsContainer();
+                var pdfFile = Input.Curriculum;
+                var pdfFilename = pdfFile.FileName.Trim('"');
+                var pdfBlockBlob = pdfContainer.GetBlockBlobReference(pdfFilename);
+                await pdfBlockBlob.UploadFromStreamAsync(pdfFile.OpenReadStream());
+                if (user.CurriculumUrl != pdfBlockBlob.Uri.AbsoluteUri)
+                {
+                    user.CurriculumUrl = pdfBlockBlob.Uri.AbsoluteUri;
+                }
+            }
 
             var email = await _userManager.GetEmailAsync(user);
             if (Input.Email != email)
@@ -136,9 +146,7 @@ namespace ConventionManager.Areas.Identity.Pages.Account.Manage
                     throw new InvalidOperationException($"Unexpected error occurred setting phone number for user with ID '{userId}'.");
                 }
             }
-
-            //user.ProfilePictureUrl = blockBlob.Uri.AbsoluteUri;
-            //user.CurriculumUrl = blockBlob.Uri.AbsoluteUri;
+            
 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
