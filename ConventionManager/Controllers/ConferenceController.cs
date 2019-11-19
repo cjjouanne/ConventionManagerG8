@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ConventionManager.Data;
 using ConventionManager.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace ConventionManager.Controllers
 {
@@ -15,17 +16,30 @@ namespace ConventionManager.Controllers
     public class ConferenceController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public ConferenceController(ApplicationDbContext context)
+        public ConferenceController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Conference
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Conferences.OrderBy(c => c.StartDate).ToListAsync());
+            bool isAuthenticated = User.Identity.IsAuthenticated;
+
+            if (isAuthenticated)
+            {
+                ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
+                bool isInRole = await _userManager.IsInRoleAsync(user, "Organizer");
+                if (isInRole)
+                {
+                    return View(await _context.Conferences.OrderBy(c => c.StartDate).ToListAsync());
+                }
+            }
+            return View(_context.Conferences.OrderBy(c => c.StartDate).Where(c => DateTime.Compare(c.EndDate, DateTime.Now) > 0));
         }
 
         // GET: Conference/Details/5

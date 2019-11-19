@@ -107,15 +107,19 @@ namespace ConventionManager.Areas.Identity.Pages.Account
                 var filename = file.FileName.Trim('"');
                 var blockBlob = container.GetBlockBlobReference(filename);
                 await blockBlob.UploadFromStreamAsync(file.OpenReadStream());
-                
-                var pdfContainer = _uploadService.GetPdfsContainer();
-                var pdfFile = Input.Curriculum;
-                var pdfFilename = pdfFile.FileName.Trim('"');
-                var pdfBlockBlob = pdfContainer.GetBlockBlobReference(pdfFilename);
-                await pdfBlockBlob.UploadFromStreamAsync(pdfFile.OpenReadStream());
+
+                if (Input.Curriculum != null)
+                {
+                    var pdfContainer = _uploadService.GetPdfsContainer();
+                    var pdfFile = Input.Curriculum;
+                    var pdfFilename = pdfFile.FileName.Trim('"');
+                    var pdfBlockBlob = pdfContainer.GetBlockBlobReference(pdfFilename);
+                    await pdfBlockBlob.UploadFromStreamAsync(pdfFile.OpenReadStream());
+                    user.CurriculumUrl = pdfBlockBlob.Uri.AbsoluteUri;
+                }
                 
                 user.ProfilePictureUrl = blockBlob.Uri.AbsoluteUri;
-                user.CurriculumUrl = pdfBlockBlob.Uri.AbsoluteUri;
+                
                 if (Input.PhoneNumber != null)
                 {
                     user.PhoneNumber = Input.PhoneNumber;

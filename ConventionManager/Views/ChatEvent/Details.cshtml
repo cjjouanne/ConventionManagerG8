@@ -62,7 +62,7 @@
             Moderator
         </dt>
         <dd class = "col-sm-10">
-            @if (Model.ChatEvent.ModeratorId != "0")
+            @if (Model.ChatEvent.ModeratorId != null)
             {
                 <a asp-controller="User" asp-action="ShowProfile" asp-route-userName="@Model.Moderator.UserName">
                     @Model.Moderator.FirstName @Model.Moderator.LastName (@Model.Moderator.UserName)
@@ -77,7 +77,7 @@
             Vacancies
         </dt>
         <dd class = "col-sm-10">
-            @if (Model.ChatEvent.ModeratorId == "0")
+            @if (Model.ChatEvent.ModeratorId == null)
             {
                 @Model.ExhibitorEvent.Room.GetVacancies(Model.ExhibitorEvent)
             }
@@ -95,10 +95,10 @@
     }
     @if (!Model.ExhibitorEvent.Subscriptions.Contains(Model.Subscription))
     {
-        @if (Model.ChatEvent.ModeratorId == "0" || Model.ChatEvent.ModeratorId == Model.UserId)
+        @if (Model.ChatEvent.ModeratorId == null || Model.ChatEvent.ModeratorId == Model.UserId)
         {
             <br/>
-            if (Model.ChatEvent.ModeratorId == "0")
+            if (Model.ChatEvent.ModeratorId == null)
             {
                 <a asp-action="AddModerator" asp-route-id="@Model.ExhibitorEvent.Id" class="btn rounded-sm btn-primary mt-2">Join as Moderator</a>
             }

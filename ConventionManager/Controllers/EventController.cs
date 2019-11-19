@@ -27,11 +27,16 @@ namespace ConventionManager.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
-            bool isInRole = await _userManager.IsInRoleAsync(user, "Organizer");
-            if (isInRole)
+            bool isAuthenticated = User.Identity.IsAuthenticated;
+
+            if (isAuthenticated)
             {
-                return View(await _context.Events.OrderBy(c => c.StartDate).ToListAsync());
+                ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
+                bool isInRole = await _userManager.IsInRoleAsync(user, "Organizer");
+                if (isInRole)
+                {
+                    return View(await _context.Events.OrderBy(c => c.StartDate).ToListAsync());
+                }
             }
             return View(_context.Events.OrderBy(c => c.StartDate).Where(e => DateTime.Compare(e.EndDate, DateTime.Now) > 0));
         }

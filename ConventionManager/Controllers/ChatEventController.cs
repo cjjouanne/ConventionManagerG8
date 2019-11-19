@@ -60,7 +60,7 @@ namespace ConventionManager.Controllers
                 UserId = userId
             };
             
-            if (chatEvent.ModeratorId != "0")
+            if (chatEvent.ModeratorId != null)
             {
                 eventAndSubscription.Moderator = _context.Users.FirstOrDefault(u => u.Id == chatEvent.ModeratorId);
             }
@@ -271,7 +271,7 @@ namespace ConventionManager.Controllers
         public async Task<IActionResult> RemoveModerator(int id)
         {
             var chatEvent = _context.ChatEvents.First(e => e.Id == id);
-            chatEvent.ModeratorId = "0";
+            chatEvent.ModeratorId = null;
             _context.Update(chatEvent);
             await _context.SaveChangesAsync();
             return RedirectToAction("Details", "ChatEvent", new { id = chatEvent.Id });
