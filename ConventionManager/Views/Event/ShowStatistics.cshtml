@@ -1,0 +1,126 @@
+﻿@model ConventionManager.Models.EventQualityStatistics
+
+@{
+    ViewData["Title"] = "Statistics";
+}
+
+<style>
+.checked {
+color: orange;
+}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<h3>Event Ratings</h3>
+<br />
+
+<dl class="row">
+    <dt class = "col-sm-4">
+        Overall opinion:
+    </dt>
+    <dd class = "col-sm-8">
+        @for (var i = 1; i <= 5; i++)
+        {
+            if (i <= Model.Overall)
+            {
+                <span class="fa fa-star checked"></span>
+            }
+            else
+            {
+                <span class="fa fa-star"></span>
+            }
+        }
+    </dd>
+
+    <dt class="col-sm-4">
+        Event Organization:
+    </dt>
+    <dd class="col-sm-8">
+        @for (var i = 1; i <= 5; i++)
+        {
+            if (i <= Model.Organization)
+            {
+                <span class="fa fa-star checked"></span>
+            }
+            else
+            {
+                <span class="fa fa-star"></span>
+            }
+        }
+    </dd>
+
+    <dt class="col-sm-4">
+        Attendance:
+    </dt>
+    <dd class="col-sm-8">
+        @for (var i = 1; i <= 5; i++)
+        {
+            if (i <= Model.Attention)
+            {
+                <span class="fa fa-star checked"></span>
+            }
+            else
+            {
+                <span class="fa fa-star"></span>
+            }
+        }
+    </dd>
+
+    <dt class="col-sm-4">
+        Room Quality:
+    </dt>
+    <dd class="col-sm-8">
+        @for (var i = 1; i <= 5; i++)
+        {
+            if (i <= Model.RoomQuality)
+            {
+                <span class="fa fa-star checked"></span>
+            }
+            else
+            {
+                <span class="fa fa-star"></span>
+            }
+        }
+    </dd>
+
+    <dt class="col-sm-4">
+        Event Duration:
+    </dt>
+    <dd class="col-sm-8">
+        @for (var i = 1; i <= 5; i++)
+        {
+            if (i <= Model.Duration)
+            {
+                <span class="fa fa-star checked"></span>
+            }
+            else
+            {
+                <span class="fa fa-star"></span>
+            }
+        }
+    </dd>
+
+    <dt class="col-sm-4">
+        Would Recommend? opinions:
+    </dt>
+    <dd class="col-sm-8">
+        @for (var i = 1; i <= 5; i++)
+        {
+            if (i <= Model.WouldRecommend)
+            {
+                <span class="fa fa-star checked"></span>
+            }
+            else
+            {
+                <span class="fa fa-star"></span>
+            }
+        }
+    </dd>
+</dl>
+
+
+<br />
+
+<div>
+    <a href="javascript:void(0);" onclick="history.go(-1);" class="btn rounded-sm btn-light">Go Back</a>
+</div>

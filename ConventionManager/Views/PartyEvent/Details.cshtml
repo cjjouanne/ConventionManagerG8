@@ -14,6 +14,10 @@
 {
  <p class="alert alert-warning rounded-sm alert-dismissible" id="errorMessage">@TempData["NoMoreVacancies"]</p>
 }
+@if (TempData["FeedbackRequest"] != null)
+{
+ <p class="alert alert-info rounded-sm alert-dismissible" id="errorMessage">@TempData["FeedbackRequest"]</p>
+}
 <div>
     <h4>Party Event</h4>
     <hr />
@@ -53,6 +57,9 @@
         </dt>
         <dd class = "col-sm-10">
             @Model.Event.Room.GetVacancies(Model.Event)
+        </dd>
+        <dd class = "col-sm-2">
+            <a asp-controller="Event" asp-action="ShowStatistics" asp-route-id="@Model.Event.Id">Show Statistics</a>
         </dd>
     </dl>
 </div>
