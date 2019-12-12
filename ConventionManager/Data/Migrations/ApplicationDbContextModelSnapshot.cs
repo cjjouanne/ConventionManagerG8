@@ -155,6 +155,74 @@ namespace ConventionManager.Data.Migrations
                     b.ToTable("EventCenters");
                 });
 
+            modelBuilder.Entity("ConventionManager.Models.EventFeedback", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Attention");
+
+                    b.Property<DateTime>("Date");
+
+                    b.Property<int>("Duration");
+
+                    b.Property<int>("EventId");
+
+                    b.Property<int>("FoodQuality");
+
+                    b.Property<int>("Organization");
+
+                    b.Property<string>("Other");
+
+                    b.Property<int>("Overall");
+
+                    b.Property<int>("RoomQuality");
+
+                    b.Property<string>("UserId");
+
+                    b.Property<int>("WouldRecommend");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EventId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("EventFeedback");
+                });
+
+            modelBuilder.Entity("ConventionManager.Models.ExhibitorFeedback", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Attitude");
+
+                    b.Property<int>("Connection");
+
+                    b.Property<DateTime>("Date");
+
+                    b.Property<string>("ExhibitorId");
+
+                    b.Property<string>("Other");
+
+                    b.Property<int>("Overall");
+
+                    b.Property<int>("Preparation");
+
+                    b.Property<string>("UserId");
+
+                    b.Property<int>("Voice");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExhibitorId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ExhibitorFeedback");
+                });
+
             modelBuilder.Entity("ConventionManager.Models.Food", b =>
                 {
                     b.Property<int>("Id")
@@ -302,22 +370,22 @@ namespace ConventionManager.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ffead207-60f5-4a3e-ac55-4de46f48414d",
-                            ConcurrencyStamp = "ebabcb7f-2046-4a67-b46f-57917317554d",
+                            Id = "c4942990-f3a2-4a32-a73c-98be29232617",
+                            ConcurrencyStamp = "4e4717a7-2218-43c9-b1a1-faa847d9c6ea",
                             Name = "Organizer",
                             NormalizedName = "ORGANIZER"
                         },
                         new
                         {
-                            Id = "160aad0c-7f2b-4aa5-b390-2ab6ccedde1d",
-                            ConcurrencyStamp = "82f20389-06aa-46b0-b065-783cd803cea3",
+                            Id = "b86fa455-239c-471a-820f-7a83a2322259",
+                            ConcurrencyStamp = "df4ba775-c383-4a1d-9025-87e236c4287a",
                             Name = "Exhibitor",
                             NormalizedName = "EXHIBITOR"
                         },
                         new
                         {
-                            Id = "33eee70b-b23c-478b-b3c1-5d7428e3ebd0",
-                            ConcurrencyStamp = "c18c5d65-4d89-4226-93a7-4e556e39bdc9",
+                            Id = "17c24dc6-8001-45bd-bbbe-ac77e234060f",
+                            ConcurrencyStamp = "5220c291-4ff7-4cab-9fd9-6b49c0aa0665",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -491,6 +559,29 @@ namespace ConventionManager.Data.Migrations
                         .WithMany("Events")
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ConventionManager.Models.EventFeedback", b =>
+                {
+                    b.HasOne("ConventionManager.Models.Event", "Event")
+                        .WithMany()
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ConventionManager.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("ConventionManager.Models.ExhibitorFeedback", b =>
+                {
+                    b.HasOne("ConventionManager.Models.ApplicationUser", "Exhibitor")
+                        .WithMany()
+                        .HasForeignKey("ExhibitorId");
+
+                    b.HasOne("ConventionManager.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("ConventionManager.Models.Food", b =>

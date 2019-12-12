@@ -10,7 +10,6 @@ namespace ConventionManager.Models
         public Subscription Subscription { get; set; }
 
         public Notification Notification { get; set; }
-
         public ChatEvent ChatEvent { get; set; }
 
         public FoodEvent FoodEvent { get; set; }

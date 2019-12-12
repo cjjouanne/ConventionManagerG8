@@ -60,12 +60,12 @@
                     Menu
                 </dt>
                 <dd>
-                    <button class="btn rounded-sm btn-dark" id="myBtn">Show Menu</button>
-                    <div id="myModal" class="modal">
-                        <div class="rounded-sm modal-content">
+                    <button class="btn rounded-sm btn-dark" id="myBtn2">Show Menu</button>
+                    <div id="myModal2" class="modal2">
+                        <div class="rounded-sm modal2-content">
                             @if (Model.FoodEvent.Menu.Count() > 0)
                             {
-                                <h3>Menu<span class="close">&times;</span></h3>
+                                <h3>Menu<span class="close2">&times;</span></h3>
                                 <ul>
                                     @foreach (Food food in Model.FoodEvent.Menu)
                                     {
@@ -75,7 +75,7 @@
                             }
                             else
                             {
-                                <p>There isn't anything in the menu yet.<span class="close">&times;</span></p>
+                                <p>There isn't anything in the menu yet.<span class="close2">&times;</span></p>
                             }
                         </div>
                     </div>
@@ -104,6 +104,7 @@
     {
         <partial name="../_AttendantNotificationPopup.cshtml" />
     }
+    <partial name="../_EventFeedbackPopup.cshtml" />
     <br />
     @if (User.IsInRole("Organizer"))
     {

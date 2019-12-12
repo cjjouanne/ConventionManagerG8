@@ -54,6 +54,18 @@ namespace ConventionManager
                 options.Password.RequiredLength = 8;
             });
 
+            /*
+            services.AddAuthentication()
+                .AddGoogle(options =>
+                {
+                    IConfigurationSection googleAuthNSection =
+                        Configuration.GetSection("Authentication:Google");
+
+                    options.ClientId = Configuration["Authentication:Google:ClientId"];
+                    options.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
+                });
+            */
+
             services.AddMvc().AddRazorPagesOptions(options => {
                 options.Conventions.AddAreaPageRoute("Identity", "/Account/Login", "");
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

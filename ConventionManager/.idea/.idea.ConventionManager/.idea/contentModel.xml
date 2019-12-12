@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="$USER_HOME$/Library/Caches/Rider2019.2/extResources" t="IncludeRecursive" />
-    <e p="$USER_HOME$/Library/Caches/Rider2019.2/resharper-host/local/Transient/ReSharperHost/v192/SolutionCaches/_ConventionManager.1317294834.00" t="ExcludeRecursive" />
     <e p="$PROJECT_DIR$" t="IncludeRecursive">
       <e p=".gitignore" t="Include" />
       <e p="app.db" t="Include" />
@@ -36,6 +34,8 @@
         <e p="ConferenceController.cs" t="Include" />
         <e p="EventCenterController.cs" t="Include" />
         <e p="EventController.cs" t="Include" />
+        <e p="EventFeedbackController.cs" t="Include" />
+        <e p="ExhibitorFeedbackController.cs" t="Include" />
         <e p="ExhibitorSubscriptionController.cs" t="Include" />
         <e p="FoodEventController.cs" t="Include" />
         <e p="HomeController.cs" t="Include" />
@@ -103,6 +103,12 @@
           <e p="20191108222531_AddedUrlsToUser.Designer.cs" t="Include" />
           <e p="20191112071657_ChatEventModeratorIdType.cs" t="Include" />
           <e p="20191112071657_ChatEventModeratorIdType.Designer.cs" t="Include" />
+          <e p="20191114201705_AddFeedback.cs" t="Include" />
+          <e p="20191114201705_AddFeedback.Designer.cs" t="Include" />
+          <e p="20191116041848_AddUserIdToFeedback.cs" t="Include" />
+          <e p="20191116041848_AddUserIdToFeedback.Designer.cs" t="Include" />
+          <e p="20191116045156_RemoveHasFoodOfEventFeedback.cs" t="Include" />
+          <e p="20191116045156_RemoveHasFoodOfEventFeedback.Designer.cs" t="Include" />
           <e p="ApplicationDbContextModelSnapshot.cs" t="Include" />
         </e>
       </e>
@@ -119,10 +125,14 @@
         <e p="EventAndSubscription.cs" t="Include" />
         <e p="EventCenter.cs" t="Include" />
         <e p="EventCenterConferencesAndRooms.cs" t="Include" />
+        <e p="EventFeedback.cs" t="Include" />
         <e p="ExhibitorEvent.cs" t="Include" />
+        <e p="ExhibitorEventsAndTopics.cs" t="Include" />
+        <e p="ExhibitorFeedback.cs" t="Include" />
         <e p="ExhibitorSubscription.cs" t="Include" />
         <e p="Food.cs" t="Include" />
         <e p="FoodEvent.cs" t="Include" />
+        <e p="FoodEventAndFood.cs" t="Include" />
         <e p="Notification.cs" t="Include" />
         <e p="NotificationConferenceAndEvent.cs" t="Include" />
         <e p="PartyEvent.cs" t="Include" />
@@ -151,6 +161,8 @@
       <e p="Views" t="Include">
         <e p="_AttendantNotificationPopup.cshtml" t="Include" />
         <e p="_ConferenceNotificationPopup.cshtml" t="Include" />
+        <e p="_EventFeedbackPopup.cshtml" t="Include" />
+        <e p="_ExhibitorFeedbackPopup.cshtml" t="Include" />
         <e p="_ExhibitorNotificationPopup.cshtml" t="Include" />
         <e p="_ExhibitorSubscribeConditions.cshtml" t="Include" />
         <e p="_ViewImports.cshtml" t="Include" />
@@ -172,11 +184,8 @@
           <e p="Index.cshtml" t="Include" />
         </e>
         <e p="Event" t="Include">
-          <e p="Create.cshtml" t="Include" />
-          <e p="Delete.cshtml" t="Include" />
-          <e p="Details.cshtml" t="Include" />
-          <e p="Edit.cshtml" t="Include" />
           <e p="Index.cshtml" t="Include" />
+          <e p="ViewEventsByTopic.cshtml" t="Include" />
         </e>
         <e p="EventCenter" t="Include">
           <e p="Create.cshtml" t="Include" />
@@ -185,8 +194,15 @@
           <e p="Edit.cshtml" t="Include" />
           <e p="Index.cshtml" t="Include" />
         </e>
+        <e p="EventFeedback" t="Include">
+          <e p="Index.cshtml" t="Include" />
+        </e>
+        <e p="ExhibitorFeedback" t="Include">
+          <e p="Index.cshtml" t="Include" />
+        </e>
         <e p="FoodEvent" t="Include">
           <e p="Create.cshtml" t="Include" />
+          <e p="CreateFood.cshtml" t="Include" />
           <e p="Delete.cshtml" t="Include" />
           <e p="Details.cshtml" t="Include" />
           <e p="Edit.cshtml" t="Include" />
@@ -250,6 +266,7 @@
       <e p="wwwroot" t="Include">
         <e p="css" t="Include">
           <e p="modals.css" t="Include" />
+          <e p="NotificationsPopup.css" t="Include" />
           <e p="searchbar.css" t="Include" />
           <e p="Sidenav.css" t="Include" />
           <e p="site.css" t="Include" />
@@ -314,5 +331,7 @@
         </e>
       </e>
     </e>
+    <e p="$USER_HOME$/Library/Caches/Rider2019.2/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/Library/Caches/Rider2019.2/resharper-host/local/Transient/ReSharperHost/v192/SolutionCaches/_ConventionManager.146504993.00" t="ExcludeRecursive" />
   </component>
 </project>

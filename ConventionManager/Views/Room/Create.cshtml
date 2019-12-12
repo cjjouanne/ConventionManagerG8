@@ -29,12 +29,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="@Model.Room.Latitude" class="control-label"></label>
-                <input asp-for="@Model.Room.Latitude" class="rounded-sm form-control" required/>
+                <input asp-for="@Model.Room.Latitude" value="@Model.EventCenter.Latitude" class="rounded-sm form-control" required/>
                 <span asp-validation-for="@Model.Room.Latitude" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="@Model.Room.Longitude" class="control-label"></label>
-                <input asp-for="@Model.Room.Longitude" class="rounded-sm form-control" required/>
+                <input asp-for="@Model.Room.Longitude" value="@Model.EventCenter.Longitude" class="rounded-sm form-control" required/>
                 <span asp-validation-for="@Model.Room.Longitude" class="text-danger"></span>
                 <br />
                 <a href="https://www.mapcoordinates.net/es" target="_blank">Need help with the coordinates?</a>

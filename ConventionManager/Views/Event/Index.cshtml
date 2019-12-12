@@ -1,9 +1,11 @@
 @model IEnumerable<ConventionManager.Models.Event>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "All Events";
 }
+
 <h1>All Events</h1>
+<h4><a asp-action="ViewEventsByTopic">Or perhaps you would like to view events by topic?</a></h4>
 <br/>
 @if (Model.Count() > 0)
 {
@@ -11,30 +13,30 @@
         @foreach (var item in Model)
         {
             <div class="card rounded-sm text-white bg-primary mb-3" style="max-width: 20rem;">
-                <div class="card-header">
-                    Begins on
-                    @Html.DisplayFor(modelItem => item.StartDate.DayOfWeek)
-                    @Html.DisplayFor(modelItem => item.StartDate.Day) /
-                    @Html.DisplayFor(modelItem => item.StartDate.Month) /
-                    @Html.DisplayFor(modelItem => item.StartDate.Year)
-                </div>
-                <div class="card-body">
-                    <a asp-controller="@item.GetEventType()" asp-action="Details" asp-route-id="@item.Id" >
-                        <h4 class="card-title text-white">
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </h4>
-                    </a>
-                    <p class="card-text"> Start: @Html.DisplayFor(modelItem => item.StartDate)</p>
-                    <p class="card-text"> End: @Html.DisplayFor(modelItem => item.EndDate)</p>
-                </div>
-                 @if (User.IsInRole("Organizer"))
-                 {
-                     <div class="card-footer">
-                         <a asp-controller="@item.GetEventType()" asp-action="Edit" asp-route-id="@item.Id" class="btn rounded-sm btn-success">Edit</a>
-                         <a asp-controller="@item.GetEventType()" asp-action="Delete" asp-route-id="@item.Id" class="btn rounded-sm btn-danger">Delete</a>
-                     </div>
-                 }
+            <div class="card-header">
+                Begins on
+                @Html.DisplayFor(modelItem => item.StartDate.DayOfWeek)
+                @Html.DisplayFor(modelItem => item.StartDate.Day) /
+                @Html.DisplayFor(modelItem => item.StartDate.Month) /
+                @Html.DisplayFor(modelItem => item.StartDate.Year)
             </div>
+            <div class="card-body">
+                <a asp-controller="@item.GetEventType()" asp-action="Details" asp-route-id="@item.Id" >
+                    <h4 class="card-title text-white">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </h4>
+                </a>
+                <p class="card-text"> Start: @Html.DisplayFor(modelItem => item.StartDate)</p>
+                <p class="card-text"> End: @Html.DisplayFor(modelItem => item.EndDate)</p>
+            </div>
+                @if (User.IsInRole("Organizer"))
+                {
+                    <div class="card-footer">
+                        <a asp-controller="@item.GetEventType()" asp-action="Edit" asp-route-id="@item.Id" class="btn rounded-sm btn-success">Edit</a>
+                        <a asp-controller="@item.GetEventType()" asp-action="Delete" asp-route-id="@item.Id" class="btn rounded-sm btn-danger">Delete</a>
+                    </div>
+                }
+        </div>
         }
     </div>
 }

@@ -64,7 +64,7 @@ namespace ConventionManager.Controllers
         [HttpGet]
         public RedirectToActionResult PreCreateEvent(int roomId, string controllerName)
         {
-            var room = _context.Conferences.FirstOrDefault(c => c.Id == roomId);
+            var room = _context.Rooms.FirstOrDefault(c => c.Id == roomId);
             var eventCenter = _context.EventCenters.FirstOrDefault(e => e.Id == room.EventCenterId);
             return RedirectToAction("Create", controllerName, new
             {
@@ -108,7 +108,9 @@ namespace ConventionManager.Controllers
                 return NotFound();
             }
 
-            var room = await _context.Rooms.FindAsync(id);
+            var room = await _context.Rooms
+                .Include(ec => ec.EventCenter)
+                .FirstOrDefaultAsync(r => r.Id == id);
             if (room == null)
             {
                 return NotFound();

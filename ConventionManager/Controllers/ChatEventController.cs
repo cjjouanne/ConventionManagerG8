@@ -46,19 +46,21 @@ namespace ConventionManager.Controllers
                 .Include(c => c.Conference)
                 .Include(c => c.Room)
                 .Include(s => s.Subscriptions)
+                .ThenInclude(u => u.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
             var userId = _userManager.GetUserId(HttpContext.User);
             var subscription = await _context.Subscriptions.FirstOrDefaultAsync(s => s.UserId == userId && s.EventId == chatEvent.Id);
             
             var eventAndSubscription = new EventAndSubscription()
             {
+                Event = chatEvent,
                 ExhibitorEvent = chatEvent,
                 Subscription = subscription,
                 ChatEvent = chatEvent,
                 UserId = userId
             };
             
-            if (chatEvent.ModeratorId != "0")
+            if (chatEvent.ModeratorId != null)
             {
                 eventAndSubscription.Moderator = _context.Users.FirstOrDefault(u => u.Id == chatEvent.ModeratorId);
             }
@@ -269,7 +271,7 @@ namespace ConventionManager.Controllers
         public async Task<IActionResult> RemoveModerator(int id)
         {
             var chatEvent = _context.ChatEvents.First(e => e.Id == id);
-            chatEvent.ModeratorId = "0";
+            chatEvent.ModeratorId = null;
             _context.Update(chatEvent);
             await _context.SaveChangesAsync();
             return RedirectToAction("Details", "ChatEvent", new { id = chatEvent.Id });

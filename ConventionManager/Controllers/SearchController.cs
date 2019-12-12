@@ -35,9 +35,24 @@ namespace ConventionManager.Controllers
         {
             var eventCenters = _context.EventCenters.Where(ev => ev.Name.Contains(searchString)).ToArray();
             var conferences = _context.Conferences.Where(c => c.Name.Contains(searchString)).ToArray();
-            var events = _context.Events.Where(e => e.Name.Contains(searchString)).ToArray();
             var rooms = _context.Rooms.Where(r => r.Name.Contains(searchString)).ToArray();
-            var user = await _userManager.FindByNameAsync(searchString);
+            var users = _context.Users.Where(u =>
+                                                u.FirstName.Contains(searchString) ||
+                                                u.LastName.Contains(searchString) ||
+                                                u.FullName().Contains(searchString) ||
+                                                u.UserName.Contains(searchString)).ToList();
+
+            ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
+            bool isInRole = await _userManager.IsInRoleAsync(user, "Organizer");
+            IEnumerable<Event> events;
+            if (isInRole)
+            {
+                events = _context.Events.Where(e => e.Name.Contains(searchString)).ToArray();
+            }
+            else
+            {
+                events = _context.Events.Where(e => e.Name.Contains(searchString) && DateTime.Compare(e.EndDate, DateTime.Now) > 0).ToArray();
+            }
 
             var searchResults = new SearchResults();
 
@@ -57,9 +72,9 @@ namespace ConventionManager.Controllers
             {
                 searchResults.Rooms = rooms;
             }
-            if (user != null)
+            if (users.Any())
             {
-                searchResults.User = user;
+                searchResults.Users = users;
             }
 
             ViewData["searchInput"] = searchString;

@@ -1,0 +1,121 @@
+﻿@namespace ConventionManager.Views
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model ConventionManager.Models.EventAndSubscription
+
+<br />
+<button class="btn rounded-sm btn-secondary" id="myBtn3">Feedback Event</button>
+<div id="myModal3" class="modal3">
+    <div class="rounded-sm modal3-content">
+        <h3> Feedback for @Model.Event.Name <span class="close3">&times;</span></h3>
+        <form asp-controller="EventFeedback" asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" name="UserId" value="@Model.UserId"/>
+            <input type="hidden" name="EventId" value="@Model.Event.Id"/>
+            <input type="hidden" name="Date" value="@DateTime.Now"/>
+            @{var ratings = new List<string>() {"Very Poor", "Poor", "Regular", "Good", "Very Good"}; }
+            <fieldset>
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <label> How was the organization of the event? </label>
+                        </div>
+                        <div class="col-md-auto">
+                            @for (int i = 1; i <= 5; i++)
+                            {
+                                <input class="ml-3" type="radio" name="Organization" value="@i" required="required">
+                                @ratings[i - 1]
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label> How was the attention of the staff? </label>
+                        </div>
+                        <div class="col-md-auto">
+                            @for (int i = 1; i <= 5; i++)
+                            {
+                                <input class="ml-3" type="radio" name="Attention" value="@i" required="required">
+                                @ratings[i - 1]
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label> How proper was the duration of the event? </label>
+                        </div>
+                        <div class="col-md-auto">
+                            @for (int i = 1; i <= 5; i++)
+                            {
+                                <input class="ml-3" type="radio" name="Duration" value="@i" required="required">
+                                @ratings[i - 1]
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label> How was the quality of the room? (Seats, light, speakers, etc...) </label>
+                        </div>
+                        <div class="col-md-auto">
+                            @for (int i = 1; i <= 5; i++)
+                            {
+                                <input class="ml-3" type="radio" name="RoomQuality" value="@i" required="required">
+                                @ratings[i - 1]
+                            }
+                        </div>
+                    </div>
+                    @if (@Model.Event.GetEventType() == "FoodEvent")
+                    {
+                        <div class="row">
+                            <div class="col">
+                                <label> How was the food? </label>
+                            </div>
+                            <div class="col-md-auto">
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    <input class="ml-3" type="radio" name="FoodQuality"
+                                           value="@i" required="required">
+                                    @ratings[i - 1]
+                                }
+                            </div>
+                        </div>
+                    }
+                    <div class="row">
+                        <div class="col">
+                            <label> Overall, How was the event? </label>
+                        </div>
+                        <div class="col-md-auto">
+                            @for (int i = 1; i <= 5; i++)
+                            {
+                                <input class="ml-3" type="radio" name="Overall" value="@i" required="required"> 
+                                @ratings[i-1]
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label> How likely are you to recommend this event to a friend? </label>
+                        </div>
+                        <div class="col-md-auto">
+                            @for (int i = 1; i <= 5; i++)
+                            {
+                                <input class="ml-3" type="radio" name="WouldRecommend" value="@i" required="required"> 
+                                @ratings[i-1]
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label class="mt-2"> Any other comments, problems, suggestions? </label>
+                        </div>
+                        <div class="col">
+                            <input type="text" name="Other" class="rounded-sm form-control" 
+                                   placeholder="Write here..."/>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <input type="submit" value="Send Feedback" class="btn rounded-sm btn-primary mt-3"/>
+        </form>
+    </div>
+</div>
+<br />

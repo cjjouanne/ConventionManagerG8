@@ -25,7 +25,8 @@
                     </tr>
                 </thead>
                 <tbody>
-            @foreach (var item in Model) {
+            @foreach (var item in Model)
+            {
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.Name)
@@ -51,8 +52,5 @@
             <p>You don't have anything scheduled in your agenda.</p>
         }
         <a href="javascript:void(0);" onclick="history.go(-1);" class="btn rounded-sm btn-light">Go Back</a>
-    </div>
-    <div class="col-ms-4">
-        <a asp-action="" class="btn rounded-sm btn-primary">View in Google Calendar</a>
     </div>
 </div>
