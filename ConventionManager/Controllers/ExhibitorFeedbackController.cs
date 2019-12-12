@@ -7,43 +7,55 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ConventionManager.Data;
 using ConventionManager.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace ConventionManager.Controllers
 {
     public class ExhibitorFeedbackController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public ExhibitorFeedbackController(ApplicationDbContext context)
+        public ExhibitorFeedbackController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
-        // GET: ExhibitorFeedback
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.ExhibitorFeedback.Include(e => e.Exhibitor);
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // POST: ExhibitorFeedback/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(int eventId, [Bind("Id,UserId,ExhibitorId,Overall,Preparation,Attitude,Voice,Connection,Other,Date")] ExhibitorFeedback exhibitorFeedback)
         {
+            var @event = _context.Events.FirstOrDefault(e => e.Id == eventId);
+            var currentUserId = _userManager.GetUserId(HttpContext.User);
+            var allFeedbackOnThisExhibitor = _context.ExhibitorFeedback.Where(ef => ef.ExhibitorId == exhibitorFeedback.ExhibitorId).ToList();
+
+            foreach (var ef in allFeedbackOnThisExhibitor)
+            {
+                if (ef.UserId == currentUserId)
+                {
+                    TempData["FeedbackRequest"] = "Feedback not submitted, you have alerady sent us feedback on this exhibitor.";
+                    return RedirectToAction("Details", @event.GetEventType(), new { id = @event.Id });
+                }
+            }
+            TempData["FeedbackRequest"] = "Feedback successfully submitted!";
+
             if (ModelState.IsValid)
             {
+                exhibitorFeedback.UserId = currentUserId;
                 _context.Add(exhibitorFeedback);
                 await _context.SaveChangesAsync();
             }
             ViewData["ExhibitorId"] = new SelectList(_context.Users, "Id", "Id", exhibitorFeedback.ExhibitorId);
-            var @event = _context.Events.First(e => e.Id == eventId);
             return RedirectToAction("Details", @event.GetEventType(), new { id = @event.Id });
         }
 
-        // POST: ExhibitorFeedback/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

@@ -7,7 +7,7 @@ using ConventionManager.Data;
 
 namespace ConventionManager.Models
 {
-    public abstract class Event
+    public abstract class Event : IStatistics<EventFeedback, EventQualityStatistics>
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -97,6 +97,41 @@ namespace ConventionManager.Models
                 }
             }
             return true;
+        }
+
+        public EventQualityStatistics GetRating(List<EventFeedback> feedbacks)
+        {
+            int totalPoints = 0;
+            int overall = 0;
+            int organization = 0;
+            int attention = 0;
+            int roomQuality = 0;
+            int duration = 0;
+            int wouldRecommend = 0;
+            int totalFeedbacks = feedbacks.Count;
+            foreach (var feedback in feedbacks)
+            {
+                overall += feedback.Overall;
+                organization += feedback.Organization;
+                attention += feedback.Attention;
+                roomQuality += feedback.RoomQuality;
+                duration += feedback.Duration;
+                wouldRecommend += feedback.WouldRecommend;
+                totalPoints += feedback.Overall + feedback.Organization +
+                    feedback.Attention + feedback.RoomQuality +
+                    feedback.Duration + feedback.WouldRecommend;
+            }
+
+            var eventQualityStatistic = new EventQualityStatistics(totalFeedbacks);
+            eventQualityStatistic.SetTotal(totalPoints);
+            eventQualityStatistic.SetOverall(overall);
+            eventQualityStatistic.SetOrganizationOrPreparation(organization);
+            eventQualityStatistic.SetAttentionOrAttitude(attention);
+            eventQualityStatistic.SetRoomQualityOrVoice(roomQuality);
+            eventQualityStatistic.SetDuartionOrConnection(duration);
+            eventQualityStatistic.SetWouldRecommend(wouldRecommend);
+
+            return eventQualityStatistic;
         }
     }
 }

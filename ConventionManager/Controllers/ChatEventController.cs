@@ -33,7 +33,6 @@ namespace ConventionManager.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: ChatEvent/Details/5
         [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
@@ -68,7 +67,6 @@ namespace ConventionManager.Controllers
             return View(eventAndSubscription);
         }
 
-        // GET: ChatEvent/Create
         public IActionResult Create(int? conferenceId, int? roomId, string fromWhere, int eventCenterId)
         {
             if (fromWhere == "Conference")
@@ -86,9 +84,6 @@ namespace ConventionManager.Controllers
             return View();
         }
 
-        // POST: ChatEvent/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(string fromWhere, [Bind("ModeratorId,ExhibitorsId,Topic,Id,Name,StartDate,EndDate,ConferenceId,RoomId,AttendantsId")] ChatEvent chatEvent)
@@ -128,7 +123,6 @@ namespace ConventionManager.Controllers
             return View(chatEvent);
         }
 
-        // GET: ChatEvent/Edit/5
         public async Task<IActionResult> Edit(int? id, string fromWhere)
         {
             if (id == null)
@@ -150,9 +144,6 @@ namespace ConventionManager.Controllers
             return View(chatEvent);
         }
 
-        // POST: ChatEvent/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, string fromWhere, [Bind("ModeratorId,ExhibitorsId,Topic,Id,Name,StartDate,EndDate,ConferenceId,RoomId,AttendantsId")] ChatEvent chatEvent)
@@ -210,7 +201,6 @@ namespace ConventionManager.Controllers
             return View(chatEvent);
         }
 
-        // GET: ChatEvent/Delete/5
         public async Task<IActionResult> Delete(int? id, string fromWhere)
         {
             if (id == null)
@@ -230,7 +220,6 @@ namespace ConventionManager.Controllers
             return View(chatEvent);
         }
 
-        // POST: ChatEvent/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id, string fromWhere)
@@ -261,7 +250,7 @@ namespace ConventionManager.Controllers
 
         public async Task<IActionResult> AddModerator(int id)
         {
-            var chatEvent = _context.ChatEvents.First(e => e.Id == id);
+            var chatEvent = await _context.ChatEvents.FirstOrDefaultAsync(e => e.Id == id);
             chatEvent.ModeratorId = _userManager.GetUserId(HttpContext.User);
             _context.Update(chatEvent);
             await _context.SaveChangesAsync();
@@ -270,7 +259,7 @@ namespace ConventionManager.Controllers
         
         public async Task<IActionResult> RemoveModerator(int id)
         {
-            var chatEvent = _context.ChatEvents.First(e => e.Id == id);
+            var chatEvent = await _context.ChatEvents.FirstOrDefaultAsync(e => e.Id == id);
             chatEvent.ModeratorId = null;
             _context.Update(chatEvent);
             await _context.SaveChangesAsync();

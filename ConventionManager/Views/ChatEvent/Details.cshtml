@@ -18,6 +18,10 @@
 {
  <p class="alert alert-warning rounded-sm alert-dismissible" id="errorMessage">@TempData["NoModeratorYet"]</p>
 }
+@if (TempData["FeedbackRequest"] != null)
+{
+ <p class="alert alert-info rounded-sm alert-dismissible" id="errorMessage">@TempData["FeedbackRequest"]</p>
+}
 <div>
     <h4>Chat Event</h4>
     <hr />
@@ -86,8 +90,13 @@
                 @Model.ExhibitorEvent.Room.GetVacancies(Model.ExhibitorEvent, true)
             }
         </dd>
+        <dd class = "col-sm-2">
+            <a asp-controller="Event" asp-action="ShowStatistics" asp-route-id="@Model.ExhibitorEvent.Id">Show Statistics</a>
+        </dd>
     </dl>
 </div>
+
+
 <div>
     @if (Model.ChatEvent.ModeratorId != Model.UserId)
     {

@@ -7,43 +7,55 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ConventionManager.Data;
 using ConventionManager.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace ConventionManager.Controllers
 {
     public class EventFeedbackController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public EventFeedbackController(ApplicationDbContext context)
+        public EventFeedbackController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
-        // GET: EventFeedback
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.EventFeedback.Include(e => e.Event);
             return View(await applicationDbContext.ToListAsync());
         }
         
-        // POST: EventFeedback/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,EventId,Overall,Organization,Attention,RoomQuality,Duration,WouldRecommend,Other,FoodQuality,Date")] EventFeedback eventFeedback)
         {
+            var @event = _context.Events.FirstOrDefault(e => e.Id == eventFeedback.EventId);
+            var currentUserId = _userManager.GetUserId(HttpContext.User);
+            var allFeedbackOnThisEvent = _context.EventFeedback.Where(ef => ef.EventId == eventFeedback.EventId).ToList();
+
+            foreach (var ef in allFeedbackOnThisEvent)
+            {
+                if (ef.UserId == currentUserId)
+                {
+                    TempData["FeedbackRequest"] = "Feedback not submitted, you have alerady sent us feedback on this event.";
+                    return RedirectToAction("Details", @event.GetEventType(), new { id = @event.Id });
+                }
+            }
+            TempData["FeedbackRequest"] = "Feedback successfully submitted!";
+
             if (ModelState.IsValid)
             {
+                eventFeedback.UserId = currentUserId;
                 _context.Add(eventFeedback);
                 await _context.SaveChangesAsync();
             }
             ViewData["EventId"] = new SelectList(_context.Events, "Id", "Discriminator", eventFeedback.EventId);
-            var @event = _context.Events.First(e => e.Id == eventFeedback.EventId);
             return RedirectToAction("Details", @event.GetEventType(), new { id = @event.Id });
         }
         
-        // POST: EventFeedback/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

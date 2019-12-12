@@ -41,6 +41,7 @@ namespace ConventionManager.Controllers
             return View(_context.Events.OrderBy(c => c.StartDate).Where(e => DateTime.Compare(e.EndDate, DateTime.Now) > 0));
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> ViewEventsByTopic()
         {
             var exhibitorEventsAndTopics = new ExhibitorEventsAndTopics();
@@ -68,6 +69,16 @@ namespace ConventionManager.Controllers
             exhibitorEventsAndTopics.Topics = filteredTopics;
 
             return View(exhibitorEventsAndTopics);
+        }
+
+        public async Task<IActionResult> ShowStatistics(int id)
+        {
+            var @event = await _context.Events.FirstOrDefaultAsync(e => e.Id == id);
+            var feedbacks = _context.EventFeedback.Where(ef => ef.EventId == id).ToList();
+
+            var statistics = @event.GetRating(feedbacks);
+
+            return View(statistics);
         }
 
         private bool EventExists(int id)
