@@ -1,12 +1,16 @@
 ﻿<Properties StartupConfiguration="{89E480FD-47D7-48E3-8F15-D3C99768BC94}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Models/Event.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Views/User/ShowStatistics.cshtml">
     <Files>
       <File FileName="Models/IStatistics.cs" Line="11" Column="1" />
-      <File FileName="Models/EventFeedback.cs" Line="14" Column="46" />
-      <File FileName="Models/EventQualityStatistics.cs" Line="52" Column="53" />
-      <File FileName="Controllers/EventController.cs" Line="44" Column="24" />
-      <File FileName="Models/Event.cs" Line="132" Column="69" />
-      <File FileName="Views/Event/ShowStatistics.cshtml" Line="19" Column="25" />
+      <File FileName="Models/EventQualityStatistics.cs" Line="58" Column="10" />
+      <File FileName="Models/Event.cs" Line="138" Column="42" />
+      <File FileName="Views/Event/ShowStatistics.cshtml" Line="118" Column="49" />
+      <File FileName="Views/Search/GlobalSearch.cshtml" Line="204" Column="106" />
+      <File FileName="Models/ApplicationUser.cs" Line="57" Column="46" />
+      <File FileName="Models/ExhibitorQualityStatistics.cs" Line="16" Column="46" />
+      <File FileName="Controllers/UserController.cs" Line="62" Column="46" />
+      <File FileName="Views/ExhibitorFeedback/ShowStatistics.cshtml" Line="90" Column="9" />
+      <File FileName="Views/User/ShowProfile.cshtml" Line="70" Column="101" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -14,19 +18,12 @@
           <Node name="ConventionManager" expanded="True">
             <Node name="ConventionManager" expanded="True">
               <Node name="Controllers" expanded="True" />
-              <Node name="Models" expanded="True">
-                <Node name="Event.cs" selected="True" />
-              </Node>
+              <Node name="Models" expanded="True" />
               <Node name="Views" expanded="True">
-                <Node name="ChatEvent" expanded="True" />
                 <Node name="Event" expanded="True" />
-                <Node name="FoodEvent" expanded="True" />
-                <Node name="PartyEvent" expanded="True" />
-                <Node name="PracticalSessionsEvent" expanded="True" />
-                <Node name="TalkEvent" expanded="True" />
-              </Node>
-              <Node name="wwwroot" expanded="True">
-                <Node name="js" expanded="True" />
+                <Node name="User" expanded="True">
+                  <Node name="ShowStatistics.cshtml" selected="True" />
+                </Node>
               </Node>
             </Node>
           </Node>

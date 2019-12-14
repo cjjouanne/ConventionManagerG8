@@ -68,4 +68,8 @@ else
 
 <div>
     <a href="javascript:void(0);" onclick="history.go(-1);" class="btn rounded-sm btn-light">Go Back</a>
+    @if (ViewData["Role"].ToString() == "Exhibitor")
+    {
+        <a asp-action="ShowStatistics" asp-route-id="@Model.Id" class="btn rounded-sm btn-info">Show Statistics</a>
+    }
 </div>

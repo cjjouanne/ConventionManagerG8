@@ -9,7 +9,7 @@
         <h3> Feedback for Exhibitor <span class="close4">&times;</span></h3>
         <form asp-controller="ExhibitorFeedback" asp-action="Create" id="ExhibitorFeedback">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <select class="mb-3" name="ExhibitorId" form="ExhibitorFeedback">
+            <select class="mb-3" name="ExhibitorId" form="ExhibitorFeedback" required="required">
                 @foreach (var i in @Model.ExhibitorEvent.Subscriptions)
                 {
                     if (i.GetSubscriptionType() == "ExhibitorSubscription")
