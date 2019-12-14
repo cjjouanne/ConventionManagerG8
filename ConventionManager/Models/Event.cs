@@ -122,6 +122,10 @@ namespace ConventionManager.Models
                     feedback.Duration + feedback.WouldRecommend;
             }
 
+            if (totalFeedbacks == 0)
+            {
+                totalFeedbacks = 1;
+            }
             var eventQualityStatistic = new EventQualityStatistics(totalFeedbacks);
             eventQualityStatistic.SetTotal(totalPoints);
             eventQualityStatistic.SetOverall(overall);

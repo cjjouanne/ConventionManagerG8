@@ -29,13 +29,14 @@
                 <p class="card-text"> Start: @Html.DisplayFor(modelItem => item.StartDate)</p>
                 <p class="card-text"> End: @Html.DisplayFor(modelItem => item.EndDate)</p>
             </div>
-                @if (User.IsInRole("Organizer"))
-                {
-                    <div class="card-footer">
-                        <a asp-controller="@item.GetEventType()" asp-action="Edit" asp-route-id="@item.Id" class="btn rounded-sm btn-success">Edit</a>
-                        <a asp-controller="@item.GetEventType()" asp-action="Delete" asp-route-id="@item.Id" class="btn rounded-sm btn-danger">Delete</a>
-                    </div>
-                }
+            <div class="card-footer">
+            @if (User.IsInRole("Organizer"))
+            {
+                <a asp-controller="@item.GetEventType()" asp-action="Edit" asp-route-id="@item.Id" class="btn rounded-sm btn-success">Edit</a>
+                <a asp-controller="@item.GetEventType()" asp-action="Delete" asp-route-id="@item.Id" class="btn rounded-sm btn-danger">Delete</a>
+            }
+            <a asp-controller="Event" asp-action="ShowStatistics" class="btn rounded-sm btn-info" asp-route-id="@item.Id">Statistics</a>
+            </div>
         </div>
         }
     </div>

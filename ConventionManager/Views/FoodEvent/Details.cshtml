@@ -18,10 +18,24 @@
 {
  <p class="alert alert-info rounded-sm alert-dismissible" id="errorMessage">@TempData["FeedbackRequest"]</p>
 }
+
+<div class="row">
+    <div class="col-sm-6">
+        <h4>Food Event</h4>
+    </div>
+    <div class="col-sm-6">
+        <a asp-controller="Event" asp-action="ShowStatistics" class="btn rounded-sm btn-info" asp-route-id="@Model.FoodEvent.Id">Show Statistics</a>
+        @if (User.IsInRole("Organizer"))
+         {
+             <a asp-action="Edit" asp-route-id="@Model.FoodEvent.Id" class="btn rounded-sm btn-success">Edit</a>
+         }
+        <a href="javascript:void(0);" onclick="history.go(-1);" class="btn rounded-sm btn-light">Go Back</a>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-sm-6">
         <div>
-            <h4>Food Event</h4>
             <hr />
             <dl>
                 <dt>
@@ -84,9 +98,6 @@
                         </div>
                     </div>
                 </dd>
-                <dd class = "col-sm-2">
-                    <a asp-controller="Event" asp-action="ShowStatistics" asp-route-id="@Model.FoodEvent.Id">Show Statistics</a>
-                </dd>
             </dl>
         </div>
     </div>
@@ -113,9 +124,4 @@
     }
     <partial name="../_EventFeedbackPopup.cshtml" />
     <br />
-    @if (User.IsInRole("Organizer"))
-    {
-        <a asp-action="Edit" asp-route-id="@Model.Event.Id" class="btn rounded-sm btn-success">Edit</a>
-    }
-    <a href="javascript:void(0);" onclick="history.go(-1);" class="btn rounded-sm btn-light">Go Back</a>
 </div>

@@ -22,8 +22,20 @@
 {
  <p class="alert alert-info rounded-sm alert-dismissible" id="errorMessage">@TempData["FeedbackRequest"]</p>
 }
+<div class="row">
+    <div class="col-sm-6">
+        <h4>Chat Event</h4>
+    </div>
+    <div class="col-sm-6">
+        <a asp-controller="Event" asp-action="ShowStatistics" class="btn rounded-sm btn-info" asp-route-id="@Model.ExhibitorEvent.Id">Show Statistics</a>
+        @if (User.IsInRole("Organizer"))
+         {
+             <a asp-action="Edit" asp-route-id="@Model.ExhibitorEvent.Id" class="btn rounded-sm btn-success">Edit</a>
+         }
+        <a href="javascript:void(0);" onclick="history.go(-1);" class="btn rounded-sm btn-light">Go Back</a>
+    </div>
+</div>
 <div>
-    <h4>Chat Event</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -90,9 +102,6 @@
                 @Model.ExhibitorEvent.Room.GetVacancies(Model.ExhibitorEvent, true)
             }
         </dd>
-        <dd class = "col-sm-2">
-            <a asp-controller="Event" asp-action="ShowStatistics" asp-route-id="@Model.ExhibitorEvent.Id">Show Statistics</a>
-        </dd>
     </dl>
 </div>
 
@@ -125,9 +134,5 @@
     <partial name="../_EventFeedbackPopup.cshtml" /> 
     <partial name="../_ExhibitorFeedbackPopup.cshtml" />
      <br />
-     @if (User.IsInRole("Organizer"))
-     {
-         <a asp-action="Edit" asp-route-id="@Model.ExhibitorEvent.Id" class="btn rounded-sm btn-success">Edit</a>
-     }
-    <a href="javascript:void(0);" onclick="history.go(-1);" class="btn rounded-sm btn-light">Go Back</a>
+     
 </div>

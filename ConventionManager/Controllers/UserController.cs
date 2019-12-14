@@ -49,6 +49,19 @@ namespace ConventionManager.Controllers
 
             var thisUserName = _userManager.GetUserName(HttpContext.User);
 
+            var userRoles = await _userManager.GetRolesAsync(user);
+            foreach (string role in userRoles)
+            {
+                if (role == "Exhibitor")
+                {
+                    ViewData["Role"] = "Exhibitor";
+                    break;
+                }
+                else
+                {
+                    ViewData["Role"] = "Other";
+                }
+            }
             ViewData["thisUserName"] = thisUserName;
 
             return View(user);
@@ -85,6 +98,16 @@ namespace ConventionManager.Controllers
                 return RedirectToAction("Index", "EventCenter");
             }
             return View();
+        }
+
+        public async Task<IActionResult> ShowStatistics(string id)
+        {
+            var exhibitor = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+            var feedbacks = _context.ExhibitorFeedback.Where(ef => ef.ExhibitorId == id).ToList();
+
+            var statistics = exhibitor.GetRating(feedbacks);
+
+            return View(statistics);
         }
     }
 }

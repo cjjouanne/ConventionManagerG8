@@ -1,19 +1,17 @@
 ﻿using System;
 namespace ConventionManager.Models
 {
-    public class EventQualityStatistics : IQualityStatisticsBuilder
+    public class ExhibitorQualityStatistics : IQualityStatisticsBuilder
     {
         public int Total { get; set; }
         public int Overall { get; set; }
-        public int Organization { get; set; }
-        public int Attention { get; set; }
-        public int RoomQuality { get; set; }
-        public int Duration { get; set; }
-        public int WouldRecommend { get; set; }
-        public int FoodQuality { get; set; }
+        public int Preparation { get; set; }
+        public int Attitude { get; set; }
+        public int Voice { get; set; }
+        public int Connection { get; set; }
         private int _totalFeedbacks;
 
-        public EventQualityStatistics(int totalFeedbacks)
+        public ExhibitorQualityStatistics(int totalFeedbacks)
         {
             _totalFeedbacks = totalFeedbacks;
         }
@@ -25,36 +23,31 @@ namespace ConventionManager.Models
 
         public void SetOrganizationOrPreparation(int stat)
         {
-            Organization = stat / _totalFeedbacks;
+            Preparation = stat / _totalFeedbacks;
         }
 
         public void SetAttentionOrAttitude(int stat)
         {
-            Attention = stat / _totalFeedbacks;
+            Attitude = stat / _totalFeedbacks;
         }
 
         public void SetRoomQualityOrVoice(int stat)
         {
-            RoomQuality = stat / _totalFeedbacks;
+            Voice = stat / _totalFeedbacks;
         }
 
         public void SetDuartionOrConnection(int stat)
         {
-            Duration = stat / _totalFeedbacks;
+            Connection = stat / _totalFeedbacks;
         }
 
         public void SetExtraStat(int stat)
         {
         }
 
-        public void SetWouldRecommend(int stat)
-        {
-            WouldRecommend = stat / _totalFeedbacks;
-        }
-
         public void SetTotal(int stat)
         {
-            Total = stat / (_totalFeedbacks * 6);
+            Total = stat / (_totalFeedbacks * 5);
         }
     }
 }
