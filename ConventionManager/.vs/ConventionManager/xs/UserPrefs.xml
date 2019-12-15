@@ -1,16 +1,14 @@
 ﻿<Properties StartupConfiguration="{89E480FD-47D7-48E3-8F15-D3C99768BC94}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Views/User/ShowStatistics.cshtml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Views/_EventFeedbackPopup.cshtml">
     <Files>
       <File FileName="Models/IStatistics.cs" Line="11" Column="1" />
-      <File FileName="Models/EventQualityStatistics.cs" Line="58" Column="10" />
+      <File FileName="Models/EventQualityStatistics.cs" />
       <File FileName="Models/Event.cs" Line="138" Column="42" />
       <File FileName="Views/Event/ShowStatistics.cshtml" Line="118" Column="49" />
-      <File FileName="Views/Search/GlobalSearch.cshtml" Line="204" Column="106" />
-      <File FileName="Models/ApplicationUser.cs" Line="57" Column="46" />
-      <File FileName="Models/ExhibitorQualityStatistics.cs" Line="16" Column="46" />
-      <File FileName="Controllers/UserController.cs" Line="62" Column="46" />
-      <File FileName="Views/ExhibitorFeedback/ShowStatistics.cshtml" Line="90" Column="9" />
-      <File FileName="Views/User/ShowProfile.cshtml" Line="70" Column="101" />
+      <File FileName="Controllers/EventFeedbackController.cs" Line="46" Column="100" />
+      <File FileName="Views/PartyEvent/Details.cshtml" Line="80" Column="113" />
+      <File FileName="Views/_EventFeedbackPopup.cshtml" Line="20" Column="11" />
+      <File FileName="Views/_AttendantNotificationPopup.cshtml" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -21,9 +19,13 @@
               <Node name="Models" expanded="True" />
               <Node name="Views" expanded="True">
                 <Node name="Event" expanded="True" />
-                <Node name="User" expanded="True">
-                  <Node name="ShowStatistics.cshtml" selected="True" />
-                </Node>
+                <Node name="FoodEvent" expanded="True" />
+                <Node name="Search" expanded="True" />
+                <Node name="User" expanded="True" />
+                <Node name="_EventFeedbackPopup.cshtml" selected="True" />
+              </Node>
+              <Node name="wwwroot" expanded="True">
+                <Node name="js" expanded="True" />
               </Node>
             </Node>
           </Node>

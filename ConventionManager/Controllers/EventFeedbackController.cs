@@ -36,6 +36,17 @@ namespace ConventionManager.Controllers
             var currentUserId = _userManager.GetUserId(HttpContext.User);
             var allFeedbackOnThisEvent = _context.EventFeedback.Where(ef => ef.EventId == eventFeedback.EventId).ToList();
 
+            IList<string> eventAttendants = new List<string>();
+            foreach (var sub in _context.Subscriptions.Where(s => s.EventId == @event.Id))
+            {
+                eventAttendants.Add(sub.UserId);
+            }
+            if (!eventAttendants.Contains(currentUserId))
+            {
+                TempData["FeedbackRequest"] = "Feedback not submitted, you are not a participant on this event.";
+                return RedirectToAction("Details", @event.GetEventType(), new { id = @event.Id });
+            }
+
             foreach (var ef in allFeedbackOnThisEvent)
             {
                 if (ef.UserId == currentUserId)
