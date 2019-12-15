@@ -47,6 +47,12 @@ namespace ConventionManager.Controllers
                 return RedirectToAction("Details", @event.GetEventType(), new { id = @event.Id });
             }
 
+            if (DateTime.Compare(@event.StartDate, DateTime.Now) >= 0 || DateTime.Compare(@event.EndDate, DateTime.Now) <= 0)
+            {
+                TempData["FeedbackRequest"] = "Feedback not submitted, this event already took place.";
+                return RedirectToAction("Details", @event.GetEventType(), new { id = @event.Id });
+            }
+
             foreach (var ef in allFeedbackOnThisEvent)
             {
                 if (ef.UserId == currentUserId)
