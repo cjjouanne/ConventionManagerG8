@@ -6,7 +6,7 @@
 <button class="btn rounded-sm btn-secondary" id="myBtn3">Feedback Event</button>
 <div id="myModal3" class="modal3">
     <div class="rounded-sm modal3-content">
-        <h3> Feedback for @Model.Event.Name <span class="close3">&times;</span></h3>
+        <h3>Feedback for @Model.Event.Name <span class="close3">&times;</span></h3>
         <form asp-controller="EventFeedback" asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" name="UserId" value="@Model.UserId"/>
